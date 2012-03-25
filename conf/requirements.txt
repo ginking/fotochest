@@ -14,4 +14,4 @@ django-api-docs
 django-mail-queue
 django-location
 django-test-utils
-
+factory_boy
