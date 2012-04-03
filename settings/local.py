@@ -34,6 +34,7 @@ MEDIA_URL = '/media/'
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = ''
 
+WSGI_APPLICATION = 'fotochest.wsgi.application'
 
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'themes/default/static'),
