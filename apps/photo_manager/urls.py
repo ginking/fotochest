@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from photo_manager.views import *
 from photo_manager.feeds import *
 from django.conf import settings

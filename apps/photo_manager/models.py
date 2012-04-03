@@ -21,9 +21,9 @@ class Album(models.Model):
     def __unicode__(self):
         return self.title
 
-    def save(self):
+    def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
-        super(Album, self).save()
+        super(Album, self).save(*args, **kwargs)
         
     def get_preview_photos(self):
         # Test Func
@@ -58,6 +58,7 @@ class Album(models.Model):
                     this_photo = ""
         return this_photo
     
+    @property
     def has_child_albums(self):
         album_count = Album.objects.filter(parent_album=self).count()
         if album_count == 0:
@@ -94,7 +95,7 @@ class Photo(models.Model):
     def __unicode__(self):
         return self.title
     
-    def save(self):
+    def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
         super(Photo, self).save()
     
