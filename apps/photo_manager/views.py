@@ -137,6 +137,7 @@ def albums(request, username=None):
         else:
             context['parent_albums'] = Album.objects.all()
             
+    
     return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
        
 def homepage(request, username=None):
