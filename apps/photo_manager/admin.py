@@ -7,7 +7,7 @@ class PhotoAdmin(admin.ModelAdmin):
     list_per_page = 10
     
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ('title', 'parent_album', 'user')
+    list_display = ('title', 'parent_album', 'user', 'slug')
     
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Album, AlbumAdmin)
