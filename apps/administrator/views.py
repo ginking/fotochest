@@ -17,6 +17,58 @@ from photo_manager.forms import *
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
+from administrator.forms import AlbumForm
+
+
+def add_photos(request):
+    context = {}
+    return render(request, "administrator/add_photos.html", context)
+
+def dashboard(request):
+    photos = Photo.objects.all()[:16]
+    albums = Album.objects.filter(parent_album=None)
+    context = {'photos': photos, 'albums': albums}
+    return render(request, "administrator/dashboard.html", context)
+
+def album_list(request):
+    albums = Album.objects.all()
+    context = {'albums':albums}
+    return render(request, "administrator/albums.html", context)
+
+
+def album_detail(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    context = {'album': album, 'album_form':AlbumForm(instance=album)}
+    return render(request, "administrator/album_detail.html", context)
+
+
+def locations(request, username=None):
+    context = {}
+    
+    if username:
+        # OKay, get All locations associated with this user.
+        
+        context['locations'] = get_locations_for_user(username)
+        context['current_user'] = get_object_or_404(User, username=username)
+        context['user_page'] = '1'
+    else:
+        context['locations'] = Location.objects.all()
+    if request.POST:
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            location = form.save()
+            if username:
+                redirect("locations.views.locations", username=username)
+            else:
+                redirect("locations")
+    else:
+        context['location_form'] = LocationForm()
+    
+    return render(request, "administrator/locations.html", context)
+
+
+
+
 
 
 def choose(request):

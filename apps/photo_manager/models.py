@@ -70,6 +70,9 @@ class Album(models.Model):
     def get_slideshow(self):
         return ('photo_manager.views.slideshow', (), {'album_slug': self.slug, 'username': self.user.username})
 
+    @models.permalink
+    def get_admin_url(self):
+        return ('administrator.views.album_detail', (), {'album_id':self.id})
 
 class Photo(models.Model):
     title = models.CharField(max_length=250)

@@ -10,7 +10,7 @@ urlpatterns = staticfiles_urlpatterns() + patterns('',
 
     # Admin URLS.
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^administrator/', include("administrator.urls")),
     
     # Auth Views
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': '%s/login.html' % settings.ACTIVE_THEME}),
