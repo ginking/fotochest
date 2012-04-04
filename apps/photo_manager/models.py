@@ -69,11 +69,11 @@ class Album(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('photo_manager.views.album', (), {'album_id': self.id, 'album_slug': self.slug, 'username': self.user.username})
+        return ('photo_manager.views.album', (), {'album_id': self.id, 'album_slug': self.slug})
         
     @models.permalink
     def get_slideshow(self):
-        return ('photo_manager.views.slideshow', (), {'album_slug': self.slug, 'username': self.user.username})
+        return ('photo_manager.views.slideshow', (), {'album_slug': self.slug})
 
 
 class Photo(models.Model):
@@ -106,7 +106,7 @@ class Photo(models.Model):
             photo = next_photo[0]
         except:
             return None
-        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug, 'username': photo.user.username})
+        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug})
     
     @models.permalink
     def get_previous(self):
@@ -115,7 +115,7 @@ class Photo(models.Model):
             photo = prev_photo[0]
         except:
             return None
-        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug, 'username': photo.user.username})
+        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug})
         
     def image_preview(self):
         im = get_thumbnail(self.image, "150x150")
@@ -145,14 +145,14 @@ class Photo(models.Model):
     @models.permalink
     def get_absolute_url(self):
         if settings.ENABLE_MULTI_USER:
-            return ('photo_manager.views.photo', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug, 'username': self.user.username})
+            return ('photo_manager.views.photo', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
         else:
             return ('photo_manager.views.photo', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
     
     @models.permalink
     def get_fullscreen(self):
         # update with enable multi user
-        return ('photo_manager.views.photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug, 'username': self.user.username})
+        return ('photo_manager.views.photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
         
         
     class Meta:
