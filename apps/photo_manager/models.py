@@ -25,6 +25,11 @@ class Album(models.Model):
         unique_slugify(self, self.title)
         super(Album, self).save(*args, **kwargs)
         
+    def get_preview_photos(self):
+        # Test Func
+        photos = Photo.objects.filter(album=self)[:5]
+        return photos
+        
     def get_album_cover(self):
         this_photo = ""
         try:
