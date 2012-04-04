@@ -1,0 +1,16 @@
+{% extends "twitter/base.html" %}
+
+{% block main_content %}
+
+<div class="span12">
+<ul class="thumbnails">
+{% for photo in photos.object_list %}
+    
+    {% include "twitter/snippets/item.html" %}
+    
+{% endfor %}
+</ul>
+{% include "twitter/snippets/pagination.html" %}
+
+</div>
+{% endblock main_content %}

@@ -24,10 +24,7 @@ urlpatterns = patterns('',
                        
     # Public URLS
     url(r'^$', homepage, name="homepage"),
-    
-
-    # Photo
-    
+        
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/$', photo, name="regular_photo_url"),
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/fullscreen/$', photo_fullscreen),
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/edit/$', edit_photo),
