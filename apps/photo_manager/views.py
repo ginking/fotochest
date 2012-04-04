@@ -204,12 +204,8 @@ def location(request, location_slug):
     # Get location object, now get more location objects where location.city = location.city?
     # how do we know if we are asking for city, state or country?  Should we have that specified?
     context = {}
-    if username:
-        photos = Photo.objects.filter(location=location, user__username=username)
-        context['current_user'] = get_object_or_404(User, username=username)
-        context['user_page'] = '1'
-    else:
-        photos = Photo.objects.filter(location=location)
+    
+    photos = Photo.objects.filter(location=location)
     paginator = Paginator(photos, 12)
 
     page = request.GET.get('page', 1)
@@ -225,13 +221,11 @@ def location(request, location_slug):
     
 ### Forms
 @login_required
-def edit_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
+def edit_photo(request, photo_id, album_slug=None, photo_slug=None):
     context = {}
     context['current_user'] = get_object_or_404(User, username=username)
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    if request.user != photo.user:
-        return render(request, '%s/not_authorized.html' % settings.ACTIVE_THEME)
-        
+       
     if request.method == "POST":
         form = PhotoForm(request.POST, instance=photo)
         if form.is_valid():
@@ -246,21 +240,17 @@ def edit_photo(request, photo_id, album_slug=None, username=None, photo_slug=Non
     return render(request, '%s/edit_photo.html' % settings.ACTIVE_THEME, context)
 
 @login_required    
-def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
+def delete_photo(request, photo_id, album_slug=None, photo_slug=None):
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    if request.user != photo.user:
-        return render(request, '%s/not_authorized.html' % settings.ACTIVE_THEME)
-    
+
     photo.deleted = True
     photo.save()
     #@todo - This needs to point somewhere else after deletion..
     return render(request, '%s/edit_photo.html' % settings.ACTIVE_THEME)
     
 @login_required
-def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=None, photo_slug=None):
+def rotate_photo(request, photo_id, rotate_direction, album_slug=None, photo_slug=None):
     photo = get_object_or_404(Photo, pk=photo_id)
-    if request.user != photo.user:
-        return render(request, 'not_authorized.html')
     im = Image.open(photo.image)
     if rotate_direction == "counter":
         rotate_image = im.rotate(90)

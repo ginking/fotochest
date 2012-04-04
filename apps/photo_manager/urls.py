@@ -28,11 +28,11 @@ urlpatterns = patterns('',
 
     # Photo
     
-    url(r'^foto/(?P<photo_id>\d+)/(?P<username>[-\w]+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/$', photo, name="regular_photo_url"),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<username>[-\w]+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/fullscreen/$', photo_fullscreen),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<username>[-\w]+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/edit/$', edit_photo),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<username>[-\w]+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/delete/$', delete_photo),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<username>[-\w]+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/rotate/(?P<rotate_direction>[-\w]+)/$', rotate_photo),
+    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/$', photo, name="regular_photo_url"),
+    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/fullscreen/$', photo_fullscreen),
+    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/edit/$', edit_photo),
+    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/delete/$', delete_photo),
+    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/rotate/(?P<rotate_direction>[-\w]+)/$', rotate_photo),
     
     # ShortURL
     url(r'^f/(?P<photo_id>\d+)/$', photo, name="short_photo_url"),
@@ -44,23 +44,20 @@ urlpatterns = patterns('',
     url(r'map/(?P<location_slug>[-\w]+)/$', location),
     url(r'map/(?P<location_slug>[-\w]+)/slideshow/$', slideshow),
     
-    url(r'map/user/(?P<username>[-\w]+)/$', locations),
-    url(r'map/user/(?P<username>[-\w]+)/(?P<location_slug>[-\w]+)/$', location),
+    #url(r'map/user/(?P<username>[-\w]+)/$', locations),
+    #url(r'map/user/(?P<username>[-\w]+)/(?P<location_slug>[-\w]+)/$', location),
     
     
     # Upload
-    url(r'^upload/(?P<username>[-\w]+)/(?P<album_slug>[-\w]+)/(?P<location_slug>[-\w]+)/$', photo_upload, name="file_uploader"),
+    url(r'^upload/(?P<album_slug>[-\w]+)/(?P<location_slug>[-\w]+)/$', photo_upload, name="file_uploader"),
     url(r'^choose/', choose, name="choose"),
     # Feeds
     url(r'^feed/$', StreamFeed(), name="homepage_feed"),
     url(r'^album/(?P<album_slug>[-\w]+)/feed/$', AlbumStream(), name="album_stream"),
     
-    # User stream
-    url(r'^(?P<username>[-\w]+)/$', homepage),
-
     # Albums
-    url(r'^(?P<username>[-\w]+)/albums/$', albums),
-    url(r'^(?P<username>[-\w]+)/album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album),
-    url(r'^(?P<username>[-\w]+)/album/(?P<album_slug>[-\w]+)/slideshow/$', slideshow),                           
+    url(r'^albums/$', albums),
+    url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album),
+    url(r'^album/(?P<album_slug>[-\w]+)/slideshow/$', slideshow),                           
 )
 
