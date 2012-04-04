@@ -5,7 +5,6 @@ from django.views.decorators.csrf import csrf_exempt
 from photo_manager.models import *
 from locations.models import *
 from locations.forms import *
-from profiles.models import get_locations_for_user
 from django.contrib.auth.models import User
 import os
 from django.conf import settings
@@ -121,10 +120,7 @@ def albums(request):
             album.save()
     else:
         context['album_form'] = AlbumForm()
-        if settings.ENABLE_MULTI_USER:
-            context['parent_albums'] = Album.objects.filter(user__username=username)
-        else:
-            context['parent_albums'] = Album.objects.all()
+        context['parent_albums'] = Album.objects.all()
             
     
     return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
@@ -132,7 +128,7 @@ def albums(request):
 def homepage(request):
     context = {}
     
-    photos = Photo.objects.active().filter(user__username=username)
+    photos = Photo.objects.active()
     context['form_albums'] = Album.objects.all()
         
     paginator = Paginator(photos, 12)
