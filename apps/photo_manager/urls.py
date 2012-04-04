@@ -40,7 +40,7 @@ if settings.ENABLE_MULTI_USER:
         
         # Map - This is not ideal. Should we have a maps.urls?
         
-        url(r'map/$', locations),
+        url(r'map/$', locations, name="map"),
         url(r'map/(?P<location_slug>[-\w]+)/$', location),
         url(r'map/(?P<location_slug>[-\w]+)/slideshow/$', slideshow),
         
@@ -59,7 +59,7 @@ if settings.ENABLE_MULTI_USER:
         url(r'^(?P<username>[-\w]+)/$', homepage),
 
         # Albums
-        url(r'^(?P<username>[-\w]+)/albums/$', albums),
+        url(r'^(?P<username>[-\w]+)/albums/$', albums, name="albums"),
         url(r'^(?P<username>[-\w]+)/album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album),
         url(r'^(?P<username>[-\w]+)/album/(?P<album_slug>[-\w]+)/slideshow/$', slideshow),
         

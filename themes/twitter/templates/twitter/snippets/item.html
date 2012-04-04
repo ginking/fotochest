@@ -1,0 +1,10 @@
+<li class="span3">
+<a href="{{ photo.get_absolute_url }}" class="thumbnail">
+{% load thumbnail %}
+{% thumbnail photo.image "260x180" as im %}
+	<img src="{{ im.url }}" alt="{{ photo.title }}">
+{% endthumbnail %}
+</a>
+<h4>{{ photo.title }}</h4>
+</li>
+
