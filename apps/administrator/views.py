@@ -5,7 +5,6 @@ from django.views.decorators.csrf import csrf_exempt
 from photo_manager.models import *
 from locations.models import *
 from locations.forms import *
-from profiles.models import get_locations_for_user
 from django.contrib.auth.models import User
 import os
 from django.conf import settings
@@ -82,7 +81,7 @@ def choose(request):
 #
 #--------------------------------------------#
 @csrf_exempt
-def photo_upload(request, username, location_slug, album_slug):
+def photo_upload(request, location_slug, album_slug):
     context = {}
         
     if request.method == 'POST':
@@ -102,7 +101,7 @@ def photo_upload(request, username, location_slug, album_slug):
             photo_new.image = 'images/' + filename
             # Set location to default location
             photo_new.location = get_object_or_404(Location, slug=location_slug)
-            photo_new.user = get_object_or_404(User, username=username)
+            photo_new.user = get_object_or_404(User, pk=1)
             photo_new.save()
             destination_path = settings.PHOTO_DIRECTORY + '/%s' % (filename)   
             destination = open(destination_path, 'wb+')
@@ -116,17 +115,15 @@ def photo_upload(request, username, location_slug, album_slug):
         return HttpResponse("ok", mimetype="text/plain")
         
     else:
-        if request.user and request.user.username == username:
-            user = get_object_or_404(User, username=username)
-            context['current_user'] = user
-            context['user_page'] = '1'
-            context['upload_dir'] = settings.PHOTO_DIRECTORY
-            context['album_slug'] = album_slug
-            context['location_slug'] = location_slug
-            context['domain_static'] = settings.DOMAIN_STATIC    
-            return render(request,'%s/upload.html' % settings.ACTIVE_THEME, context)
-        else:
-            return render(request, 'not_authorized.html')
+        
+        user = get_object_or_404(User, pk=1)
+        context['current_user'] = user
+        context['user_page'] = '1'
+        context['upload_dir'] = settings.PHOTO_DIRECTORY
+        context['album_slug'] = album_slug
+        context['location_slug'] = location_slug
+        context['domain_static'] = settings.DOMAIN_STATIC    
+        return render(request,'administrator/add_photos.html', context)
 
 
 ### Forms

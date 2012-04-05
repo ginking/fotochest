@@ -31,7 +31,41 @@
   </head>
 
   <body {% block extra_body %}{% endblock extra_body %}>
+<div class="modal hide fade" id="myModal">
+            <div class="modal-header">
+              <a data-dismiss="modal" class="close">×</a>
+              <h3>Add Photos</h3>
+            </div>
+            <div class="modal-body">
+              <h4>Select Album and Location</h4>
+              <p>Select the album and location that you want to associate you uploaded photos with.</p>
+              <form method="GET" action="{% url photo_manager.views.choose %}">
+              <label>Album Name:</label>
+                              <select name="album">
+                                  {% for album in form_albums %}
+                                  <option value="{{ album.slug }}">{{ album.title }}</option>
+                                  
+                              {% endfor %}
+                              
+                              </select>
+                              
+                              <label>Location</label>
+                              <select name="location">
+                                  {% for location in form_locations %}
+                                  <option value="{{ location.slug }}">{{ location }}</option>
+                                  
+                              {% endfor %}
+                              
+                              </select>
 
+              
+            </div>
+            <div class="modal-footer">
+              <a data-dismiss="modal" class="btn" href="#">Close</a>
+              <input type="submit" value="Proceed to Upload" class="btn btn-primary">
+              
+            </div>
+          </div>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -40,12 +74,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><img src="{{ STATIC_URL }}img/FotoChestLogoSmall.png" height="20" width="20">FotoChest</a>
+          <a class="brand" href="{% url admin_dashboard %}"><img src="{{ STATIC_URL }}img/FotoChestLogoSmall.png" height="20" width="20">FotoChest</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="{% url admin_dashboard %}">Dashboard</a></li>
-              <li><a href="{% url admin_add_photos %}">Add Photos</a></li>
-              
+              <li><a href="#myModal" data-toggle="modal">Add Photos</a></li>
             </ul>
             
             
@@ -57,7 +90,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="#">Profile</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="{% url django.contrib.auth.views.logout %}">Logout</a></li>
                   </ul>
                 </li>
           </ul>
@@ -68,6 +101,7 @@
 
     <div class="container">
     <div class="row">
+    
         <div class="span3 sidebar">
         {% block navigation %}{% endblock navigation %}
         
@@ -75,6 +109,7 @@
         
         </div> 
           <div class="span9">
+          
           {% block main_content %}{% endblock main_content %}
           
           </div>
@@ -100,6 +135,7 @@
     <script src="{{ STATIC_URL }}administrator/js/bootstrap-collapse.js"></script>
     <script src="{{ STATIC_URL }}administrator/js/bootstrap-carousel.js"></script>
     <script src="{{ STATIC_URL }}administrator/js/bootstrap-typeahead.js"></script>
+    {% block extra_foot %}{% endblock extra_foot %}
 
   </body>
 </html>

@@ -41,3 +41,8 @@ li.thumb:hover a.btn.edit-photo
 {
     display: inline-block;
 }
+
+.clear-photo
+{
+    clear: both;
+}

@@ -9,8 +9,8 @@ from django.conf import settings
 urlpatterns = staticfiles_urlpatterns() + patterns('',
 
     # Admin URLS.
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^administrator/', include("administrator.urls")),
+    url(r'^django_admin/', include(admin.site.urls)),
+    url(r'^admin/', include("administrator.urls")),
 
     
     # Auth Views

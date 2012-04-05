@@ -7,7 +7,7 @@
 </div>
 <ul class="thumbnails">
 {% for album in albums %}
-    <li class="span3">
+    <li class="span3 {% if forloop.counter == 4 %}clear-photo{% endif %}">
     <div class="thumbnail">
     {% if album.album_cover %}
             {% load thumbnail %}
@@ -29,7 +29,7 @@
     <div class="caption">
           <h5>{{ album.title }}</h5>
           <p>Description?</p>
-          <p><a class="btn btn-primary" href="{{ album.get_admin_url }}">Edit</a> <a class="btn" href="#">View Photos</a></p>
+          <p><a class="btn btn-primary" href="{{ album.get_admin_url }}">Edit</a> <a class="btn" href="#">View Photos</a><a href="{% url file_uploader album_slug=album.slug location_slug="czech" %}" class="btn btn-success">Add</a></p>
         </div>
     </div>
     </li>
