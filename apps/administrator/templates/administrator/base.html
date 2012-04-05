@@ -79,6 +79,7 @@
             <ul class="nav">
               <li class="active"><a href="{% url admin_dashboard %}">Dashboard</a></li>
               <li><a href="#myModal" data-toggle="modal">Add Photos</a></li>
+              <li><a href="{% url photo_manager.views.homepage %}">View Site</a></li>
             </ul>
             
             
@@ -86,7 +87,7 @@
             <ul class="nav pull-right">
                 <li class="divider-vertical"></li>
                 <li class="dropdown">
-                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">username <b class="caret"></b></a>
+                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ request.user.username }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Profile</a></li>
                     <li class="divider"></li>

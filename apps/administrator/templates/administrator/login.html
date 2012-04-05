@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>FotoChest | Login</title>
     <meta name="description" content="">
     <meta name="author" content="">
  
@@ -51,15 +51,25 @@
         <div class="content">
             <div class="row">
                 <div class="login-form">
-                    <h2>Login</h2>
-                    <form action="">
+                    <h2>Login to FotoChest</h2>
+                    <form method="POST" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
                         <fieldset>
+                        {% if form.errors %}
+                        <div class="alert alert-error">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
+                    
+                        </div>
+                        {% endif %}
+                        
                             <div class="clearfix">
-                                <input type="text" placeholder="Username">
+                                <input type="text" placeholder="Username" name="username">
                             </div>
                             <div class="clearfix">
-                                <input type="password" placeholder="Password">
+                                <input type="password" placeholder="Password" name="password">
                             </div>
+                            <input type="hidden" name="next" value="{% url admin_dashboard %}">
                             <button class="btn btn-primary" type="submit">Sign in</button>
                         </fieldset>
                     </form>

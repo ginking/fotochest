@@ -14,7 +14,7 @@ urlpatterns = staticfiles_urlpatterns() + patterns('',
 
     
     # Auth Views
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': '%s/login.html' % settings.ACTIVE_THEME}),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'administrator/login.html'}),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^accounts/redirect/$', 'profiles.views.redirect_home'),
     url(r'^accounts/register/$', 'profiles.views.register'),

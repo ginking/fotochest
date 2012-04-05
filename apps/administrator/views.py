@@ -13,65 +13,58 @@ from sorl.thumbnail import get_thumbnail
 import sorl
 from PIL import Image
 from photo_manager.forms import *
+from locations.forms import *
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
 from administrator.forms import AlbumForm
+from conf import defaults
 
-
+@login_required
 def add_photos(request):
     context = {}
     return render(request, "administrator/add_photos.html", context)
 
+@login_required
 def dashboard(request):
     photos = Photo.objects.all()[:16]
     albums = Album.objects.filter(parent_album=None)
     context = {'photos': photos, 'albums': albums}
     return render(request, "administrator/dashboard.html", context)
 
+@login_required
 def album_list(request):
     albums = Album.objects.all()
     context = {'albums':albums}
     return render(request, "administrator/albums.html", context)
 
-
+@login_required
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
     context = {'album': album, 'album_form':AlbumForm(instance=album)}
     return render(request, "administrator/album_detail.html", context)
 
-
-def locations(request, username=None):
+@login_required
+def add_location(request):
     context = {}
-    
-    if username:
-        # OKay, get All locations associated with this user.
-        
-        context['locations'] = get_locations_for_user(username)
-        context['current_user'] = get_object_or_404(User, username=username)
-        context['user_page'] = '1'
-    else:
-        context['locations'] = Location.objects.all()
-    if request.POST:
+    if request.method == "POST":
         form = LocationForm(request.POST)
         if form.is_valid():
             location = form.save()
-            if username:
-                redirect("locations.views.locations", username=username)
-            else:
-                redirect("locations")
+            return redirect("administrator.views.locations")
     else:
-        context['location_form'] = LocationForm()
-    
+        form = LocationForm()
+    context['form'] = form    
+    return render(request, "administrator/add_location.html", context) 
+
+@login_required
+def locations(request, username=None):
+    context = {}
+    context['locations'] = Location.objects.all()
     return render(request, "administrator/locations.html", context)
 
-
-
-
-
-
 def choose(request):
-    return redirect('file_uploader', username=request.user.username, location_slug=request.GET.get('location'), album_slug=request.GET.get("album"))
+    return redirect('file_uploader', location_slug=request.GET.get('location'), album_slug=request.GET.get("album"))
 
 #--------------------------------------------#
 #
@@ -101,14 +94,16 @@ def photo_upload(request, location_slug, album_slug):
             photo_new.image = 'images/' + filename
             # Set location to default location
             photo_new.location = get_object_or_404(Location, slug=location_slug)
-            photo_new.user = get_object_or_404(User, pk=1)
+            photo_new.user = request.user
             photo_new.save()
             destination_path = settings.PHOTO_DIRECTORY + '/%s' % (filename)   
             destination = open(destination_path, 'wb+')
             for chunk in uploaded_file.chunks():
                 destination.write(chunk)
             destination.close()
-            ThumbnailTask.delay(photo_new.id)
+            ENABLE_CELERY = getattr(settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
+            if ENABLE_CELERY:
+                ThumbnailTask.delay(photo_new.id)
             
         # indicate that everything is OK for SWFUpload
         
@@ -116,9 +111,6 @@ def photo_upload(request, location_slug, album_slug):
         
     else:
         
-        user = get_object_or_404(User, pk=1)
-        context['current_user'] = user
-        context['user_page'] = '1'
         context['upload_dir'] = settings.PHOTO_DIRECTORY
         context['album_slug'] = album_slug
         context['location_slug'] = location_slug

@@ -1,0 +1,21 @@
+{% extends "administrator/base.html" %}
+
+{% block navigation %}
+
+{% include "administrator/nav.html" with nav=2 %}
+
+{% endblock navigation %}
+
+{% block main_content %}
+
+<div class="page-header">
+<h2>Add Location</h2>
+</div>
+
+{{ form }}
+
+<div class="form-actions">
+<input class="btn btn-primary" type="submit" value="Add Location">
+<button class="btn">Cancel</button>
+</div>
+{% endblock main_content %}
