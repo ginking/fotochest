@@ -1,7 +1,7 @@
-<li class="span3">
+<li class="span3 {% if forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}clear-photo{% endif %}">
 <a href="{{ photo.get_absolute_url }}" class="thumbnail">
 {% load thumbnail %}
-{% thumbnail photo.image "260x180" as im %}
+{% thumbnail photo.image "300x220" as im %}
 	<img src="{{ im.url }}" alt="{{ photo.title }}">
 {% endthumbnail %}
 </a>

@@ -79,7 +79,7 @@ def album(request, album_id, album_slug):
     context['album_slug'] = album_slug
     # If it has child albums, show those, if not, show pictures.
     album = get_object_or_404(Album, pk=album_id)
-    if album.has_child_albums() == True:
+    if album.has_child_albums == True:
         # Show child albums
         albums = Album.objects.filter(parent_album=album)
         context['albums'] = albums
@@ -94,7 +94,7 @@ def album(request, album_id, album_slug):
         
         return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
     else:
-        photos = Photo.objects.active().filter(album__slug=album_slug, user=user)
+        photos = Photo.objects.active().filter(album__slug=album_slug)
         paginator = Paginator(photos, 12)
         page = request.GET.get('page', 1)
         context['album_view'] = True
@@ -110,8 +110,17 @@ def albums(request):
     context = {}
     
     albums = Album.objects.filter(parent_album=None)
-    context['albums'] = albums
-    #context = {'author': user}
+    
+    paginator = Paginator(albums, 12)
+    page = request.GET.get('page', 1)
+    
+    try:
+        context['albums'] = paginator.page(page)
+    except PageNotAnInteger:
+        context['albums'] = paginator.page(1)
+    except EmptyPage:
+        context['albums'] = paginator.page(paginator.num_pages)
+    
     if request.POST and request.user.is_authenticated():
         form = AlbumForm(request.POST)
         if form.is_valid():

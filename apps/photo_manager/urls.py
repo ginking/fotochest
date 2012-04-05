@@ -37,7 +37,7 @@ urlpatterns = patterns('',
     
     # Map - This is not ideal. Should we have a maps.urls?
     
-    url(r'map/$', locations),
+    url(r'map/$', locations, name="map"),
     url(r'map/(?P<location_slug>[-\w]+)/$', location),
     url(r'map/(?P<location_slug>[-\w]+)/slideshow/$', slideshow),
     
@@ -53,7 +53,7 @@ urlpatterns = patterns('',
     url(r'^album/(?P<album_slug>[-\w]+)/feed/$', AlbumStream(), name="album_stream"),
     
     # Albums
-    url(r'^albums/$', albums),
+    url(r'^albums/$', albums, name="albums"),
     url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album),
     url(r'^album/(?P<album_slug>[-\w]+)/slideshow/$', slideshow),                           
 )
