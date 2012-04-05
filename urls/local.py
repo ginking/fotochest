@@ -3,7 +3,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 from django.conf import settings
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 # This maps static files dirs to URLS.
 urlpatterns = staticfiles_urlpatterns() + patterns('',

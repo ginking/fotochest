@@ -53,6 +53,8 @@ ADMIN_MEDIA_PREFIX = '%sadmin/' % STATIC_URL
 
 PHOTO_DIRECTORY = os.path.join(SITE_ROOT, 'uploads/images')
 
+WSGI_APPLICATION = 'wsgi.application'
+
 TEMPLATE_DIRS = (
     os.path.join(SITE_ROOT, 'themes/default/templates'),
     os.path.join(SITE_ROOT, 'themes/twitter/templates'),

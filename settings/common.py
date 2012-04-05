@@ -27,7 +27,6 @@ USE_I18N = True
 
 USE_L10N = True
 
-ENABLE_MULTI_USER = True
 ENABLE_REGISTRATION = False
 ACTIVE_THEME = "twitter"
 AUTH_PROFILE_MODULE = "profiles.Profile"

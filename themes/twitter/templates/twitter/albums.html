@@ -1,51 +1,56 @@
 {% extends "twitter/base.html" %}
-{% block title %}Albums{% endblock %}
-{% block extra_head %}
-<script src="{{ STATIC_URL }}default/js/live_edit.js"></script>
-{% endblock %}
-{% block extra_nav %}
-    <li><a href="#" class="osx">Add Album</a></li>
-{% endblock %}
-
+{% block nav %}
+{% include "twitter/nav.html" with current=2 %}
+{% endblock nav %}
 {% block main_content %}
 
-    {% for album in albums %}
-    <div class="span6">
-          <h2><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></h2>
-          <p>Album Description</p>
-          <ul class="thumbnails">
-            <li class="span4">
-              <a class="thumbnail" href="">
-              {% if album.album_cover %}
-              {% load thumbnail %}
-              {% thumbnail album.album_cover "360x268" crop="center" as im %}
-                <img alt="" src="{{ im.url }}">
-            {% endthumbnail %}
-            {% else %}
-            {% if album.get_album_cover %}
-            {% load thumbnail %}
-            {% thumbnail album.get_album_cover.image "360x268" as im %}
+<div class="span12">
+<div class="page-header">
+    <h2>Albums</h2>
+</div>
+<ul class="thumbnails">
+{% for album in albums.object_list %}
+    <li class="span3">
+        <a href="{{ album.get_absolute_url }}" class="thumbnail">
+            {% if album.album_cover %}
+                    {% load thumbnail %}
+                    {% thumbnail album.album_cover "300x220" as im %}
+                    <img src="{{ im.url }}">
+                    {% endthumbnail %}
+                    
+                {% else %}
+                    {% if album.get_album_cover %}
+                        {% load thumbnail %}
+                {% thumbnail album.get_album_cover.image "300x220" as im %}
             <img src="{{ im.url }}">
-            {% endthumbnail %}
-            {% else %}
-            <img src="http://dummyimage.com/240x161">
+                {% endthumbnail %}
+                    {% else %}
+                    <img src="http://dummyimage.com/260x180">
+                    {% endif %}
             {% endif %}
-        {% endif %}
-              </a>
-            </li>
-            {% for photo in album.get_preview_photos %}
-            <li class="span2">
-              <a class="thumbnail" href="">
-              {% load thumbnail %}
-              {% thumbnail photo.image "160x120" as im %}
-                <img alt="" src="{{ im.url }}">
-            {% endthumbnail %}
-              </a>
-            </li>
-            {% endfor %}
-            
-          </ul>
-        </div>
-    {% endfor %}
+        </a>
+        <h4>{{ album.title }}</h4>
+    </li>
 
+{% endfor %}
+</ul>
+
+
+<div class="pagination">
+<ul>
+    {% if albums.has_previous %}
+    <li><a href="?page={{ albums.previous_page_number }}">Prev</a></li>
+    {% endif %}
+    {% if albums.number %}
+    <li class="active">
+        <a href="?page={{ albums.number }}">{{ albums.number }}</a>
+    </li>
+    {% endif %}
+    {% if albums.has_next %}
+    <li><a href="?page={{ albums.next_page_number }}">Next</a></li>
+    {% endif %}
+</ul>
+</div>
+
+</div>
 {% endblock %}
