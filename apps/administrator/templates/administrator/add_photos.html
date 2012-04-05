@@ -1,0 +1,35 @@
+{% extends "administrator/base.html" %}
+{% block extra_foot %}
+    <link href="{{ STATIC_URL }}js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/swfobject.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('#file_upload').uploadify({
+        'uploader'  : '{{ STATIC_URL }}js/uploadify/uploadify.swf',
+        'script'    : '{% url file_uploader album_slug=album_slug location_slug=location_slug %}',
+        'cancelImg' : '{{ STATIC_URL }}js/uploadify/cancel.png',
+        'folder'    : '{{ upload_dir }}',
+        'auto'      : true,
+        'multi'     : true,
+        'scriptAccess' : 'always',
+      });
+    });
+    </script>
+
+  {% endblock extra_foot %}
+  
+  {% block navigation %}
+  
+  {% include "administrator/nav.html" with nav=2 %}
+  
+  {% endblock %}
+
+{% block main_content %}
+<div class="page-header">
+<h2>Add Photos</h2>
+</div>
+<input id="file_upload" name="file_upload" type="file" />
+
+{% endblock main_content %}

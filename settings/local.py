@@ -34,7 +34,7 @@ MEDIA_URL = '/media/'
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = ''
 
-WSGI_APPLICATION = 'fotochest.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'themes/default/static'),
@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'hadrian.contrib.pomona',
     'tastypie',
     'photo_manager',
+    'administrator',
     'api_docs',
     # Everyone should be using south.  Seriously.
     'south',

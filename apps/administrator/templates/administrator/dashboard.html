@@ -1,0 +1,37 @@
+{% extends "administrator/base.html" %}
+
+{% block main_content %}
+<div class="page-header">
+<h2>Recent Uploads</h2>
+</div>
+<ul class="thumbnails">
+{% for photo in photos %}
+    <li class="span2 thumb">
+    <a class="thumbnail" href="#">
+    {% load thumbnail %}
+    {% thumbnail photo.image "240x161" crop="center" as im %}
+        <img src="{{ im.url }}">
+        <a class="btn edit-photo" href="#"><i class="icon-pencil"></i> Edit</a>
+    {% endthumbnail %}
+    </a>
+    <div class="caption">
+      <h5>{{ photo.title }}</h5>
+      
+      
+    </div>
+    </li>
+{% endfor %}
+    
+    
+</ul>
+
+{% endblock main_content %}
+
+{% block sidebar %}
+
+
+{% endblock sidebar%}
+
+{% block navigation %}
+{% include "administrator/nav.html" with nav=1 %}
+{% endblock navigation %}

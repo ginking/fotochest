@@ -46,7 +46,7 @@ urlpatterns = patterns('',
     
     
     # Upload
-    url(r'^upload/(?P<album_slug>[-\w]+)/(?P<location_slug>[-\w]+)/$', photo_upload, name="file_uploader"),
+    
     url(r'^choose/', choose, name="choose"),
     # Feeds
     url(r'^feed/$', StreamFeed(), name="homepage_feed"),
