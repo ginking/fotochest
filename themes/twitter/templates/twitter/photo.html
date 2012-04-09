@@ -78,7 +78,7 @@ rules: [
 {% endblock extra_head %}
 {% block extra_body %}onLoad="initialize()"{% endblock %}
 {% block main_content %}
-
+{% load comments %}
 
 			<div class="span8">
 			<div class="btn-group">
@@ -135,7 +135,11 @@ rules: [
 					        </li>
 					    {% endfor %}
 					</ul>
-					
+					<h4>Comments</h4>
+					{% render_comment_list for photo %}
 				</div>
+			</div>
+			<div class="span12">
+			{% render_comment_form for photo %}
 			</div>
 {% endblock main_content %}

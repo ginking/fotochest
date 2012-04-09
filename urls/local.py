@@ -21,7 +21,7 @@ urlpatterns = staticfiles_urlpatterns() + patterns('',
     url(r'^accounts/register/part_two/(?P<username>[-\w]+)/$', 'profiles.views.register_part_two'),
     url(r'^accounts/profiles/(?P<username>[-\w]+)/$', 'profiles.views.view_profile'),
     url(r'^accounts/profile/edit/$', 'profiles.views.edit_profile'),
-
+	url(r'^comments/', include('django.contrib.comments.urls')),
     #API Docs
     url(r'^docs/', include('api_docs.urls')),
     
