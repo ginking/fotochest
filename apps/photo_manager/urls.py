@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
-from photo_manager.views import *
-from photo_manager.feeds import *
+from photo_manager.views import homepage, photo, rotate_photo, photo_fullscreen, locations, location, slideshow, album, albums
+from photo_manager.feeds import StreamFeed, AlbumStream
 from django.conf import settings
 from photo_manager.api import PhotoResource, UserResource, AlbumResource, LocationResource
 from tastypie.api import Api
@@ -21,30 +21,18 @@ urlpatterns = patterns('',
     url(r'^api/', include(v1_api.urls)),
                        
     # Public URLS
-    url(r'^$', homepage, name="homepage"),
-        
+    url(r'^$', homepage, name="homepage"),    
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/$', photo, name="regular_photo_url"),
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/fullscreen/$', photo_fullscreen),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/edit/$', edit_photo),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/delete/$', delete_photo),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/rotate/(?P<rotate_direction>[-\w]+)/$', rotate_photo),
     
     # ShortURL
     url(r'^f/(?P<photo_id>\d+)/$', photo, name="short_photo_url"),
-    
     
     # Map - This is not ideal. Should we have a maps.urls?
     
     url(r'map/$', locations, name="map"),
     url(r'map/(?P<location_slug>[-\w]+)/$', location),
     url(r'map/(?P<location_slug>[-\w]+)/slideshow/$', slideshow),
-    
-    #url(r'map/user/(?P<username>[-\w]+)/$', locations),
-    #url(r'map/user/(?P<username>[-\w]+)/(?P<location_slug>[-\w]+)/$', location),
-    
-    
-    # Upload
-    
     
     # Feeds
     url(r'^feed/$', StreamFeed(), name="homepage_feed"),

@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+
 def update_photo_title(request):
     if request.method == "POST":
         photo_title = request.POST.get("photo_title")

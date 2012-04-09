@@ -1,8 +1,7 @@
-from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
-from photo_manager.models import *
+from photo_manager.models import Photo, Album
 from locations.models import *
 from locations.forms import *
 from django.contrib.auth.models import User
@@ -13,7 +12,6 @@ from sorl.thumbnail import get_thumbnail
 import sorl
 from PIL import Image
 from photo_manager.forms import *
-from locations.forms import *
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
