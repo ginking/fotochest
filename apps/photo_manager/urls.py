@@ -16,9 +16,7 @@ v1_api.register(LocationResource())
 urlpatterns = patterns('',
                        
     # Jobs
-    url(r'^thumb_job/$', run_thumb_job),
-    url(r'^update_photo_title/$', update_photo_title),
-    url(r'^update_album_title/$', update_album_title),
+        
     url(r'^api/docs/', include('api_docs.urls')),
     url(r'^api/', include(v1_api.urls)),
                        
@@ -47,7 +45,7 @@ urlpatterns = patterns('',
     
     # Upload
     
-    url(r'^choose/', choose, name="choose"),
+    
     # Feeds
     url(r'^feed/$', StreamFeed(), name="homepage_feed"),
     url(r'^album/(?P<album_slug>[-\w]+)/feed/$', AlbumStream(), name="album_stream"),
