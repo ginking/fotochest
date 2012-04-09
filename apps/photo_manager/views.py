@@ -1,8 +1,7 @@
-from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
-from photo_manager.models import *
+from photo_manager.models import Photo, Album
 from locations.models import *
 from locations.forms import *
 from django.contrib.auth.models import User
@@ -16,62 +15,6 @@ from photo_manager.forms import *
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
-
-
-def choose(request):
-    return redirect('file_uploader', location_slug=request.GET.get('location'), album_slug=request.GET.get("album"))
-
-#--------------------------------------------#
-#
-# photo_upload().  Tired as I write this.  the
-# method should add photos to a specific location
-# THIS NEEDS FIXING
-#
-#--------------------------------------------#
-@csrf_exempt
-def photo_upload(request, location_slug, album_slug):
-    context = {}
-        
-    if request.method == 'POST':
-        for field_name in request.FILES:
-            uploaded_file = request.FILES[field_name]
-            
-            # write the file into /tmp
-            num1 = str(random.randint(0, 1000000))
-            num2 = str(random.randint(1001, 9000000))
-            
-            ext = os.path.splitext(uploaded_file.name)[1]
-            filename = str(num1 + num2) + ext
-            album_used = get_object_or_404(Album, slug=album_slug)
-            
-            photo_new = Photo(title=filename, album=album_used)
-            photo_new.file_name = filename
-            photo_new.image = 'images/' + filename
-            # Set location to default location
-            photo_new.location = get_object_or_404(Location, slug=location_slug)
-            photo_new.user = request.user
-            photo_new.save()
-            destination_path = settings.PHOTO_DIRECTORY + '/%s' % (filename)   
-            destination = open(destination_path, 'wb+')
-            for chunk in uploaded_file.chunks():
-                destination.write(chunk)
-            destination.close()
-            ThumbnailTask.delay(photo_new.id)
-            
-        # indicate that everything is OK for SWFUpload
-        
-        return HttpResponse("ok", mimetype="text/plain")
-        
-    else:
-        
-        
-        context['current_user'] = request.user
-        context['user_page'] = '1'
-        context['upload_dir'] = settings.PHOTO_DIRECTORY
-        context['album_slug'] = album_slug
-        context['location_slug'] = location_slug
-        context['domain_static'] = settings.DOMAIN_STATIC    
-        return render(request,'%s/upload.html' % settings.ACTIVE_THEME, context)
 
 
 def album(request, album_id, album_slug):
@@ -227,84 +170,5 @@ def location(request, location_slug):
         context['photos'] = paginator.page(paginator.num_pages)
     return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)  
     
-### Forms
-@login_required
-def edit_photo(request, photo_id, album_slug=None, photo_slug=None):
-    context = {}
-    context['current_user'] = get_object_or_404(User, username=username)
-    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-       
-    if request.method == "POST":
-        form = PhotoForm(request.POST, instance=photo)
-        if form.is_valid():
-            new_photo = form.save()
-            
-            return redirect(new_photo)
-    else:        
-        form = PhotoForm(instance=photo)
-    context['form'] = form
-    context['photo'] = photo
-    context['exif_data'] = photo.get_exif_data()
-    return render(request, '%s/edit_photo.html' % settings.ACTIVE_THEME, context)
 
-@login_required    
-def delete_photo(request, photo_id, album_slug=None, photo_slug=None):
-    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-
-    photo.deleted = True
-    photo.save()
-    #@todo - This needs to point somewhere else after deletion..
-    return render(request, '%s/edit_photo.html' % settings.ACTIVE_THEME)
-    
-@login_required
-def rotate_photo(request, photo_id, rotate_direction, album_slug=None, photo_slug=None):
-    photo = get_object_or_404(Photo, pk=photo_id)
-    im = Image.open(photo.image)
-    if rotate_direction == "counter":
-        rotate_image = im.rotate(90)
-    else:
-        rotate_image = im.rotate(270)
-    rotate_image.save(photo.image.file.name, overwrite=True)
-    sorl.thumbnail.delete(photo.image, delete_file=False)
-    photo.make_thumbnails()
-    return redirect(photo.get_absolute_url())
-
-### Jobs
-
-''' Consider this for removal do to celery '''
-def run_thumb_job(request):
-    photos = Photo.objects.active().filter(thumbs_created=False)[:3]
-    for photo in photos:
-        try:
-            photo.make_thumbnails()
-            photo.thumbs_created = True
-            photo.save()
-        except:
-            photo.thumbs_created = False
-            photo.save()
-            return HttpResponse("Thumb Creation Failure", mimetype="text/plain")
-        
-    return HttpResponse("Thumbs Created", mimetype="text/plain")
-
-
-def update_photo_title(request):
-    if request.method == "POST":
-        photo_title = request.POST.get("photo_title")
-        photo_id = request.POST.get("photo_id")
-        photo = get_object_or_404(Photo, pk=photo_id)
-        photo.title = photo_title
-        photo.save()
-        
-    return HttpResponse("ok", mimetype="text/plain")
-    
-
-def update_album_title(request):
-    if request.method == "POST":
-        album_title = request.POST.get("album_title")
-        album_id = request.POST.get("album_id")
-        album = get_object_or_404(Album, pk=album_id)
-        album.title = album_title
-        album.save()
-    
-    return HttpResponse("ok", mimetype="text/plain")
     
