@@ -82,6 +82,8 @@ def album(request, album_id, album_slug):
     if album.has_child_albums == True:
         # Show child albums
         albums = Album.objects.filter(parent_album=album)
+        paginator = Paginator(albums, 6)
+        page = request.GET.get('page', 1)
         context['albums'] = albums
         if request.POST and request.user.is_authenticated():
             form = AlbumForm(request.POST)
@@ -104,6 +106,7 @@ def album(request, album_id, album_slug):
             context['photos'] = paginator.page(1)
         except EmptyPage:
             context['photos'] = paginator.page(paginator.num_pages)
+            
         return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
     
 def albums(request):
