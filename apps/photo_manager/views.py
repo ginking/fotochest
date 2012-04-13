@@ -141,8 +141,6 @@ def slideshow(request, location_slug=None, album_slug=None):
 
 def locations(request):
     context = {}
-    
-
     context['locations'] = Location.objects.all()
     if request.POST:
         form = LocationForm(request.POST)
@@ -167,6 +165,7 @@ def location(request, location_slug):
     paginator = Paginator(photos, 12)
 
     page = request.GET.get('page', 1)
+    context['location'] = location
     context['location_view'] = True
     context['location_slug'] = location_slug
     try:
@@ -175,7 +174,7 @@ def location(request, location_slug):
         context['photos'] = paginator.page(1)
     except EmptyPage:
         context['photos'] = paginator.page(paginator.num_pages)
-    return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)  
+    return render(request, "%s/location.html" % settings.ACTIVE_THEME, context)  
     
 
     
