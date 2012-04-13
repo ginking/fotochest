@@ -27,7 +27,14 @@ def album(request, album_id, album_slug):
         albums = Album.objects.filter(parent_album=album)
         paginator = Paginator(albums, 6)
         page = request.GET.get('page', 1)
-        context['albums'] = albums
+        try:
+            context['albums'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['albums'] = paginator.page(1)
+        except EmptyPage:
+            context['albums'] = paginator.page(paginator.num_pages)
+        
+        context['paginator'] = paginator
         if request.POST and request.user.is_authenticated():
             form = AlbumForm(request.POST)
             if form.is_valid():

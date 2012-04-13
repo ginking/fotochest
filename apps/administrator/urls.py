@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from administrator.views import dashboard, album_list, locations, album_detail, add_photos, photo_upload, add_location
+from administrator.views import dashboard, album_list, locations, album_detail, add_photos, photo_upload, add_location, choose, edit_photo, delete_photo, rotate_photo
 
 # This maps static files dirs to URLS.
 urlpatterns = patterns('',
