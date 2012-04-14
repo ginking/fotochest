@@ -1,15 +1,5 @@
-from datetime import datetime
-from django.db import models
-from django.db.models.query import QuerySet
+from django.db.models import Manager
 
-class PhotoMixin(object):
+class PhotoManager(Manager):
     def active(self):
-        return self.filter(deleted=False)
-        
-class PhotoQuerySet(QuerySet, PhotoMixin):
-    pass
-
-class PhotoManager(models.Manager, PhotoMixin):
-    def get_query_set(self):
-        return PhotoQuerySet(self.model, using=self._db)
-
+        return self.model.objects.filter(deleted=False)
