@@ -45,3 +45,16 @@ li.thumb:hover a.btn.edit-photo
 {
     clear: both;
 }
+
+
+/* Dashboard */
+
+.caption .controls
+{
+    display: none;
+}
+
+.caption.active .controls
+{
+    display: block;
+}

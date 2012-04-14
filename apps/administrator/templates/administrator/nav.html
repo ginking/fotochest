@@ -6,7 +6,7 @@
       <li {% if nav == 3 %}class="active"{% endif %}><a href="{% url admin_locations %}"><i class="{% if nav == 3 %}icon-white{% endif %} icon-map-marker"></i> Locations</a></li>
       <li class="nav-header">Profile and Settings</li>
       <li><a href="#"><i class="icon-user"></i> Profile</a></li>
-      <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+      <li {% if nav == 5 %}class="active"{% endif %}><a href="{% url settings %}"><i class="icon-cog"></i> Settings</a></li>
       
     </ul>
 </div>

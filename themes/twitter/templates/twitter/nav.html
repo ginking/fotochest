@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="{% url homepage %}">FotoChest</a>
+      <a class="brand" href="{% url homepage %}">{{ app_name }}</a>
       <div class="nav-collapse">
         <ul class="nav">
           <li{% if current == 1 %} class="active"{% endif %}><a href="{% url homepage %}">Home</a></li>
