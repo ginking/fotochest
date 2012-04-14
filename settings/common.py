@@ -57,6 +57,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "photo_manager.context_processors.theme_files",
     "photo_manager.context_processors.locations_albums",
+    "administrator.context_processors.settings",
 ) 
 
 MIDDLEWARE_CLASSES = (
