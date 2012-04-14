@@ -18,6 +18,7 @@ Python/Django
 ##Installation
 
     pip install -r conf/requirements.txt
+    ./run_all_tets.sh
     fab run_local_celery
     fab run_local
 
