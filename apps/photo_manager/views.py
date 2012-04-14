@@ -109,11 +109,11 @@ def photo(request, photo_id, album_slug=None, photo_slug=None):
     context = {}
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
     active_album = photo.album
-    photos = Photo.objects.active().filter(album=active_album, id__lt=photo_id)[:8]
+    photos = Photo.objects.active().filter(album=active_album, id__lt=photo_id)[:9]
     context['photo_id'] = photo_id
     context['photo'] = photo
     context['other_photos'] = photos
-    context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:4]
+    context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
     return render(request, "%s/photo.html" % settings.ACTIVE_THEME, context)
 
 def photo_fullscreen(request, photo_id, album_slug, photo_slug):

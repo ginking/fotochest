@@ -11,6 +11,7 @@
     {% load thumbnail %}
     {% thumbnail photo.image "240x161" crop="center" as im %}
         <img src="{{ im.url }}">
+                
         <a class="btn edit-photo" href="#"><i class="icon-pencil"></i> Edit</a>
     {% endthumbnail %}
     </a>

@@ -158,5 +158,4 @@ class Photo(models.Model):
         
     class Meta:
         ordering = ['-id']
-        
-        
+         

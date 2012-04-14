@@ -1,5 +1,11 @@
 {% extends "administrator/base.html" %}
 
+{% block sidebar %}
+
+<a href="#" class="btn btn-primary full">Add Album</a>
+
+{% endblock sidebar %}
+
 {% block main_content %}
 
 <div class="page-header">
@@ -29,7 +35,21 @@
     <div class="caption">
           <h5>{{ album.title }}</h5>
           <p>Description?</p>
-          <p><a class="btn btn-primary" href="{{ album.get_admin_url }}">Edit</a> <a class="btn" href="#">View Photos</a><a href="{% url file_uploader album_slug=album.slug location_slug="czech" %}" class="btn btn-success">Add</a></p>
+          
+          <div class="btn-group">
+              <button class="btn btn-primary">Album Actions</button>
+              <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                  <li><a href="{{ album.get_admin_url }}">Edit</a></li>
+                  <li><a href="#">View Photos</a></li>
+                  <li><a href="{% url file_uploader album_slug=album.slug location_slug="czech" %}">Add Photos</a></li>
+                  <!-- dropdown menu links -->
+                  <li class="divider"></li>
+                  <li><a href="#">Add Child Album</a></li>
+              </ul>
+          </div>
         </div>
     </div>
     </li>
