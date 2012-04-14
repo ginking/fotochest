@@ -80,7 +80,7 @@
             <ul class="nav">
               <li class="active"><a href="{% url admin_dashboard %}">Dashboard</a></li>
               <li><a href="#myModal" data-toggle="modal">Add Photos</a></li>
-              <li><a target="_blank" href="{% url photo_manager.views.homepage %}">View Site</a></li>
+              <li><a href="{% url photo_manager.views.homepage %}">View Site</a></li>
             </ul>
             
             
@@ -103,16 +103,6 @@
 
     <div class="container">
     <div class="row">
-    
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-success">
-          <a class="close" data-dismiss="alert">×</a>
-          <h4 class="alert-heading">Warning!</h4>
-          <p>{{ message }}</p>
-        </div>
-        {% endfor %}
-    {% endif %}
     
         <div class="span3 sidebar">
         {% block navigation %}{% endblock navigation %}
@@ -147,7 +137,6 @@
     <script src="{{ STATIC_URL }}administrator/js/bootstrap-collapse.js"></script>
     <script src="{{ STATIC_URL }}administrator/js/bootstrap-carousel.js"></script>
     <script src="{{ STATIC_URL }}administrator/js/bootstrap-typeahead.js"></script>
-    <script src="{{ STATIC_URL }}administrator/js/admin.js"></script>
     {% block extra_foot %}{% endblock extra_foot %}
 
   </body>

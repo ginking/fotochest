@@ -2,8 +2,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 from photo_manager.models import Photo, Album
-from administrator.models import Settings
-from administrator.forms import SettingsForm
 from locations.models import *
 from locations.forms import *
 from django.contrib.auth.models import User
@@ -19,8 +17,6 @@ from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
 from administrator.forms import AlbumForm
 from conf import defaults
-from django.contrib import messages
-
 
 @login_required
 def add_photos(request):
@@ -58,21 +54,6 @@ def add_location(request):
         form = LocationForm()
     context['form'] = form    
     return render(request, "administrator/add_location.html", context) 
-
-@login_required
-def settings(request):
-    context = {}
-    setting = get_object_or_404(Settings, pk=1)
-    if request.method == "POST":
-        form = SettingsForm(request.POST, instance=setting)
-        if form.is_valid():
-            setting = form.save()
-            messages.add_message(request, messages.SUCCESS, "Settings Updated.")
-            return redirect("administrator.views.settings")
-    else:
-        form = SettingsForm(instance=setting)
-    context['form'] = form
-    return render(request, "administrator/settings.html", context)
 
 @login_required
 def locations(request, username=None):
