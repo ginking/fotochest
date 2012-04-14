@@ -21,9 +21,14 @@ class Album(models.Model):
     def __unicode__(self):
         return self.title
 
-    def save(self):
+    def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
-        super(Album, self).save()
+        super(Album, self).save(*args, **kwargs)
+        
+    def get_preview_photos(self):
+        # Test Func
+        photos = Photo.objects.filter(album=self)[:5]
+        return photos
         
     def get_album_cover(self):
         this_photo = ""
@@ -53,6 +58,7 @@ class Album(models.Model):
                     this_photo = ""
         return this_photo
     
+    @property
     def has_child_albums(self):
         album_count = Album.objects.filter(parent_album=self).count()
         if album_count == 0:
@@ -63,12 +69,15 @@ class Album(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('photo_manager.views.album', (), {'album_id': self.id, 'album_slug': self.slug, 'username': self.user.username})
+        return ('photo_manager.views.album', (), {'album_id': self.id, 'album_slug': self.slug})
         
     @models.permalink
     def get_slideshow(self):
-        return ('photo_manager.views.slideshow', (), {'album_slug': self.slug, 'username': self.user.username})
+        return ('photo_manager.views.slideshow', (), {'album_slug': self.slug})
 
+    @models.permalink
+    def get_admin_url(self):
+        return ('administrator.views.album_detail', (), {'album_id':self.id})
 
 class Photo(models.Model):
     title = models.CharField(max_length=250)
@@ -89,7 +98,7 @@ class Photo(models.Model):
     def __unicode__(self):
         return self.title
     
-    def save(self):
+    def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
         super(Photo, self).save()
     
@@ -100,7 +109,7 @@ class Photo(models.Model):
             photo = next_photo[0]
         except:
             return None
-        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug, 'username': photo.user.username})
+        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug})
     
     @models.permalink
     def get_previous(self):
@@ -109,7 +118,7 @@ class Photo(models.Model):
             photo = prev_photo[0]
         except:
             return None
-        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug, 'username': photo.user.username})
+        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug})
         
     def image_preview(self):
         im = get_thumbnail(self.image, "150x150")
@@ -138,18 +147,15 @@ class Photo(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        if settings.ENABLE_MULTI_USER:
-            return ('photo_manager.views.photo', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug, 'username': self.user.username})
-        else:
-            return ('photo_manager.views.photo', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
+
+        return ('photo_manager.views.photo', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
     
     @models.permalink
     def get_fullscreen(self):
         # update with enable multi user
-        return ('photo_manager.views.photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug, 'username': self.user.username})
+        return ('photo_manager.views.photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
         
         
     class Meta:
         ordering = ['-id']
-        
-        
+         

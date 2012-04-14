@@ -4,7 +4,7 @@ from django.conf import settings
 
 def theme_files(request):
     context = {}
-    context['ENABLE_MULTI_USER'] = settings.ENABLE_MULTI_USER
+    
     context['ENABLE_REGISTRATION'] = settings.ENABLE_REGISTRATION
     context['THEME_URL'] = "%sphoto_manager/themes/%s/" % (settings.STATIC_URL, settings.ACTIVE_THEME)
     
@@ -13,7 +13,7 @@ def theme_files(request):
 def locations_albums(request):
     context = {}
     context['form_locations'] = Location.objects.all()
-    
+    context['form_albums'] = Album.objects.all()
     return context
     
     

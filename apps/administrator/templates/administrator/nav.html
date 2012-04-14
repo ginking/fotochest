@@ -1,0 +1,12 @@
+<div style="padding: 8px 0;" class="well">
+    <ul class="nav nav-list">
+      
+      <li {% if nav == 1 %}class="active"{% endif %}><a href="{% url admin_dashboard %}"><i class="{% if nav == 1 %}icon-white{% endif %} icon-home"></i> Home</a></li>
+      <li {% if nav == 2 %}class="active"{% endif %}><a href="{% url admin_albums %}"><i class="{% if nav == 2%}icon-white{% endif %} icon-book"></i> Albums</a></li>
+      <li {% if nav == 3 %}class="active"{% endif %}><a href="{% url admin_locations %}"><i class="{% if nav == 3 %}icon-white{% endif %} icon-map-marker"></i> Locations</a></li>
+      <li class="nav-header">Profile and Settings</li>
+      <li><a href="#"><i class="icon-user"></i> Profile</a></li>
+      <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+      
+    </ul>
+</div>

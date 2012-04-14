@@ -1,0 +1,28 @@
+{% extends "administrator/base.html" %}
+
+{% block navigation %}
+
+{% include "administrator/nav.html" with nav=2 %}
+
+{% endblock navigation %}
+
+{% block main_content %}
+
+<div class="row">    
+    <ul class="thumbnails">
+            <li class="span4">
+              <a class="thumbnail" href="#">
+              {% load thumbnail %}
+              {% thumbnail album.get_album_cover.image "360x268" crop="center" as im %}
+                  <img src="{{ im.url }}">
+              {% endthumbnail %}
+                
+              </a>
+            </li>
+           
+          </ul>
+
+    {{ album_form }}
+    <input type="submit" value="Save Album" class="btn btn-primary">
+</div>
+{% endblock main_content %}

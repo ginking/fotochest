@@ -1,0 +1,47 @@
+a.brand img
+{
+    margin-right: 6px;
+    margin-bottom: 3px;
+}
+
+.sidebar
+{
+    margin-top: 73px
+}
+
+#map
+{
+    border-radius: 5px 5px 5px 5px;
+    height: 600px;
+    width: 870px;
+}
+
+.btn.full
+{
+    width: 92%;
+    margin-bottom: 10px;
+}
+
+li.thumb
+{
+    position: relative;
+}
+
+a.btn.edit-photo
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    display: none;
+}
+
+li.thumb:hover a.btn.edit-photo
+{
+    display: inline-block;
+}
+
+.clear-photo
+{
+    clear: both;
+}

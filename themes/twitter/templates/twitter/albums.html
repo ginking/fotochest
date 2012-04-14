@@ -1,0 +1,56 @@
+{% extends "twitter/base.html" %}
+{% block nav %}
+{% include "twitter/nav.html" with current=2 %}
+{% endblock nav %}
+{% block main_content %}
+
+<div class="span12">
+<div class="page-header">
+    <h2>Albums</h2>
+</div>
+<ul class="thumbnails">
+{% for album in albums.object_list %}
+    <li class="span3">
+        <a href="{{ album.get_absolute_url }}" class="thumbnail">
+            {% if album.album_cover %}
+                    {% load thumbnail %}
+                    {% thumbnail album.album_cover "300x220" as im %}
+                    <img src="{{ im.url }}">
+                    {% endthumbnail %}
+                    
+                {% else %}
+                    {% if album.get_album_cover %}
+                        {% load thumbnail %}
+                {% thumbnail album.get_album_cover.image "300x220" as im %}
+            <img src="{{ im.url }}">
+                {% endthumbnail %}
+                    {% else %}
+                    <img src="http://dummyimage.com/260x180">
+                    {% endif %}
+            {% endif %}
+        </a>
+        <h4>{{ album.title }}</h4>
+    </li>
+
+{% endfor %}
+</ul>
+
+
+<div class="pagination">
+<ul>
+    {% if albums.has_previous %}
+    <li><a href="?page={{ albums.previous_page_number }}">Prev</a></li>
+    {% endif %}
+    {% if albums.number %}
+    <li class="active">
+        <a href="?page={{ albums.number }}">{{ albums.number }}</a>
+    </li>
+    {% endif %}
+    {% if albums.has_next %}
+    <li><a href="?page={{ albums.next_page_number }}">Next</a></li>
+    {% endif %}
+</ul>
+</div>
+
+</div>
+{% endblock %}

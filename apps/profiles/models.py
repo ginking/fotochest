@@ -18,11 +18,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 
-def get_locations_for_user(username):
-    location_list = []
-    user_photos = Photo.objects.filter(user__username=username)
-    for photo in user_photos:
-        location_temp = photo.location
-        if location_temp not in location_list:
-            location_list.append(location_temp)
-    return location_list

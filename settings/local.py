@@ -34,9 +34,11 @@ MEDIA_URL = '/media/'
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = ''
 
+WSGI_APPLICATION = 'wsgi.application'
 
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'themes/default/static'),
+    os.path.join(SITE_ROOT, 'themes/twitter/static'),
     os.path.join(SITE_ROOT, 'static'),
 )
 
@@ -47,12 +49,15 @@ STATIC_URL = '/static/'
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '%sgrappelli/' % STATIC_URL
+ADMIN_MEDIA_PREFIX = '%sadmin/' % STATIC_URL
 
 PHOTO_DIRECTORY = os.path.join(SITE_ROOT, 'uploads/images')
 
+WSGI_APPLICATION = 'wsgi.application'
+
 TEMPLATE_DIRS = (
     os.path.join(SITE_ROOT, 'themes/default/templates'),
+    os.path.join(SITE_ROOT, 'themes/twitter/templates'),
     os.path.join(SITE_ROOT, 'templates'),
 )
 
@@ -69,12 +74,14 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'grappelli',
+    'django.contrib.comments',
+    #'grappelli',
     'django.contrib.admin',
     'hadrian.contrib.gravatar',
     'hadrian.contrib.pomona',
     'tastypie',
     'photo_manager',
+    'administrator',
     'api_docs',
     # Everyone should be using south.  Seriously.
     'south',
