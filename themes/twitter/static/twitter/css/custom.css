@@ -19,3 +19,25 @@
 {
     clear: both;
 }
+
+// Comments
+.comments .well.odd
+
+{
+    background: #EEEEEE;
+}
+
+.comments .well .author
+{
+    margin-right: 6px;
+}
+
+.comments .well .comment
+{
+    margin-top: 10px;
+}
+
+.photo-nav
+{
+    margin-bottom: 10px;
+}

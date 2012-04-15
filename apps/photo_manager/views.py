@@ -25,7 +25,16 @@ def album(request, album_id, album_slug):
     if album.has_child_albums == True:
         # Show child albums
         albums = Album.objects.filter(parent_album=album)
-        context['albums'] = albums
+        paginator = Paginator(albums, 6)
+        page = request.GET.get('page', 1)
+        try:
+            context['albums'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['albums'] = paginator.page(1)
+        except EmptyPage:
+            context['albums'] = paginator.page(paginator.num_pages)
+        
+        context['paginator'] = paginator
         if request.POST and request.user.is_authenticated():
             form = AlbumForm(request.POST)
             if form.is_valid():
@@ -47,6 +56,7 @@ def album(request, album_id, album_slug):
             context['photos'] = paginator.page(1)
         except EmptyPage:
             context['photos'] = paginator.page(paginator.num_pages)
+            
         return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
     
 def albums(request):
@@ -99,11 +109,11 @@ def photo(request, photo_id, album_slug=None, photo_slug=None):
     context = {}
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
     active_album = photo.album
-    photos = Photo.objects.active().filter(album=active_album, id__lt=photo_id)[:8]
+    photos = Photo.objects.active().filter(album=active_album, id__lt=photo_id)[:9]
     context['photo_id'] = photo_id
     context['photo'] = photo
     context['other_photos'] = photos
-    context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:4]
+    context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
     return render(request, "%s/photo.html" % settings.ACTIVE_THEME, context)
 
 def photo_download(request, photo_id):
@@ -140,8 +150,6 @@ def slideshow(request, location_slug=None, album_slug=None):
 
 def locations(request):
     context = {}
-    
-
     context['locations'] = Location.objects.all()
     if request.POST:
         form = LocationForm(request.POST)
@@ -166,6 +174,7 @@ def location(request, location_slug):
     paginator = Paginator(photos, 12)
 
     page = request.GET.get('page', 1)
+    context['location'] = location
     context['location_view'] = True
     context['location_slug'] = location_slug
     try:
@@ -174,7 +183,7 @@ def location(request, location_slug):
         context['photos'] = paginator.page(1)
     except EmptyPage:
         context['photos'] = paginator.page(paginator.num_pages)
-    return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)  
+    return render(request, "%s/location.html" % settings.ACTIVE_THEME, context)  
     
 
     

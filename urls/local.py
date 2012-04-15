@@ -12,7 +12,8 @@ urlpatterns = staticfiles_urlpatterns() + patterns('',
     url(r'^django_admin/', include(admin.site.urls)),
     url(r'^admin/', include("administrator.urls")),
 
-    
+    url(r'^500/$', 'django.views.defaults.server_error'),
+    url(r'^404/$', 'django.views.defaults.page_not_found'),
     # Auth Views
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'administrator/login.html'}),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),

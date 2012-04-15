@@ -91,7 +91,7 @@ rules: [
 {% endblock %}
 
 {% block sidebar %}
-<a href="#" class="btn btn-primary full">Add Location</a>
+<a href="{% url administrator.views.add_location %}" class="btn btn-primary full">Add Location</a>
 <div class="well">
     <h4>Locations</h4>
     <ul class="unstyled">
