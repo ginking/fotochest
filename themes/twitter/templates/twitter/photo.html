@@ -86,6 +86,7 @@ rules: [
 				<a href="{{ photo.get_previous }}" class="btn"><i class="icon-arrow-left"></i> Previous</a>
 				{% endif %}
 				<a href="{{ photo.get_fullscreen }}" class="btn"><i class="icon-picture"></i> Full Screen</a>
+				<a href="{% url photo_download photo_id=photo.id %}" class="btn">Download Full Size</a>
 				{% if photo.get_next %}
 				<a href="{{ photo.get_next }}" class="btn"><i class="icon-arrow-right"></i> Next</a>
 			    {% endif %}
