@@ -4,7 +4,7 @@ from BeautifulSoup import BeautifulSoup
 
 
 
-class Article():
+class Article:
     article = ''
     data = ''
     summary = ''
@@ -21,3 +21,6 @@ class Article():
         self.call()
         soup = BeautifulSoup(self.data)
         self.summary = soup.find('div', id="bodyContent").p
+        
+    def initialize(self):
+        self.get_summary()
