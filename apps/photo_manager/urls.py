@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from photo_manager.views import homepage, photo, photo_fullscreen, locations, location, slideshow, album, albums
+from photo_manager.views import homepage, photo, photo_fullscreen, locations, location, slideshow, album, albums, photo_download
 from photo_manager.feeds import StreamFeed, AlbumStream
 from django.conf import settings
 from photo_manager.api import PhotoResource, UserResource, AlbumResource, LocationResource

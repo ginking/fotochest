@@ -102,6 +102,11 @@ class Photo(models.Model):
         unique_slugify(self, self.title)
         super(Photo, self).save()
     
+    @property    
+    def filename(self):
+        return os.path.basename(self.image.name)
+    
+    
     @models.permalink
     def get_next(self):
         try:

@@ -117,12 +117,12 @@ def photo(request, photo_id, album_slug=None, photo_slug=None):
     return render(request, "%s/photo.html" % settings.ACTIVE_THEME, context)
 
 def photo_download(request, photo_id):
-	photo = get_object_or_404(Photo, pk=photo_id)
-    file = photo.image.open()
+    photo = get_object_or_404(Photo, pk=photo_id)
+    file = photo.image
     mimetype = "application/octet-stream"
-	import os
+    import os
     response = HttpResponse(file.read(), mimetype=mimetype)
-    response["Content-Disposition"]= "attachment; filename=%s" % os.path.split(photo)[1]
+    response["Content-Disposition"]= "attachment; filename=%s" % photo.filename
     return response
 
 def photo_fullscreen(request, photo_id, album_slug, photo_slug):
