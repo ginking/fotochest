@@ -8,19 +8,18 @@ from locations.models import *
 from locations.forms import *
 from django.contrib.auth.models import User
 import os
-from django.conf import settings
+from django.conf import settings as app_settings
 import random
 from sorl.thumbnail import get_thumbnail
 import sorl
 from PIL import Image
 from photo_manager.forms import *
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
 from administrator.forms import AlbumForm
 from conf import defaults
 from django.contrib import messages
-
+from django.http import HttpResponse
 
 @login_required
 def add_photos(request):
@@ -81,7 +80,7 @@ def locations(request, username=None):
     return render(request, "administrator/locations.html", context)
 
 def choose(request):
-    return redirect('file_uploader', location_slug=request.GET.get('location'), album_slug=request.GET.get("album"))
+    return redirect('file_uploader', location_slug=request.GET.get('location'), album_slug=request.GET.get("album"), user_id=request.GET.get('user_id'))
 
 #--------------------------------------------#
 #
@@ -91,7 +90,7 @@ def choose(request):
 #
 #--------------------------------------------#
 @csrf_exempt
-def photo_upload(request, location_slug, album_slug):
+def photo_upload(request, location_slug, album_slug, user_id):
     context = {}
         
     if request.method == 'POST':
@@ -105,33 +104,33 @@ def photo_upload(request, location_slug, album_slug):
             ext = os.path.splitext(uploaded_file.name)[1]
             filename = str(num1 + num2) + ext
             album_used = get_object_or_404(Album, slug=album_slug)
-            
             photo_new = Photo(title=filename, album=album_used)
             photo_new.file_name = filename
             photo_new.image = 'images/' + filename
             # Set location to default location
             photo_new.location = get_object_or_404(Location, slug=location_slug)
-            photo_new.user = request.user
+            user = get_object_or_404(User, pk=user_id)
+            photo_new.user = user
             photo_new.save()
-            destination_path = settings.PHOTO_DIRECTORY + '/%s' % (filename)   
+            destination_path = app_settings.PHOTO_DIRECTORY + '/%s' % (filename)   
             destination = open(destination_path, 'wb+')
             for chunk in uploaded_file.chunks():
                 destination.write(chunk)
             destination.close()
-            ENABLE_CELERY = getattr(settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
+            ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
             if ENABLE_CELERY:
                 ThumbnailTask.delay(photo_new.id)
-            
+            print "IT WORKED"
         # indicate that everything is OK for SWFUpload
         
         return HttpResponse("ok", mimetype="text/plain")
         
     else:
         
-        context['upload_dir'] = settings.PHOTO_DIRECTORY
+        context['upload_dir'] = app_settings.PHOTO_DIRECTORY
         context['album_slug'] = album_slug
         context['location_slug'] = location_slug
-        context['domain_static'] = settings.DOMAIN_STATIC    
+        context['domain_static'] = app_settings.DOMAIN_STATIC    
         return render(request,'administrator/add_photos.html', context)
 
 
@@ -142,7 +141,7 @@ def edit_photo(request, photo_id, album_slug=None, username=None, photo_slug=Non
     context['current_user'] = get_object_or_404(User, username=username)
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
     if request.user != photo.user:
-        return render(request, '%s/not_authorized.html' % settings.ACTIVE_THEME)
+        return render(request, '%s/not_authorized.html' % app_settings.ACTIVE_THEME)
         
     if request.method == "POST":
         form = PhotoForm(request.POST, instance=photo)
@@ -155,18 +154,18 @@ def edit_photo(request, photo_id, album_slug=None, username=None, photo_slug=Non
     context['form'] = form
     context['photo'] = photo
     context['exif_data'] = photo.get_exif_data()
-    return render(request, '%s/edit_photo.html' % settings.ACTIVE_THEME, context)
+    return render(request, '%s/edit_photo.html' % app_settings.ACTIVE_THEME, context)
 
 @login_required    
 def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
     if request.user != photo.user:
-        return render(request, '%s/not_authorized.html' % settings.ACTIVE_THEME)
+        return render(request, '%s/not_authorized.html' % app_settings.ACTIVE_THEME)
     
     photo.deleted = True
     photo.save()
     #@todo - This needs to point somewhere else after deletion..
-    return render(request, '%s/edit_photo.html' % settings.ACTIVE_THEME)
+    return render(request, '%s/edit_photo.html' % app_settings.ACTIVE_THEME)
     
 @login_required
 def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=None, photo_slug=None):
