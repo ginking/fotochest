@@ -15,7 +15,7 @@ from photo_manager.forms import *
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
-
+from django.http import HttpResponse
 
 def album(request, album_id, album_slug):
     context = {}
@@ -115,6 +115,15 @@ def photo(request, photo_id, album_slug=None, photo_slug=None):
     context['other_photos'] = photos
     context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
     return render(request, "%s/photo.html" % settings.ACTIVE_THEME, context)
+
+def photo_download(request, photo_id):
+	photo = get_object_or_404(Photo, pk=photo_id)
+    file = photo.image.open()
+    mimetype = "application/octet-stream"
+	import os
+    response = HttpResponse(file.read(), mimetype=mimetype)
+    response["Content-Disposition"]= "attachment; filename=%s" % os.path.split(photo)[1]
+    return response
 
 def photo_fullscreen(request, photo_id, album_slug, photo_slug):
     context = {}

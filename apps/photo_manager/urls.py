@@ -28,6 +28,8 @@ urlpatterns = patterns('',
     # ShortURL
     url(r'^f/(?P<photo_id>\d+)/$', photo, name="short_photo_url"),
     
+    #download
+    url(r'^foto/download/(?P<photo_id>\d+)/$', photo_download, name="photo_download"),
     # Map - This is not ideal. Should we have a maps.urls?
     
     url(r'map/$', locations, name="map"),
