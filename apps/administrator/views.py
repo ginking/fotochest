@@ -28,16 +28,37 @@ def add_photos(request):
 
 @login_required
 def dashboard(request):
-    photos = Photo.objects.all()[:16]
+    photos = Photo.objects.active()
     albums = Album.objects.filter(parent_album=None)
-    context = {'photos': photos, 'albums': albums}
+    context = {'albums': albums}
+    
+    paginator = Paginator(photos, 16)
+    page = request.GET.get('page', 1)
+    
+    try:
+        context['photos'] = paginator.page(page)
+    except PageNotAnInteger:
+        context['photos'] = paginator.page(1)
+    except EmptyPage:
+        context['photos'] = paginator.page(paginator.num_pages)
+    context['paginator'] = paginator
     # Add pagination
     return render(request, "administrator/dashboard.html", context)
 
 @login_required
 def album_list(request):
     albums = Album.objects.all()
-    context = {'albums':albums}
+    if request.method == "POST":
+        form = AlbumForm(request.POST)
+        if form.is_valid:
+            album = form.save(commit=False)
+            album.user = request.user
+            album.save()
+            messages.add_message(request, messages.SUCCESS, "New Album Saved.")
+            return redirect("administrator.views.album_list")
+    else:
+        form = AlbumForm()
+    context = {'albums':albums, 'album_form':form}
     return render(request, "administrator/albums.html", context)
 
 @login_required
