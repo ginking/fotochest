@@ -31,6 +31,7 @@ def dashboard(request):
     photos = Photo.objects.all()[:16]
     albums = Album.objects.filter(parent_album=None)
     context = {'photos': photos, 'albums': albums}
+    # Add pagination
     return render(request, "administrator/dashboard.html", context)
 
 @login_required
@@ -44,6 +45,13 @@ def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
     context = {'album': album, 'album_form':AlbumForm(instance=album)}
     return render(request, "administrator/album_detail.html", context)
+
+@login_required
+def album_photo_details(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    context = {'album':album}
+    #Fix this Add pagination
+    return render(request, "administrator/", context)
 
 @login_required
 def add_location(request):

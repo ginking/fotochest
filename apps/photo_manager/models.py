@@ -163,4 +163,8 @@ class Photo(models.Model):
         
     class Meta:
         ordering = ['-id']
+        
+        
+def photos_by_location(location):
+    return Photo.objects.filter(deleted=False, location=location).count()
          

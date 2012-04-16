@@ -81,6 +81,43 @@ rules: [
 {% block extra_body %}onLoad="initialize()" style="height:100%"{% endblock %}
 {% block main_class %}map_page{% endblock %}
 {% block main_content %}
+<div class="modal hide fade" id="addLocation">
+    <div class="modal-header">
+      <a data-dismiss="modal" class="close">×</a>
+      <h3>Add Location</h3>
+    </div>
+    <div class="modal-body">
+      <h4>Select Album and Location</h4>
+      <p>Select the album and location that you want to associate you uploaded photos with.</p>
+      <form method="GET" action="{% url administrator.views.choose %}">
+      <label>Album Name:</label>
+          <select name="album">
+              {% for album in form_albums %}
+              <option value="{{ album.slug }}">{{ album.title }}</option>
+              
+          {% endfor %}
+          
+          </select>
+          <input type="hidden" name="user_id" value="{{ request.user.id }}">
+          
+          <label>Location</label>
+          <select name="location">
+              {% for location in form_locations %}
+              <option value="{{ location.slug }}">{{ location }}</option>
+              
+          {% endfor %}
+          
+          </select>
+
+      
+    </div>
+    <div class="modal-footer">
+      <a data-dismiss="modal" class="btn" href="#">Close</a>
+      <input type="submit" value="Proceed to Upload" class="btn btn-primary">
+      
+    </div>
+    </form>
+  </div>
 <div class="page-header">
 <h2>Locations</h2>
 </div>
@@ -92,11 +129,12 @@ rules: [
 
 {% block sidebar %}
 <a href="{% url administrator.views.add_location %}" class="btn btn-primary full">Add Location</a>
+<a href="#addLocation" data-toggle="modal" class="btn btn-success full">Add Location Modal</a>
 <div class="well">
     <h4>Locations</h4>
     <ul class="unstyled">
     {% for location in locations %}
-        <li>{{ location }}</li>
+        <li><i class="icon-map-marker"></i>  <span class="label label-success">120 Photos</span> {{ location }}</li>
     {% endfor %}
     </ul>
 </div>
