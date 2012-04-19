@@ -4,7 +4,7 @@
 {% endblock nav %}
 {% block main_content %}
 
-<div class="{% if album.has_child_albums %}span8{% else %}span12{% endif %}">
+<div class="{% if album.has_child_albums %}span9{% else %}span12{% endif %}">
 <ul class="breadcrumb">
   <li>
     <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
@@ -98,15 +98,15 @@
 
 </div>
 {% if album.has_child_albums %}
-<div class="span4">
+<div class="span3">
 	<div class="well">
 		<h3>Sub Albums for {{ album }}</h3>
 		<ul class="thumbnails">
 		{% for album in child_albums.object_list %}
         		
 		{% load thumbnail %}
-		{% thumbnail album.get_album_cover.image "75x75" crop="center" as im %}
-		<li class="span1">
+		{% thumbnail album.get_album_cover.image "240x161" crop="center" as im %}
+		<li class="span2">
 			<a href="{{ album.get_absolute_url }}" class="thumbnail">
 		<img src="{{ im.url }}" alt="">
 		{{ album }}
