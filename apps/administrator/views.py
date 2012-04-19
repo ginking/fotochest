@@ -106,6 +106,14 @@ def settings(request):
 def locations(request, username=None):
     context = {}
     context['locations'] = Location.objects.all()
+    if request.method == "POST":
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            location = form.save()
+            return redirect("administrator.views.locations")
+    else:
+        form = LocationForm()
+    context['form'] = form  
     return render(request, "administrator/locations.html", context)
 
 def choose(request):

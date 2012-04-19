@@ -20,44 +20,36 @@ from django.http import HttpResponse
 def album(request, album_id, album_slug):
     context = {}
     context['album_slug'] = album_slug
+    context['album_view'] = True
     # If it has child albums, show those, if not, show pictures.
     album = get_object_or_404(Album, pk=album_id)
+    context['album'] = album
     if album.has_child_albums == True:
         # Show child albums
         albums = Album.objects.filter(parent_album=album)
         paginator = Paginator(albums, 6)
         page = request.GET.get('page', 1)
         try:
-            context['albums'] = paginator.page(page)
+            context['child_albums'] = paginator.page(page)
         except PageNotAnInteger:
-            context['albums'] = paginator.page(1)
+            context['child_albums'] = paginator.page(1)
         except EmptyPage:
-            context['albums'] = paginator.page(paginator.num_pages)
+            context['child_albums'] = paginator.page(paginator.num_pages)
         
         context['paginator'] = paginator
-        if request.POST and request.user.is_authenticated():
-            form = AlbumForm(request.POST)
-            if form.is_valid():
-                album = form.save(commit=False)
-                album.user = request.user
-                album.save()
-        else:
-            context['album_form'] = AlbumForm()
-        
-        return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
-    else:
-        photos = Photo.objects.active().filter(album__slug=album_slug)
-        paginator = Paginator(photos, 12)
-        page = request.GET.get('page', 1)
-        context['album_view'] = True
-        try:
-            context['photos'] = paginator.page(page)
-        except PageNotAnInteger:
-            context['photos'] = paginator.page(1)
-        except EmptyPage:
-            context['photos'] = paginator.page(paginator.num_pages)
+    
+    photos = Photo.objects.active().filter(album__slug=album_slug)
+    photo_paginator = Paginator(photos, 12)
+    photo_page = request.GET.get('page', 1)
+    
+    try:
+        context['photos'] = photo_paginator.page(photo_page)
+    except PageNotAnInteger:
+        context['photos'] = photo_paginator.page(1)
+    except EmptyPage:
+        context['photos'] = photo_paginator.page(photo_paginator.num_pages)
             
-        return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
+    return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
     
 def albums(request):
     context = {}
@@ -73,15 +65,6 @@ def albums(request):
         context['albums'] = paginator.page(1)
     except EmptyPage:
         context['albums'] = paginator.page(paginator.num_pages)
-    
-    if request.POST and request.user.is_authenticated():
-        form = AlbumForm(request.POST)
-        if form.is_valid():
-            album = form.save(commit=False)
-            album.user = request.user
-            album.save()
-    else:
-        context['album_form'] = AlbumForm()
         context['parent_albums'] = Album.objects.all()
             
     
