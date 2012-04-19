@@ -81,6 +81,15 @@ rules: [
 {% load comments %}
 
 			<div class="span8">
+				<ul class="breadcrumb">
+				  <li>
+				    <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
+				  </li>
+				  <li>
+				    <a href="{{ photo.album.get_absolute_url }}">{{ photo.album }}</a> <span class="divider">/</span>
+				  </li>
+				  <li class="active">{{ photo.title }}</li>
+				</ul>
 			<div class="btn-group photo-nav">
 			    {% if photo.get_previous %}
 				<a href="{{ photo.get_previous }}" class="btn"><i class="icon-arrow-left"></i> Previous</a>

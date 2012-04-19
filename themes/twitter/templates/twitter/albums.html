@@ -4,11 +4,40 @@
 {% endblock nav %}
 {% block main_content %}
 
-<div class="span12">
+<div class="{% if album.has_child_albums %}span8{% else %}span12{% endif %}">
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
+  </li>
+  {% if albums %}
+  <li class="active">
+  Albums
+  </li>
+  {% else %}
+  <li>
+    <a href="{% url albums %}">Albums</a> <span class="divider">/</span>
+  </li>
+  
+  <li class="active">
+      {{ album }}
+  </li>
+  {% endif %}
+</ul>
+
 <div class="page-header">
-    <h2>Albums</h2>
+    <h2>{{ album }}</h2>
 </div>
 <ul class="thumbnails">
+{% for photo in photos.object_list %}
+    {% if album.has_child_albums %}
+    {% include "twitter/snippets/smaller_item.html" %}
+    {% else %}
+    {% include "twitter/snippets/item.html" %}
+    {% endif %}
+{% endfor %}
+
+
+
 {% for album in albums.object_list %}
     <li class="span3">
         <a href="{{ album.get_absolute_url }}" class="thumbnail">
@@ -34,6 +63,21 @@
 
 {% endfor %}
 </ul>
+<div class="pagination">
+<ul>
+    {% if photos.has_previous %}
+    <li><a href="?page={{ photos.previous_page_number }}">Prev</a></li>
+    {% endif %}
+    {% if photos.number %}
+    <li class="active">
+        <a href="?page={{ photos.number }}">{{ photos.number }}</a>
+    </li>
+    {% endif %}
+    {% if photos.has_next %}
+    <li><a href="?page={{ photos.next_page_number }}">Next</a></li>
+    {% endif %}
+</ul>
+</div>
 
 
 <div class="pagination">
@@ -53,4 +97,29 @@
 </div>
 
 </div>
+{% if album.has_child_albums %}
+<div class="span4">
+	<div class="well">
+		<h3>Sub Albums for {{ album }}</h3>
+		<ul class="thumbnails">
+		{% for album in child_albums.object_list %}
+        		
+		{% load thumbnail %}
+		{% thumbnail album.get_album_cover.image "75x75" crop="center" as im %}
+		<li class="span1">
+			<a href="{{ album.get_absolute_url }}" class="thumbnail">
+		<img src="{{ im.url }}" alt="">
+		{{ album }}
+		</a>
+		</li>
+		{% endthumbnail %}
+		
+		{% endfor %}
+		
+		</ul>
+	</div>
+</div>
+{% endif %}
+
+
 {% endblock %}
