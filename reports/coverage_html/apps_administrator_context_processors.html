@@ -5,7 +5,7 @@
     
     
     <meta http-equiv='X-UA-Compatible' content='IE=emulateIE7' />
-    <title>Coverage for apps/administrator/context_processors: 67%</title>
+    <title>Coverage for apps/administrator/context_processors: 100%</title>
     <link rel='stylesheet' href='style.css' type='text/css'>
     <script type='text/javascript' src='jquery-1.4.3.min.js'></script>
     <script type='text/javascript' src='jquery.hotkeys.js'></script>
@@ -20,13 +20,13 @@
 <div id='header'>
     <div class='content'>
         <h1>Coverage for <b>apps/administrator/context_processors</b> :
-            <span class='pc_cov'>67%</span>
+            <span class='pc_cov'>100%</span>
         </h1>
         <img id='keyboard_icon' src='keybd_closed.png'>
         <h2 class='stats'>
             6 statements
-            <span class='run hide_run shortkey_r' onclick='coverage.toggle_lines(this, "run")'>4 run</span>
-            <span class='mis shortkey_m' onclick='coverage.toggle_lines(this, "mis")'>2 missing</span>
+            <span class='run hide_run shortkey_r' onclick='coverage.toggle_lines(this, "run")'>6 run</span>
+            <span class='mis shortkey_m' onclick='coverage.toggle_lines(this, "mis")'>0 missing</span>
             <span class='exc shortkey_x' onclick='coverage.toggle_lines(this, "exc")'>0 excluded</span>
             
         </h2>
@@ -65,8 +65,8 @@
 <p id='n3' class='pln'><a href='#n3'>3</a></p>
 <p id='n4' class='stm run hide_run'><a href='#n4'>4</a></p>
 <p id='n5' class='stm run hide_run'><a href='#n5'>5</a></p>
-<p id='n6' class='stm mis'><a href='#n6'>6</a></p>
-<p id='n7' class='stm mis'><a href='#n7'>7</a></p>
+<p id='n6' class='stm run hide_run'><a href='#n6'>6</a></p>
+<p id='n7' class='stm run hide_run'><a href='#n7'>7</a></p>
                 
             </td>
             <td class='text' valign='top'>
@@ -75,8 +75,8 @@
 <p id='t3' class='pln'><span class='strut'>&nbsp;</span></p>
 <p id='t4' class='stm run hide_run'><span class='key'>def</span> <span class='nam'>settings</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
 <p id='t5' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>settings</span> <span class='op'>=</span> <span class='nam'>get_object_or_404</span><span class='op'>(</span><span class='nam'>Settings</span><span class='op'>,</span> <span class='nam'>pk</span><span class='op'>=</span><span class='num'>1</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
-<p id='t6' class='stm mis'>&nbsp; &nbsp; <span class='nam'>context</span> <span class='op'>=</span> <span class='op'>{</span><span class='str'>&#39;app_name&#39;</span><span class='op'>:</span><span class='nam'>settings</span><span class='op'>.</span><span class='nam'>app_name</span><span class='op'>,</span> <span class='str'>&#39;enable_download&#39;</span><span class='op'>:</span><span class='nam'>settings</span><span class='op'>.</span><span class='nam'>enable_download</span><span class='op'>}</span><span class='strut'>&nbsp;</span></p>
-<p id='t7' class='stm mis'>&nbsp; &nbsp; <span class='key'>return</span> <span class='nam'>context</span><span class='strut'>&nbsp;</span></p>
+<p id='t6' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>context</span> <span class='op'>=</span> <span class='op'>{</span><span class='str'>&#39;app_name&#39;</span><span class='op'>:</span><span class='nam'>settings</span><span class='op'>.</span><span class='nam'>app_name</span><span class='op'>,</span> <span class='str'>&#39;enable_download&#39;</span><span class='op'>:</span><span class='nam'>settings</span><span class='op'>.</span><span class='nam'>enable_download</span><span class='op'>}</span><span class='strut'>&nbsp;</span></p>
+<p id='t7' class='stm run hide_run'>&nbsp; &nbsp; <span class='key'>return</span> <span class='nam'>context</span><span class='strut'>&nbsp;</span></p>
                 
             </td>
         </tr>
