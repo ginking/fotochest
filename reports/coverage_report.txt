@@ -1,0 +1,32 @@
+Name                                                                                           Stmts   Miss  Cover   Missing
+----------------------------------------------------------------------------------------------------------------------------
+apps/administrator/__init__                                                                        0      0   100%   
+apps/administrator/migrations/0001_initial                                                        12      1    92%   22
+apps/administrator/migrations/0002_auto__add_field_settings_enable_download                       11      1    91%   18
+apps/administrator/migrations/__init__                                                             0      0   100%   
+apps/administrator/models                                                                          6      1    83%   9
+apps/photo_manager/__init__                                                                        0      0   100%   
+apps/photo_manager/managers                                                                        4      1    75%   5
+apps/photo_manager/migrations/0001_initial                                                        15      2    87%   43-46
+apps/photo_manager/migrations/0002_auto__add_field_photo_thumbs_created                           11      1    91%   18
+apps/photo_manager/migrations/0003_auto__chg_field_photo_user__chg_field_photo_date_uploaded      13      2    85%   21-24
+apps/photo_manager/migrations/0004_auto__add_field_photo_deleted                                  11      1    91%   18
+apps/photo_manager/migrations/__init__                                                             0      0   100%   
+apps/photo_manager/models                                                                        117     64    45%   22, 25-26, 30-31, 34-59, 63-67, 72, 76, 80, 99, 102-103, 107, 112-117, 121-126, 129-130, 140-142, 145-151, 156, 161, 169
+apps/photo_manager/tests/__init__                                                                  2      0   100%   
+apps/photo_manager/tests/general                                                                  16      1    94%   14
+apps/photo_manager/tests/tests                                                                     0      0   100%   
+apps/profiles/__init__                                                                             0      0   100%   
+apps/profiles/choices                                                                              1      0   100%   
+apps/profiles/migrations/0001_initial                                                             12      1    92%   23
+apps/profiles/migrations/0002_auto__add_field_profile_profile_picture                             11      1    91%   18
+apps/profiles/migrations/__init__                                                                  0      0   100%   
+apps/profiles/models                                                                               9      0   100%   
+conf/__init__                                                                                      0      0   100%   
+conf/environment                                                                                  15      0   100%   
+manage                                                                                             6      0   100%   
+settings/__init__                                                                                  0      0   100%   
+settings/common                                                                                   25      0   100%   
+settings/local                                                                                    19      0   100%   
+----------------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                            316     77    76%   
