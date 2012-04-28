@@ -1,2 +1,2 @@
-from tests import *
-from general import *
+from photo_manager.tests.live import *
+from photo_manager.tests.models import *

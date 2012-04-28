@@ -5,7 +5,7 @@
     
     
     <meta http-equiv='X-UA-Compatible' content='IE=emulateIE7' />
-    <title>Coverage for apps/photo_manager/models: 45%</title>
+    <title>Coverage for apps/photo_manager/models: 48%</title>
     <link rel='stylesheet' href='style.css' type='text/css'>
     <script type='text/javascript' src='jquery-1.4.3.min.js'></script>
     <script type='text/javascript' src='jquery.hotkeys.js'></script>
@@ -20,13 +20,13 @@
 <div id='header'>
     <div class='content'>
         <h1>Coverage for <b>apps/photo_manager/models</b> :
-            <span class='pc_cov'>45%</span>
+            <span class='pc_cov'>48%</span>
         </h1>
         <img id='keyboard_icon' src='keybd_closed.png'>
         <h2 class='stats'>
             117 statements
-            <span class='run hide_run shortkey_r' onclick='coverage.toggle_lines(this, "run")'>53 run</span>
-            <span class='mis shortkey_m' onclick='coverage.toggle_lines(this, "mis")'>64 missing</span>
+            <span class='run hide_run shortkey_r' onclick='coverage.toggle_lines(this, "run")'>56 run</span>
+            <span class='mis shortkey_m' onclick='coverage.toggle_lines(this, "mis")'>61 missing</span>
             <span class='exc shortkey_x' onclick='coverage.toggle_lines(this, "exc")'>0 excluded</span>
             
         </h2>
@@ -81,11 +81,11 @@
 <p id='n19' class='stm run hide_run'><a href='#n19'>19</a></p>
 <p id='n20' class='pln'><a href='#n20'>20</a></p>
 <p id='n21' class='stm run hide_run'><a href='#n21'>21</a></p>
-<p id='n22' class='stm mis'><a href='#n22'>22</a></p>
+<p id='n22' class='stm run hide_run'><a href='#n22'>22</a></p>
 <p id='n23' class='pln'><a href='#n23'>23</a></p>
 <p id='n24' class='stm run hide_run'><a href='#n24'>24</a></p>
-<p id='n25' class='stm mis'><a href='#n25'>25</a></p>
-<p id='n26' class='stm mis'><a href='#n26'>26</a></p>
+<p id='n25' class='stm run hide_run'><a href='#n25'>25</a></p>
+<p id='n26' class='stm run hide_run'><a href='#n26'>26</a></p>
 <p id='n27' class='pln'><a href='#n27'>27</a></p>
 <p id='n28' class='stm run hide_run'><a href='#n28'>28</a></p>
 <p id='n29' class='pln'><a href='#n29'>29</a></p>
@@ -253,11 +253,11 @@
 <p id='t19' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>user</span> <span class='op'>=</span> <span class='nam'>models</span><span class='op'>.</span><span class='nam'>ForeignKey</span><span class='op'>(</span><span class='nam'>User</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t20' class='pln'><span class='strut'>&nbsp;</span></p>
 <p id='t21' class='stm run hide_run'>&nbsp; &nbsp; <span class='key'>def</span> <span class='nam'>__unicode__</span><span class='op'>(</span><span class='nam'>self</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
-<p id='t22' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>return</span> <span class='nam'>self</span><span class='op'>.</span><span class='nam'>title</span><span class='strut'>&nbsp;</span></p>
+<p id='t22' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='key'>return</span> <span class='nam'>self</span><span class='op'>.</span><span class='nam'>title</span><span class='strut'>&nbsp;</span></p>
 <p id='t23' class='pln'><span class='strut'>&nbsp;</span></p>
 <p id='t24' class='stm run hide_run'>&nbsp; &nbsp; <span class='key'>def</span> <span class='nam'>save</span><span class='op'>(</span><span class='nam'>self</span><span class='op'>,</span> <span class='op'>*</span><span class='nam'>args</span><span class='op'>,</span> <span class='op'>**</span><span class='nam'>kwargs</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
-<p id='t25' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>unique_slugify</span><span class='op'>(</span><span class='nam'>self</span><span class='op'>,</span> <span class='nam'>self</span><span class='op'>.</span><span class='nam'>title</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
-<p id='t26' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>super</span><span class='op'>(</span><span class='nam'>Album</span><span class='op'>,</span> <span class='nam'>self</span><span class='op'>)</span><span class='op'>.</span><span class='nam'>save</span><span class='op'>(</span><span class='op'>*</span><span class='nam'>args</span><span class='op'>,</span> <span class='op'>**</span><span class='nam'>kwargs</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t25' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>unique_slugify</span><span class='op'>(</span><span class='nam'>self</span><span class='op'>,</span> <span class='nam'>self</span><span class='op'>.</span><span class='nam'>title</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t26' class='stm run hide_run'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>super</span><span class='op'>(</span><span class='nam'>Album</span><span class='op'>,</span> <span class='nam'>self</span><span class='op'>)</span><span class='op'>.</span><span class='nam'>save</span><span class='op'>(</span><span class='op'>*</span><span class='nam'>args</span><span class='op'>,</span> <span class='op'>**</span><span class='nam'>kwargs</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t27' class='pln'><span class='strut'>&nbsp;</span></p>
 <p id='t28' class='stm run hide_run'>&nbsp; &nbsp; <span class='key'>def</span> <span class='nam'>get_preview_photos</span><span class='op'>(</span><span class='nam'>self</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
 <p id='t29' class='pln'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='com'># Test Func</span><span class='strut'>&nbsp;</span></p>
