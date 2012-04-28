@@ -16,11 +16,17 @@ class PhotoManagerServerTests(LiveServerTestCase):
         self.user.is_staff = True
         self.user.save()
         self.settings = SettingsFactory.create()
-        settings.DEBUG = True
-        self.selenium = WebDriver()
-        
-    #def tearDown(self):
-        #self.selenium.quit()
+        settings.DEBUG = True    
+    
+    @classmethod
+    def setUpClass(cls):
+        cls.selenium = WebDriver()
+        super(PhotoManagerServerTests, cls).setUpClass()
+    
+    @classmethod
+    def tearDownClass(cls):
+        super(PhotoManagerServerTests, cls).tearDownClass()
+        cls.selenium.quit()
         
     def test_login(self):
         self.selenium.get("%s%s" % (self.live_server_url, "/admin/"))
