@@ -1,3 +1,11 @@
+/* Globals */
+
+.navbar .navbar-inner
+{
+    border-radius: none;
+}
+
+
 #small_map
 {
     border-radius: 5px;

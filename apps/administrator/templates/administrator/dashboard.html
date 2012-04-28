@@ -63,6 +63,8 @@
       {% if photo.description %}
       <p>{{ photo.description }}</p>
       {% endif %}
+      <span class="label {% if photo.thumbs_created %}label-success{% else %}label-important{% endif %}">{% if photo.thumbs_created %}Thumbnails Created{% else %}Thumnails Failed{% endif %}</span>
+      <br/>
       <a href="#"><i class="icon-map-marker"></i>  {{ photo.location }}</a>
       
     </div>
