@@ -25,5 +25,5 @@ class AlbumModelTest(TestCase):
         self.assertTrue(self.album.has_child_albums)
     
     def test_unicode(self):
-        self.assertEqual(self.album.__unicode__(), "Roma")
+        self.assertEqual(self.album.__unicode__(), "Rh jgd g jfoma")
             
