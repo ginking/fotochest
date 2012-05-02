@@ -10,6 +10,12 @@ before_script:
   - sleep 3 # give Web server some time to bind to sockets, etc
 
 # command to install dependencies
-install: pip install -r conf/requirements.txt
+install: pip install -r conf/requirements.txt --use-mirrors
 # command to run tests
-script: python manage.py test photo_manager --settings=settings.local
+script:
+  - "cd apps pep8 photo_manager --exclude=migrations"
+  - "pep8 adminstrator --exclude=migrations"
+  - "pyflakes photo_manager"
+  - "pyflakes administrator"
+  - "cd .."
+  - python manage.py test photo_manager --settings=settings.local
