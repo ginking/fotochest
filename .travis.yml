@@ -13,9 +13,4 @@ before_script:
 install: pip install -r conf/requirements.txt --use-mirrors
 # command to run tests
 script:
-  - "cd apps pep8 photo_manager --exclude=migrations"
-  - "pep8 adminstrator --exclude=migrations"
-  - "pyflakes photo_manager"
-  - "pyflakes administrator"
-  - "cd .."
   - python manage.py test photo_manager --settings=settings.local
