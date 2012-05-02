@@ -16,7 +16,7 @@ from PIL import Image
 from photo_manager.forms import *
 from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
-from administrator.forms import AlbumForm
+from photo_manager.forms import AlbumForm
 from conf import defaults
 from django.contrib import messages
 from django.http import HttpResponse
