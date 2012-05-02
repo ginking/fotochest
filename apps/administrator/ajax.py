@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from photo_manager.models import Photo, Album
 
 def update_photo_title(request):
     if request.method == "POST":

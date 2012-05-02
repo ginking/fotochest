@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from hadrian.utils.slugs import unique_slugify
 import os
-from django.conf import settings
+
 from locations.models import *
 from sorl.thumbnail import get_thumbnail
 from PIL import Image
@@ -137,9 +137,9 @@ class Photo(models.Model):
         # 75x75 for map (Other location photos)
         # 1024x768 for photo.html
         
-        im = get_thumbnail(self.image, '75x75', crop="center")
-        im2 = get_thumbnail(self.image, '1024x768')
-        im3 = get_thumbnail(self.image, '240x165')
+        get_thumbnail(self.image, '75x75', crop="center")
+        get_thumbnail(self.image, '1024x768')
+        get_thumbnail(self.image, '240x165')
         
     def get_exif_data(self):
         exif_data = {}

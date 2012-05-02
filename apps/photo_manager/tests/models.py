@@ -1,10 +1,8 @@
 from django.test import TestCase
 from django.test.client import Client
 from photo_manager.models import *
-from photo_manager.tests.factories import AlbumFactory, PhotoFactory
+from photo_manager.tests.factories import AlbumFactory
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
-
 
 class AlbumModelTest(TestCase):
 

@@ -4,7 +4,7 @@ apps/administrator/__init__                 0      0   100%
 apps/administrator/admin                    3      0   100%   
 apps/administrator/ajax                    17     14    18%   4-11, 15-22
 apps/administrator/context_processors       6      0   100%   
-apps/administrator/forms                   10      0   100%   
+apps/administrator/forms                    5      0   100%   
 apps/administrator/jobs                    13     11    15%   6-17
 apps/administrator/models                   6      1    83%   9
 apps/administrator/tasks                   10      4    60%   8-11
@@ -14,10 +14,10 @@ apps/administrator/urls                     3      0   100%
 apps/administrator/views                  166    127    23%   26-27, 31-46, 50-62, 66-68, 72-75, 79-88, 92-103, 107-117, 120, 131-171, 177-194, 198-205, 209-220
 apps/photo_manager/__init__                 0      0   100%   
 apps/photo_manager/admin                    9      0   100%   
-apps/photo_manager/api                     60     25    58%   23-28, 49-58, 61-69
-apps/photo_manager/context_processors      13      0   100%   
+apps/photo_manager/api                     50     23    54%   16-21, 41-48, 51-59
+apps/photo_manager/context_processors       6      0   100%   
 apps/photo_manager/feeds                   25      7    72%   11, 14, 17, 25, 28, 31, 34
-apps/photo_manager/forms                   13      0   100%   
+apps/photo_manager/forms                    6      0   100%   
 apps/photo_manager/managers                 4      0   100%   
 apps/photo_manager/models                 117     58    50%   30-31, 34-59, 65, 72, 76, 80, 99, 102-103, 107, 112-117, 121-126, 129-130, 140-142, 145-151, 156, 161, 169
 apps/photo_manager/tasks                   10      4    60%   8-11
@@ -25,8 +25,8 @@ apps/photo_manager/tests/__init__           2      0   100%
 apps/photo_manager/tests/factories          8      0   100%   
 apps/photo_manager/tests/live              26      0   100%   
 apps/photo_manager/tests/models            21      0   100%   
-apps/photo_manager/urls                    12      0   100%   
-apps/photo_manager/views                  132     97    27%   21-52, 55-71, 84-87, 92-100, 103-109, 112-115, 119-130, 135-148, 151-169
+apps/photo_manager/urls                    11      0   100%   
+apps/photo_manager/views                  112     89    21%   10-41, 44-60, 73-76, 81-89, 92-98, 101-104, 108-119, 124-127, 130-148
 apps/profiles/__init__                      0      0   100%   
 apps/profiles/admin                        14      0   100%   
 apps/profiles/choices                       1      0   100%   
@@ -43,4 +43,4 @@ settings/local                             19      0   100%
 urls/__init__                               0      0   100%   
 urls/local                                  6      0   100%   
 ---------------------------------------------------------------------
-TOTAL                                     841    385    54%   
+TOTAL                                     791    375    53%   

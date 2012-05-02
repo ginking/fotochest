@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
 from photo_manager.views import homepage, photo, photo_fullscreen, locations, location, slideshow, album, albums, photo_download
 from photo_manager.feeds import StreamFeed, AlbumStream
-from django.conf import settings
 from photo_manager.api import PhotoResource, AlbumResource, LocationResource
 from tastypie.api import Api
 
@@ -9,8 +8,6 @@ v1_api = Api(api_name='v1')
 v1_api.register(PhotoResource())
 v1_api.register(AlbumResource())
 v1_api.register(LocationResource())
-
-
 
 urlpatterns = patterns('',
         

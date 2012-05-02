@@ -1,9 +1,9 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from photo_manager.models import Photo, Album
 from locations.models import *
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
+
 
 
 def album(request, album_id, album_slug):
@@ -92,7 +92,6 @@ def photo_download(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
     file = photo.image
     mimetype = "application/octet-stream"
-    import os
     response = HttpResponse(file.read(), mimetype=mimetype)
     response["Content-Disposition"]= "attachment; filename=%s" % photo.filename
     return response
