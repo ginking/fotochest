@@ -1,21 +1,10 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.csrf import csrf_exempt
 from photo_manager.models import Photo, Album
 from locations.models import *
-from locations.forms import *
-from django.contrib.auth.models import User
-import os
-from django.conf import settings
-import random
-from sorl.thumbnail import get_thumbnail
-import sorl
-from PIL import Image
-from photo_manager.forms import *
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from photo_manager.tasks import ThumbnailTask
-from django.http import HttpResponse
+
 
 def album(request, album_id, album_slug):
     context = {}
@@ -134,16 +123,6 @@ def slideshow(request, location_slug=None, album_slug=None):
 def locations(request):
     context = {}
     context['locations'] = Location.objects.all()
-    if request.POST:
-        form = LocationForm(request.POST)
-        if form.is_valid():
-            location = form.save()
-            if username:
-                redirect("locations.views.locations", username=username)
-            else:
-                redirect("locations")
-    else:
-        context['location_form'] = LocationForm()
     
     return render(request, "%s/map.html" % settings.ACTIVE_THEME, context)
     
