@@ -14,7 +14,7 @@ install: pip install -r conf/requirements.txt --use-mirrors
 # command to run tests
 script:
   - "cd apps pep8 photo_manager --exclude=migrations"
-  - "pep8 adminstrator --exclude=migrations"
+  - "pep8 administrator --exclude=migrations"
   - "pyflakes photo_manager"
   - "pyflakes administrator"
   - "cd .."
