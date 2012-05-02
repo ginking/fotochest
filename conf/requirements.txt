@@ -17,3 +17,5 @@ django-test-utils
 factory_boy
 coverage
 selenium
+pep8
+pyflakes
