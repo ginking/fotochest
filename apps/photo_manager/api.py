@@ -51,8 +51,6 @@ class PhotoResource(ModelResource):
         orm_filters = super(PhotoResource, self).build_filters(filters)
         if "album_id" in filters:
             orm_filters['album__id'] = filters['album_id']
-        if "username" in filters:
-            orm_filters['user__username'] = filters['username']
         if "location_id" in filters:
             orm_filters['location__id'] = filters['location_id']
         return orm_filters
