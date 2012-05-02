@@ -12,4 +12,9 @@ before_script:
 # command to install dependencies
 install: pip install -r conf/requirements.txt
 # command to run tests
-script: python manage.py test photo_manager --settings=settings.local
+script:
+  - "cd apps pep8 photo_manager --exclude=migrations"
+  - "cd apps pep8 adminstrator --exclude=migrations"
+  - "cd apps pyflakes photo_manager"
+  - "cd apps pyflakes administrator"
+  - python manage.py test photo_manager --settings=settings.local
