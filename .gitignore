@@ -6,3 +6,4 @@ settings/staging.py
 dev.db
 uploads
 .coverage
+reports/coverage_html
