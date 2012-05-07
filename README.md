@@ -1,5 +1,3 @@
-[![Build Status](https://secure.travis-ci.org/fotochest/fotochest.png?branch=develop)](http://travis-ci.org/fotochest/fotochest)
-
 #FotoChest
 
 http://readthedocs.org/docs/fotochest/en/latest/
@@ -20,13 +18,13 @@ Python/Django
 ##Installation
 
     pip install -r conf/requirements.txt
-    ./run_all_tets.sh
+    ./run_all_tests.sh
     fab run_local_celery
     fab run_local
 
 ##Road Map
 
-See the wiki 
+See the wiki
 
 ###Thanks
 
