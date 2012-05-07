@@ -1,16 +1,9 @@
 from tastypie.resources import ModelResource
 from photo_manager.models import Photo, Album
 from locations.models import Location
-from django.contrib.auth.models import User
 from tastypie import fields
 from sorl.thumbnail import get_thumbnail
 
-class UserResource(ModelResource):
-    class Meta:
-        queryset = User.objects.all()
-        resource_name = 'user'
-        excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
-        allowed_methods = ['get']
 
 class AlbumResource(ModelResource):
     class Meta:
@@ -35,7 +28,6 @@ class LocationResource(ModelResource):
 
 
 class PhotoResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
     album = fields.ForeignKey(AlbumResource, 'album')
     location = fields.ForeignKey(LocationResource, 'location')
     
@@ -51,8 +43,6 @@ class PhotoResource(ModelResource):
         orm_filters = super(PhotoResource, self).build_filters(filters)
         if "album_id" in filters:
             orm_filters['album__id'] = filters['album_id']
-        if "username" in filters:
-            orm_filters['user__username'] = filters['username']
         if "location_id" in filters:
             orm_filters['location__id'] = filters['location_id']
         return orm_filters

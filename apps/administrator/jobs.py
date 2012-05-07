@@ -1,4 +1,5 @@
 from photo_manager.models import Photo
+from django.http import HttpResponse
 ### Jobs
 
 ''' Consider this for removal do to celery '''

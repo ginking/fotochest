@@ -1,5 +1,5 @@
 django==1.4
-south
+south==0.7.4
 hadrian
 PIL
 sorl-thumbnail
@@ -16,3 +16,6 @@ django-location
 django-test-utils
 factory_boy
 coverage
+selenium
+pep8
+pyflakes

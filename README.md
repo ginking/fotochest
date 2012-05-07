@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/fotochest/fotochest.png?branch=develop)](http://travis-ci.org/fotochest/fotochest)
+
 #FotoChest
 
 http://readthedocs.org/docs/fotochest/en/latest/

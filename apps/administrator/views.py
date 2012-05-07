@@ -10,13 +10,12 @@ from django.contrib.auth.models import User
 import os
 from django.conf import settings as app_settings
 import random
-from sorl.thumbnail import get_thumbnail
 import sorl
 from PIL import Image
 from photo_manager.forms import *
 from django.contrib.auth.decorators import login_required
 from photo_manager.tasks import ThumbnailTask
-from administrator.forms import AlbumForm
+from photo_manager.forms import AlbumForm
 from conf import defaults
 from django.contrib import messages
 from django.http import HttpResponse
@@ -80,7 +79,7 @@ def add_location(request):
     if request.method == "POST":
         form = LocationForm(request.POST)
         if form.is_valid():
-            location = form.save()
+            form.save()
             return redirect("administrator.views.locations")
     else:
         form = LocationForm()
@@ -109,7 +108,7 @@ def locations(request, username=None):
     if request.method == "POST":
         form = LocationForm(request.POST)
         if form.is_valid():
-            location = form.save()
+            form.save()
             return redirect("administrator.views.locations")
     else:
         form = LocationForm()
