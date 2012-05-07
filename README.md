@@ -43,3 +43,7 @@ Python/Django
 * Finish Template Documentation/Finalize Layouts
 * Use new Upload Tool
 
+###Thanks
+
+* https://github.com/blueimp/Bootstrap-Image-Gallery/
+* https://github.com/blueimp/jQuery-File-Upload/
