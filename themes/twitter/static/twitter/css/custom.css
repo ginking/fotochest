@@ -1,5 +1,11 @@
 /* Globals */
 
+body
+{
+    background: #efefef;
+    
+}
+
 .navbar .navbar-inner
 {
     border-radius: none;
@@ -28,7 +34,6 @@
     clear: both;
 }
 
-// Comments
 .comments .well.odd
 
 {
@@ -48,4 +53,36 @@
 .photo-nav
 {
     margin-bottom: 10px;
+}
+
+.polaroid
+{
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.6);
+    margin: 10px 12px 15px 0;
+    padding: 9px;
+}
+
+a.polaroid
+{
+    text-decoration: none;
+}
+
+.polaroid img
+{
+    margin-bottom: 7px;
+}
+
+.polaroid span
+{
+    font-family: 'Handlee', cursive;
+    font-size: 13px;
+    
+}
+
+
+.slideshow-image
+{
+    /*display: none; */
 }
