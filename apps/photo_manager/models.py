@@ -140,6 +140,7 @@ class Photo(models.Model):
         get_thumbnail(self.image, '75x75', crop="center")
         get_thumbnail(self.image, '1024x768')
         get_thumbnail(self.image, '240x165')
+        get_thumbnail(self.image, '240x161', crop="center")
         
     def get_exif_data(self):
         exif_data = {}

@@ -8,7 +8,7 @@ body
 
 .navbar .navbar-inner
 {
-    border-radius: none;
+    border-radius: 0;
 }
 
 
