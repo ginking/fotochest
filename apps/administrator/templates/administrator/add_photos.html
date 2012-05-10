@@ -1,12 +1,15 @@
 {% extends "administrator/base.html" %}
 {% block extra_foot %}
+{{ block.super }}
 <!-- Begin New UPloader -->
 <link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
 <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
 <link rel="stylesheet" href="{{ STATIC_URL }}uploader/css/jquery.fileupload-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
 <script src="{{ STATIC_URL }}uploader/js/vendor/jquery.ui.widget.js"></script>
-
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
 <script src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
 <!-- The Canvas to Blob plugin is included for image resizing functionality -->
@@ -22,36 +25,25 @@
 <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-fp.js"></script>
 <!-- The File Upload user interface plugin -->
 <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-ui.js"></script>
-<!-- The localization script -->
-<script src="{{ STATIC_URL }}uploader/js/locale.js"></script>
-<!-- The main application script -->
-<script src="{{ STATIC_URL }}uploader/js/main.js"></script>
+
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="{{ STATIC_URL }}uploader/js/cors/jquery.xdr-transport.js"></script><![endif]-->
-
 <!-- The template to display files available for upload -->
 
 <!-- End New Uploader -->
 
-
-    <link href="{{ STATIC_URL }}js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/swfobject.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-      $('#file_upload').uploadify({
-        'uploader'  : '{{ domain_static }}js/uploadify/uploadify.swf',
-        'script'    : '{% url file_uploader album_slug=album_slug location_slug=location_slug user_id=request.user.id %}',
-        'cancelImg' : '{{ STATIC_URL }}js/uploadify/cancel.png',
-        'folder'    : '{{ upload_dir }}',
-        'auto'      : true,
-        'multi'     : true,
-        'scriptAccess' : 'always',
-      });
+<script>
+$(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
     });
-    </script>
-
+});
+</script>
   {% endblock extra_foot %}
   
   {% block navigation %}
@@ -64,49 +56,92 @@
 <div class="page-header">
 <h2>Add Photos</h2>
 </div>
-<input id="file_upload" name="file_upload" type="file" />
+{% load verbatim %}
 
 <h2>Jquery Upload</h2>
 <!-- The file upload form used as target for the file upload widget -->
-<form id="fileupload" action="server/php/" method="POST" enctype="multipart/form-data">
-    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-    <div class="row fileupload-buttonbar">
-        <div class="span7">
-            <!-- The fileinput-button span is used to style the file input field as button -->
-            <span class="btn btn-success fileinput-button">
-                <i class="icon-plus icon-white"></i>
+<div id="fileupload">
+    <form action="{% url administrator.upload.multiuploader %}" method="POST" enctype="multipart/form-data">
+        <div class="fileupload-buttonbar">
+            <label class="fileinput-button">
                 <span>Add files...</span>
                 <input type="file" name="files[]" multiple>
-            </span>
-            <button type="submit" class="btn btn-primary start">
-                <i class="icon-upload icon-white"></i>
-                <span>Start upload</span>
-            </button>
-            <button type="reset" class="btn btn-warning cancel">
-                <i class="icon-ban-circle icon-white"></i>
-                <span>Cancel upload</span>
-            </button>
-            <button type="button" class="btn btn-danger delete">
-                <i class="icon-trash icon-white"></i>
-                <span>Delete</span>
-            </button>
-            <input type="checkbox" class="toggle">
+            </label>
+            <button type="submit" class="start">Start upload</button>
+            <button type="reset" class="cancel">Cancel upload</button>
+            <button type="button" class="delete">Delete files</button>
         </div>
-        <!-- The global progress information -->
-        <div class="span5 fileupload-progress fade">
-            <!-- The global progress bar -->
-            <div class="progress progress-success progress-striped active">
-                <div class="bar" style="width:0%;"></div>
-            </div>
-            <!-- The extended global progress information -->
-            <div class="progress-extended">&nbsp;</div>
-        </div>
+    </form>
+    <div class="fileupload-content">
+        <table class="files"></table>
+        <div class="fileupload-progressbar"></div>
     </div>
-    <!-- The loading indicator is shown during file processing -->
-    <div class="fileupload-loading"></div>
-    <br>
-    <!-- The table listing the files available for upload/download -->
-    <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
-</form>
-
+</div>
+<div id="help" style="color:gray;">
+<h2>
+    <p>You can select Multiple files at once using Ctrl(Win) or Command(Mac), or you can drag'n'drop your files on this form.</p>
+</h2>
+{% verbatim %}
+<script id="template-upload" type="text/x-jquery-tmpl">
+    <tr class="template-upload{{if error}} ui-state-error{{/if}}">
+        <td class="preview"></td>
+        <td class="name">${name}</td>
+        <td class="size">${sizef}</td>
+        {{if error}}
+            <td class="error" colspan="2">Error:
+                {{if error === 'maxFileSize'}}File is too big
+                {{else error === 'minFileSize'}}File is too small
+                {{else error === 'acceptFileTypes'}}Filetype not allowed
+                {{else error === 'maxNumberOfFiles'}}Max number of files exceeded
+                {{else}}${error}
+                {{/if}}
+            </td>
+        {{else}}
+            <td class="progress"><div></div></td>
+            <td class="start"><button>Start</button></td>
+        {{/if}}
+        <td class="cancel"><button>Cancel</button></td>
+    </tr>
+</script>
+<script id="template-download" type="text/x-jquery-tmpl">
+    <tr class="template-download{{if error}} ui-state-error{{/if}}">
+        {{if error}}
+            <td></td>
+            <td class="name">${name}</td>
+            <td class="size">${sizef}</td>
+            <td class="error" colspan="2">Error:
+                {{if error === 1}}File exceeds upload_max_filesize (php.ini directive)
+                {{else error === 2}}File exceeds MAX_FILE_SIZE (HTML form directive)
+                {{else error === 3}}File was only partially uploaded
+                {{else error === 4}}No File was uploaded
+                {{else error === 5}}Missing a temporary folder
+                {{else error === 6}}Failed to write file to disk
+                {{else error === 7}}File upload stopped by extension
+                {{else error === 'maxFileSize'}}File is too big
+                {{else error === 'minFileSize'}}File is too small
+                {{else error === 'acceptFileTypes'}}Filetype not allowed
+                {{else error === 'maxNumberOfFiles'}}Max number of files exceeded
+                {{else error === 'uploadedBytes'}}Uploaded bytes exceed file size
+                {{else error === 'emptyResult'}}Empty file upload result
+                {{else}}${error}
+                {{/if}}
+            </td>
+        {{else}}
+            <td class="preview">
+                {{if thumbnail_url}}
+                    <a href="${url}" target="_blank"><img src="${thumbnail_url}"></a>
+                {{/if}}
+            </td>
+            <td class="name">
+                <a href="${url}"{{if thumbnail_url}} target="_blank"{{/if}}>${name}</a>
+            </td>
+            <td class="size">${sizef}</td>
+            <td colspan="2"></td>
+        {{/if}}
+        <td class="delete">
+            <button data-type="${delete_type}" data-url="${delete_url}">Delete</button>
+        </td>
+    </tr>
+</script>
+{% endverbatim %}
 {% endblock main_content %}
