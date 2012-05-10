@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'photo_manager',
     'administrator',
     'api_docs',
+    'taggit',
     # Everyone should be using south.  Seriously.
     'south',
     'sorl.thumbnail',
