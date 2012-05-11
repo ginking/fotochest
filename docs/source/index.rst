@@ -12,9 +12,12 @@ Contents:
    :maxdepth: 2
    
    quick_start
-   themes
+   themes/introduction
    contributing
    license
+   manual/introduction
+   manual/albums
+   manual/locations
 
 
 
