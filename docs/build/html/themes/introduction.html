@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Theme Basics &mdash; FotoChest 2.1 documentation</title>
+    <title>Theme Creation Basics &mdash; FotoChest 2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -51,72 +51,13 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="theme-basics">
-<h1>Theme Basics<a class="headerlink" href="#theme-basics" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>Fotochest requires:</p>
-<div class="highlight-python"><pre>south
-sorl-thumbnail
-django 1.4 or greater</pre>
+  <div class="section" id="theme-creation-basics">
+<h1>Theme Creation Basics<a class="headerlink" href="#theme-creation-basics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="editing-the-default-theme">
+<h2>Editing the Default Theme<a class="headerlink" href="#editing-the-default-theme" title="Permalink to this headline">¶</a></h2>
 </div>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>Using <tt class="docutils literal"><span class="pre">pip</span></tt>:</p>
-<div class="highlight-python"><pre>pip install git+git://github.com/fotochest/fotochest.git</pre>
-</div>
-<p>Go to <a class="reference external" href="https://github.com/fotochest/fotochest">https://github.com/fotochest/fotochest</a> if you need to download a package or clone the repo.</p>
-</div>
-<div class="section" id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<p>Open <tt class="docutils literal"><span class="pre">settings.py</span></tt> and add``photo_manager``, <tt class="docutils literal"><span class="pre">'sorl.thumbnail'</span></tt>, <tt class="docutils literal"><span class="pre">locations</span></tt>, <tt class="docutils literal"><span class="pre">south</span></tt>, and <tt class="docutils literal"><span class="pre">profiles</span></tt> to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s">&#39;photo_manager&#39;</span><span class="p">,</span>
-    <span class="s">&#39;south&#39;</span><span class="p">,</span>
-    <span class="s">&#39;sorl.thumbnail&#39;</span><span class="p">,</span>
-    <span class="s">&#39;locations&#39;</span><span class="p">,</span>
-    <span class="s">&#39;profiles&#39;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>Open <tt class="docutils literal"><span class="pre">settings.py</span></tt> and add the following to TEMPLATE_CONTEXT_PROCESSORS:</p>
-<div class="highlight-python"><pre>TEMPLATE_CONTEXT_PROCESSORS = (
-"django.core.context_processors.auth",
-"django.core.context_processors.debug",
-"django.core.context_processors.media",
-"django.core.context_processors.static",
-"django.core.context_processors.request",
-"django.contrib.messages.context_processors.messages",
-"photo_manager.context_processors.theme_files",
-"photo_manager.context_processors.locations_albums",</pre>
-</div>
-<p>)</p>
-<p>Add URL-patterns:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
-    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^fotochest/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;photo_manager.urls&#39;</span><span class="p">)),</span>
-    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^map/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;locations.urls&#39;</span><span class="p">)),</span>
-    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^accounts/login/$&#39;</span><span class="p">,</span> <span class="s">&#39;django.contrib.auth.views.login&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;template_name&#39;</span><span class="p">:</span> <span class="s">&#39;login.html&#39;</span><span class="p">}),</span>
-    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^accounts/logout/$&#39;</span><span class="p">,</span> <span class="s">&#39;django.contrib.auth.views.logout&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;next_page&#39;</span><span class="p">:</span> <span class="s">&#39;/&#39;</span><span class="p">}),</span>
-    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^accounts/redirect/$&#39;</span><span class="p">,</span> <span class="s">&#39;profiles.views.redirect_home&#39;</span><span class="p">),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>Add custom settings parameters:</p>
-<div class="section" id="photo-directory-os-path-join-site-root-uploads-images">
-<h3>PHOTO_DIRECTORY = os.path.join(SITE_ROOT, &#8216;uploads/images&#8217;)<a class="headerlink" href="#photo-directory-os-path-join-site-root-uploads-images" title="Permalink to this headline">¶</a></h3>
-<p>Image upload location</p>
-</div>
-<div class="section" id="domain-static-http-localhost-8000-static">
-<h3>DOMAIN_STATIC = &#8216;<a class="reference external" href="http://localhost:8000/static/">http://localhost:8000/static/</a>&#8216;<a class="headerlink" href="#domain-static-http-localhost-8000-static" title="Permalink to this headline">¶</a></h3>
-<p>The same as STATIC_URL unless you have a subdomain specified for static content.  The flash uploader requires same-domai resources, so whatever domain you are serving
-Fotochest from, you must also include a static directory here.</p>
-</div>
-</div>
-<div class="section" id="static-files">
-<h2>Static Files<a class="headerlink" href="#static-files" title="Permalink to this headline">¶</a></h2>
-<p>If you intend on using the default template, you&#8217;ll need to grab the static files off of <a class="reference external" href="https://github.com/dstegelman/django-interactive-api-docs">https://github.com/dstegelman/django-interactive-api-docs</a> and copy them into an api_docs folder that can be seen
-by your static web server.</p>
+<div class="section" id="the-photo-loop">
+<h2>The Photo Loop<a class="headerlink" href="#the-photo-loop" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -128,15 +69,9 @@ by your static web server.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Theme Basics</a><ul>
-<li><a class="reference internal" href="#requirements">Requirements</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#setup">Setup</a><ul>
-<li><a class="reference internal" href="#photo-directory-os-path-join-site-root-uploads-images">PHOTO_DIRECTORY = os.path.join(SITE_ROOT, &#8216;uploads/images&#8217;)</a></li>
-<li><a class="reference internal" href="#domain-static-http-localhost-8000-static">DOMAIN_STATIC = &#8216;http://localhost:8000/static/&#8216;</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#static-files">Static Files</a></li>
+<li><a class="reference internal" href="#">Theme Creation Basics</a><ul>
+<li><a class="reference internal" href="#editing-the-default-theme">Editing the Default Theme</a></li>
+<li><a class="reference internal" href="#the-photo-loop">The Photo Loop</a></li>
 </ul>
 </li>
 </ul>

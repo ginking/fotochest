@@ -3,8 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to FotoChest's documentation!
-=====================================
+Welcome to FotoChest
+====================
+
+FotoChest is a Photo Sharing application for showing your photos on your site.  Written in Python using Django.
 
 Contents:
 
@@ -20,11 +22,4 @@ Contents:
    manual/locations
 
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
