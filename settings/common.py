@@ -31,6 +31,7 @@ USE_L10N = True
 ENABLE_CELERY = True
 ACTIVE_THEME = "twitter"
 AUTH_PROFILE_MODULE = "profiles.Profile"
+CRISPY_TEMPLATE_PACK = 'bootstrap'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

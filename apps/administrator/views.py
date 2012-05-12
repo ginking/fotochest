@@ -63,7 +63,16 @@ def album_list(request):
 @login_required
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
-    context = {'album': album, 'album_form':AlbumForm(instance=album)}
+    context = {}
+    if request.method == "POST":
+        form = AlbumForm(request.POST, instance=album)
+        if form.is_valid():
+            album = form.save()
+    else:
+        form = AlbumForm(instance=album)
+        
+    context['album_form'] = form
+    context['album'] = album
     return render(request, "administrator/album_detail.html", context)
 
 @login_required
