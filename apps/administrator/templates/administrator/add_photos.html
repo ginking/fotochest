@@ -9,7 +9,7 @@
 {% block extra_foot %}
 {{ block.super }}
 
-  {% endblock extra_foot %}
+
   {% load upload_tags %}
   
       <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-image-gallery.min.css">
@@ -29,6 +29,7 @@
       <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-ui.js"></script>
       <script src="{{ STATIC_URL }}uploader/js/locale.js"></script>
       <script src="{{ STATIC_URL }}uploader/js/main.js"></script>
+        {% endblock extra_foot %}
   {% block navigation %}
   
   {% include "administrator/nav.html" with nav=2 %}
