@@ -7,7 +7,9 @@
 {% endblock navigation %}
 
 {% block main_content %}
-
+<div class="page-header">
+    <h2>Edit Album</h2>
+</div>
   
     <ul class="thumbnails">
             <li class="span4">
@@ -23,6 +25,6 @@
           </ul>
 {% load crispy_forms_tags %}
 {% crispy album_form %}
-        <input type="submit" value="Save Album" class="btn btn-primary">
+        
     
 {% endblock main_content %}
