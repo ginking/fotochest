@@ -13,22 +13,22 @@
   {% load upload_tags %}
   
       <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-image-gallery.min.css">
-      <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fileupload-ui.css">
+      <link rel="stylesheet" href="{{ STATIC_URL }}uploader/css/jquery.fileupload-ui.css">
       
              {% upload_js %}
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery.ui.widget.js"></script>
-      <script src="{{ STATIC_URL }}js/tmpl.min.js"></script>
-      <script src="{{ STATIC_URL }}js/load-image.min.js"></script>
-      <script src="{{ STATIC_URL }}js/canvas-to-blob.min.js"></script>
-      <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-      <script src="{{ STATIC_URL }}js/bootstrap-image-gallery.min.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery.iframe-transport.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery.fileupload.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery.fileupload-fp.js"></script>
-      <script src="{{ STATIC_URL }}js/jquery.fileupload-ui.js"></script>
-      <script src="{{ STATIC_URL }}js/locale.js"></script>
-      <script src="{{ STATIC_URL }}js/main.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.ui.widget.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/tmpl.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/load-image.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/canvas-to-blob.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/bootstrap.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/bootstrap-image-gallery.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.iframe-transport.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-fp.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-ui.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/locale.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/main.js"></script>
   {% block navigation %}
   
   {% include "administrator/nav.html" with nav=2 %}
