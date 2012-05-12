@@ -25,7 +25,7 @@
 </ul>
 
 <div class="page-header">
-    <h2>{{ album.title }} <button id="start-slideshow" class="btn btn-small pull-right" data-slideshow="5000" data-target="#modal-gallery" data-selector="#gallery a[rel=gallery]">Slideshow <i class="icon icon-th-large"></i></button></h2>
+    <h2>{{ album.title }} {% if photos %}<button id="start-slideshow" class="btn btn-small pull-right" data-slideshow="5000" data-target="#modal-gallery" data-selector="#gallery a[rel=gallery]">Slideshow <i class="icon icon-th-large"></i></button>{% endif %}</h2>
 </div>
 <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
 {% for photo in full_album %}
