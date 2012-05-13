@@ -105,12 +105,10 @@ def photo_fullscreen(request, photo_id, album_slug, photo_slug):
     
 def slideshow(request, location_slug=None, album_slug=None):
     context = {}
-    photos = Photo.objects.all()[:2]
+    photos = Photo.objects.filter(album__slug=album_slug)[:2]
     context['initial_photos'] = photos
-    all_photos = Photo.objects.filter(album__slug="rome")[:45]
+    all_photos = Photo.objects.filter(album__slug=album_slug)[:12]
     context['all_photos'] = all_photos
-     
-    
     return render(request, "%s/slideshow.html" % settings.ACTIVE_THEME, context)
     
 ### Map/Location views
