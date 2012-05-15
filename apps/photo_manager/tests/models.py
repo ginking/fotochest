@@ -46,7 +46,5 @@ class PhotoModelTest(TestCase):
     def test_filename(self):
         self.assertEqual(self.photo_1.filename, "99209831093.jpg")
         
-    def test_get_next(self):
-        self.assertEqual(self.photo_1.get_next(), "blah")
         
     
