@@ -1,51 +1,19 @@
-from fileupload.models import Picture
-from django.views.generic import CreateView, DeleteView
+from photo_manager.models import Album, Photo
+from django.contrib.auth.models import User
+
+
 
 from django.http import HttpResponse
-from django.utils import simplejson
+
 from django.core.urlresolvers import reverse
 
 from django.conf import settings
+from sorl.thumbnail import get_thumbnail
+from django.core.files.uploadedfile import UploadedFile
 
-def response_mimetype(request):
-    if "application/json" in request.META['HTTP_ACCEPT']:
-        return "application/json"
-    else:
-        return "text/plain"
+#importing json parser to generate jQuery plugin friendly json response
+from django.utils import simplejson
 
-class PictureCreateView(CreateView):
-    model = Picture
-
-    def form_valid(self, form):
-        self.object = form.save()
-        f = self.request.FILES.get('file')
-        data = [{'name': f.name, 'url': settings.MEDIA_URL + "pictures/" + f.name.replace(" ", "_"), 'thumbnail_url': settings.MEDIA_URL + "pictures/" + f.name.replace(" ", "_"), 'delete_url': reverse('upload-delete', args=[self.object.id]), 'delete_type': "DELETE"}]
-        response = JSONResponse(data, {}, response_mimetype(self.request))
-        response['Content-Disposition'] = 'inline; filename=files.json'
-        return response
-
-
-class PictureDeleteView(DeleteView):
-    model = Picture
-
-    def delete(self, request, *args, **kwargs):
-        """
-        This does not actually delete the file, only the database record.  But
-        that is easy to implement.
-        """
-        self.object = self.get_object()
-        self.object.delete()
-        response = JSONResponse(True, {}, response_mimetype(self.request))
-        response['Content-Disposition'] = 'inline; filename=files.json'
-        return response
-
-class JSONResponse(HttpResponse):
-    """JSON response class."""
-    def __init__(self,obj='',json_opts={},mimetype="application/json",*args,**kwargs):
-        content = simplejson.dumps(obj,**json_opts)
-        super(JSONResponse,self).__init__(content,mimetype,*args,**kwargs)
-        
-# Real Methods
 
 def upload_photo(request, location_slug, album_slug, user_id):
     context = {}
@@ -59,6 +27,8 @@ def upload_photo(request, location_slug, album_slug, user_id):
         
         ext = os.path.splitext(uploaded_file.name)[1]
         filename = str(num1 + num2) + ext
+        wrapped_file = UploadedFile(file)
+        file_size = wrapped_file.file.size
         
         album_used = get_object_or_404(Album, slug=album_slug)
         photo_new = Photo(title=filename, album=album_used)
@@ -75,17 +45,40 @@ def upload_photo(request, location_slug, album_slug, user_id):
         for chunk in uploaded_file.chunks():
             destination.write(chunk)
         destination.close()
+        
+        im = get_thumbnail(photo.image, "80x80", quality=50)
+        thumb_url = im.url
+        
         ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
         if ENABLE_CELERY:
             ThumbnailTask.delay(photo_new.id)
-
+            
+        # JQuery upload requires that you respond with JSON
+        # Somethign like this..
+        result = []
+        result.append({"name":filename, 
+                       "size":file_size, 
+                       "url":"/where/does/this/go", 
+                       "thumbnail_url":thumb_url,
+                       "delete_url":reverse('upload_delete', args=[photo_new.pk]), 
+                       "delete_type":"POST",})
+        response_data = simplejson.dumps(result)
         
-        return HttpResponse("ok", mimetype="text/plain")
+        #checking for json data type
+        #big thanks to Guy Shapiro
+        if "application/json" in request.META['HTTP_ACCEPT_ENCODING']:
+            mimetype = 'application/json'
+        else:
+            mimetype = 'text/plain'
+        return HttpResponse(response_data, mimetype=mimetype)
         
     else:
         
-        context['upload_dir'] = app_settings.PHOTO_DIRECTORY
         context['album_slug'] = album_slug
         context['location_slug'] = location_slug
-        context['domain_static'] = app_settings.DOMAIN_STATIC    
+    
         return render(request,'administrator/add_photos.html', context)
+        
+        
+def upload_delete(request, pk):
+    return render(request, "example.html")
