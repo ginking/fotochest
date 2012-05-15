@@ -1,12 +1,13 @@
 from photo_manager.models import Album, Photo
 from django.contrib.auth.models import User
-
-
-
+from django.shortcuts import get_object_or_404, render
+import os
+import random
 from django.http import HttpResponse
 
 from django.core.urlresolvers import reverse
-
+from photo_manager.tasks import ThumbnailTask 
+from conf import defaults
 from django.conf import settings
 from sorl.thumbnail import get_thumbnail
 from django.core.files.uploadedfile import UploadedFile
@@ -19,7 +20,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
     context = {}
     if request.method == 'POST':
         #
-        uploaded_file = request.FILES[u'files[]']
+        uploaded_file = request.FILES[u'file']
         
         # write the file into /tmp
         num1 = str(random.randint(0, 1000000))

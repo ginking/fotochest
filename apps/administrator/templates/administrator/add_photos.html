@@ -40,7 +40,7 @@
 <div class="page-header">
 <h2>Add Photos</h2>
 </div>
-<form id="fileupload" method="post" action="{% url upload_photo location_slug=location_slug album_slug=album_slug user_id=request.user.id %}" enctype="multipart/form-data">{% csrf_token %}
+<form id="fileupload" method="post" action="{% url administrator.upload.upload_photo location_slug=location_slug album_slug=album_slug user_id=request.user.id %}" enctype="multipart/form-data">{% csrf_token %}
         <div class="row fileupload-buttonbar">
             <div class="span7">
                 <span class="btn btn-primary fileinput-button">
