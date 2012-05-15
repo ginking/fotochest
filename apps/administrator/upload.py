@@ -4,11 +4,11 @@ from django.shortcuts import get_object_or_404, render
 import os
 import random
 from django.http import HttpResponse
-
+from locations.models import Location
 from django.core.urlresolvers import reverse
 from photo_manager.tasks import ThumbnailTask 
 from conf import defaults
-from django.conf import settings
+from django.conf import settings as app_settings
 from sorl.thumbnail import get_thumbnail
 from django.core.files.uploadedfile import UploadedFile
 
@@ -28,7 +28,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
         
         ext = os.path.splitext(uploaded_file.name)[1]
         filename = str(num1 + num2) + ext
-        wrapped_file = UploadedFile(file)
+        wrapped_file = UploadedFile(uploaded_file)
         file_size = wrapped_file.file.size
         
         album_used = get_object_or_404(Album, slug=album_slug)
@@ -47,7 +47,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
             destination.write(chunk)
         destination.close()
         
-        im = get_thumbnail(photo.image, "80x80", quality=50)
+        im = get_thumbnail(photo_new.image, "80x80", quality=50)
         thumb_url = im.url
         
         ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
