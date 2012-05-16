@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Albums &mdash; FotoChest 2.1 documentation</title>
+    <title>krTheme Sphinx Style &mdash; FotoChest 2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/flasky.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -25,8 +25,6 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="FotoChest 2.1 documentation" href="../index.html" />
-    <link rel="next" title="Locations" href="locations.html" />
-    <link rel="prev" title="FotoChest Owners Manual" href="introduction.html" />
    
   
   <link media="only screen and (max-device-width: 480px)" href="../_static/small_flask.css" type= "text/css" rel="stylesheet" />
@@ -40,12 +38,6 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="locations.html" title="Locations"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="introduction.html" title="FotoChest Owners Manual"
-             accesskey="P">previous</a> |</li>
         <li><a href="../index.html">FotoChest 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -55,20 +47,31 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="albums">
-<h1>Albums<a class="headerlink" href="#albums" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="creating-an-album">
-<h2>Creating an Album<a class="headerlink" href="#creating-an-album" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="adding-photos-to-an-album">
-<h3>Adding Photos to an Album<a class="headerlink" href="#adding-photos-to-an-album" title="Permalink to this headline">¶</a></h3>
+  <div class="section" id="krtheme-sphinx-style">
+<h1>krTheme Sphinx Style<a class="headerlink" href="#krtheme-sphinx-style" title="Permalink to this headline">¶</a></h1>
+<p>This repository contains sphinx styles Kenneth Reitz uses in most of
+his projects. It is a drivative of Mitsuhiko&#8217;s themes for Flask and Flask related
+projects.  To use this style in your Sphinx documentation, follow
+this guide:</p>
+<ol class="arabic">
+<li><p class="first">put this folder as _themes into your docs folder.  Alternatively
+you can also use git submodules to check out the contents there.</p>
+</li>
+<li><p class="first">add this to your conf.py:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s">&#39;_themes&#39;</span><span class="p">))</span>
+<span class="n">html_theme_path</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;_themes&#39;</span><span class="p">]</span>
+<span class="n">html_theme</span> <span class="o">=</span> <span class="s">&#39;kr&#39;</span>
+</pre></div>
 </div>
-</div>
-<div class="section" id="editing-an-album">
-<h2>Editing an Album<a class="headerlink" href="#editing-an-album" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="deleting-an-album">
-<h2>Deleting an Album<a class="headerlink" href="#deleting-an-album" title="Permalink to this headline">¶</a></h2>
-</div>
+</li>
+</ol>
+<p>The following themes exist:</p>
+<dl class="docutils">
+<dt><strong>kr</strong></dt>
+<dd>the standard flask documentation theme for large projects</dd>
+<dt><strong>kr_small</strong></dt>
+<dd>small one-page theme.  Intended to be used by very small addon libraries.</dd>
+</dl>
 </div>
 
 
@@ -76,29 +79,14 @@
         </div>
       </div>
       <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Albums</a><ul>
-<li><a class="reference internal" href="#creating-an-album">Creating an Album</a><ul>
-<li><a class="reference internal" href="#adding-photos-to-an-album">Adding Photos to an Album</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#editing-an-album">Editing an Album</a></li>
-<li><a class="reference internal" href="#deleting-an-album">Deleting an Album</a></li>
-</ul>
-</li>
-</ul>
-<h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="introduction.html" title="previous chapter">FotoChest Owners Manual</a></li>
-      <li>Next: <a href="locations.html" title="next chapter">Locations</a></li>
   </ul></li>
 </ul>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/manual/albums.txt"
+    <li><a href="../_sources/_themes/README.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
