@@ -9,7 +9,7 @@ Fotochest requires::
 
     south
     sorl-thumbnail
-    django 1.3 or greater
+    django 1.4 or greater
 
 
 
@@ -73,11 +73,6 @@ DOMAIN_STATIC = 'http://localhost:8000/static/'
 The same as STATIC_URL unless you have a subdomain specified for static content.  The flash uploader requires same-domai resources, so whatever domain you are serving
 Fotochest from, you must also include a static directory here.
 
-
-ENABLE_MULTI_USER = True
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Enable multiple users on the site.
 
 Static Files
 ------------

@@ -71,9 +71,6 @@ class Album(models.Model):
     def get_absolute_url(self):
         return ('photo_manager.views.album', (), {'album_id': self.id, 'album_slug': self.slug})
         
-    @models.permalink
-    def get_slideshow(self):
-        return ('photo_manager.views.slideshow', (), {'album_slug': self.slug})
 
     @models.permalink
     def get_admin_url(self):
@@ -105,7 +102,6 @@ class Photo(models.Model):
     @property    
     def filename(self):
         return os.path.basename(self.image.name)
-    
     
     @models.permalink
     def get_next(self):

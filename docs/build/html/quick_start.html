@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -7,15 +8,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Quick Start Guide &mdash; FotoChest 2.0 documentation</title>
+    <title>Quick Start Guide &mdash; FotoChest 2.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '2.0',
+        VERSION:     '2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,8 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="FotoChest 2.0 documentation" href="index.html" />
-    <link rel="next" title="Theme Developer’s Guide" href="themes.html" />
+    <link rel="top" title="FotoChest 2.1 documentation" href="index.html" />
+    <link rel="next" title="Quick Start Guide" href="themes/introduction.html" />
     <link rel="prev" title="Welcome to FotoChest’s documentation!" href="index.html" /> 
   </head>
   <body>
@@ -36,12 +37,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="themes.html" title="Theme Developer’s Guide"
+          <a href="themes/introduction.html" title="Quick Start Guide"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to FotoChest’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">FotoChest 2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">FotoChest 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,7 +58,7 @@
 <p>Fotochest requires:</p>
 <div class="highlight-python"><pre>south
 sorl-thumbnail
-django 1.3 or greater</pre>
+django 1.4 or greater</pre>
 </div>
 </div>
 <div class="section" id="installation">
@@ -111,10 +112,6 @@ django 1.3 or greater</pre>
 <p>The same as STATIC_URL unless you have a subdomain specified for static content.  The flash uploader requires same-domai resources, so whatever domain you are serving
 Fotochest from, you must also include a static directory here.</p>
 </div>
-<div class="section" id="enable-multi-user-true">
-<h3>ENABLE_MULTI_USER = True<a class="headerlink" href="#enable-multi-user-true" title="Permalink to this headline">¶</a></h3>
-<p>Enable multiple users on the site.</p>
-</div>
 </div>
 <div class="section" id="static-files">
 <h2>Static Files<a class="headerlink" href="#static-files" title="Permalink to this headline">¶</a></h2>
@@ -137,7 +134,6 @@ by your static web server.</p>
 <li><a class="reference internal" href="#setup">Setup</a><ul>
 <li><a class="reference internal" href="#photo-directory-os-path-join-site-root-uploads-images">PHOTO_DIRECTORY = os.path.join(SITE_ROOT, &#8216;uploads/images&#8217;)</a></li>
 <li><a class="reference internal" href="#domain-static-http-localhost-8000-static">DOMAIN_STATIC = &#8216;http://localhost:8000/static/&#8216;</a></li>
-<li><a class="reference internal" href="#enable-multi-user-true">ENABLE_MULTI_USER = True</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#static-files">Static Files</a></li>
@@ -149,8 +145,8 @@ by your static web server.</p>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Welcome to FotoChest&#8217;s documentation!</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="themes.html"
-                        title="next chapter">Theme Developer&#8217;s Guide</a></p>
+  <p class="topless"><a href="themes/introduction.html"
+                        title="next chapter">Quick Start Guide</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/quick_start.txt"
@@ -180,17 +176,17 @@ by your static web server.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="themes.html" title="Theme Developer’s Guide"
+          <a href="themes/introduction.html" title="Quick Start Guide"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Welcome to FotoChest’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">FotoChest 2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">FotoChest 2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, Derek Stegelman.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
