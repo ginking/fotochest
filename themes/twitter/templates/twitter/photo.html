@@ -117,7 +117,7 @@ rules: [
 					<div id="small_map"></div>
 					<h6>By {{ photo.user.first_name }} {{ photo.user.last_name }}</h6>
 					<a href="{{ photo.album.get_absolute_url }}">From {{ photo.album }}</a>
-					<p>This photo was uploaded on {{ photo.date_uploaded|date:"F j Y" }}, and taken in <a href="{% url photo_manager.views.location location_slug=photo.location.slug %}">{{ photo.location }}</a>.</p>
+					<p>This photo was uploaded on {{ photo.date_uploaded|date:"F j Y" }}, and taken in <a href="{% url photo_manager.views.location location_slug=photo.location.slug %}">{{ photo.location.city }}, {{ photo.location.get_country_display }}</a>.</p>
 					<h4>Other photos from <a href="{% url photo_manager.views.location location_slug=photo.location.slug %}">{{ photo.location }}</a></h4>
 					
 					
