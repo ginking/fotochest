@@ -133,7 +133,7 @@ class Photo(models.Model):
         # 75x75 for map (Other location photos)
         # 1024x768 for photo.html
         
-        get_thumbnail(self.image, '75x75', crop="center")
+        get_thumbnail(self.image, '75x75', crop="center", quality=50)
         get_thumbnail(self.image, '1024x768')
         get_thumbnail(self.image, '240x165')
         get_thumbnail(self.image, '240x161', crop="center")
