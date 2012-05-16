@@ -1,6 +1,0 @@
-{% load thumbnail %}
-{% thumbnail photo.image "1024x768" as im %}
-<a href="{{ im.url }}" rel="gallery" class="slideshow-image">
-<img src="{{ im.url }}">
-</a>
-{% endthumbnail %}
