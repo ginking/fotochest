@@ -59,7 +59,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
         result = []
         result.append({"name":filename, 
                        "size":file_size, 
-                       "url": photo_new.image, 
+                       "url": "%s%s" % (app_settings.MEDIA_URL, photo_new.image), 
                        "thumbnail_url":thumb_url,
                        "delete_url":reverse('upload_delete', args=[photo_new.pk]), 
                        "delete_type":"POST",})
