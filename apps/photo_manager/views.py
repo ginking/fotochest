@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 from photo_manager.models import Photo, Album
-from locations.models import *
+from hadrian.contrib.locations.models import *
 from django.conf import settings
 
 

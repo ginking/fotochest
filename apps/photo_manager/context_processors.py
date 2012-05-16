@@ -1,4 +1,4 @@
-from locations.models import *
+from hadrian.contrib.locations.models import *
 from django.conf import settings  	
 from photo_manager.models import *
 def theme_files(request):

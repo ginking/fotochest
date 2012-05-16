@@ -91,7 +91,7 @@ INSTALLED_APPS = (
     'djkombu',
     'test_utils',
     #'photo_admin',
-    'locations',
+    'hadrian.contrib.locations',
     'profiles',
     #'tagging',
 

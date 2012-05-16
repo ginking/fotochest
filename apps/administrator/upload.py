@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 import os
 import random
 from django.http import HttpResponse
-from locations.models import Location
+from hadrian.contrib.locations.models import Location
 from django.core.urlresolvers import reverse
 from photo_manager.tasks import ThumbnailTask 
 from conf import defaults

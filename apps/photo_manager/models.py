@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from hadrian.utils.slugs import unique_slugify
 import os
 
-from locations.models import *
+from hadrian.contrib.locations.models import *
 from sorl.thumbnail import get_thumbnail
 from PIL import Image
 from PIL.ExifTags import TAGS
