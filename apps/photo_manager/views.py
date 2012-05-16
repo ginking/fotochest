@@ -30,7 +30,7 @@ def album(request, album_id, album_slug):
     photos = Photo.objects.active().filter(album__slug=album_slug)
     photo_paginator = Paginator(photos, 12)
     photo_page = request.GET.get('page', 1)
-    
+    context['full_album'] = photos
     try:
         context['photos'] = photo_paginator.page(photo_page)
     except PageNotAnInteger:
@@ -105,16 +105,10 @@ def photo_fullscreen(request, photo_id, album_slug, photo_slug):
     
 def slideshow(request, location_slug=None, album_slug=None):
     context = {}
-    if location_slug:
-        context['photos'] = Photo.objects.active().filter(location__slug=location_slug)
-        location = get_object_or_404(Location, slug=location_slug)
-        context['what_object'] = location
-    if album_slug:
-        context['photos'] = Photo.objects.active().filter(album__slug=album_slug)
-        album = get_object_or_404(Album, slug=album_slug)
-        context['what_object'] = album.title
-     
-    
+    photos = Photo.objects.filter(album__slug=album_slug)[:2]
+    context['initial_photos'] = photos
+    all_photos = Photo.objects.filter(album__slug=album_slug)[:12]
+    context['all_photos'] = all_photos
     return render(request, "%s/slideshow.html" % settings.ACTIVE_THEME, context)
     
 ### Map/Location views

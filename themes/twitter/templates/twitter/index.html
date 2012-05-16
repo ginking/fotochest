@@ -15,7 +15,7 @@
     <a href="{{ album.parent_album.get_absolute_url }}">{{ album.parent_album }}</a> <span class="divider">/</span>
   </li>
   {% endif %}
-  <li class="active">{{ album }}</li>
+  <li class="active">{{ album.title }}</li>
 </ul>
 
 {% else %}
@@ -60,13 +60,17 @@
 
 
 
-<ul class="thumbnails">
+<div data-toggle="modal-gallery" data-target="#modal-gallery">
 {% for photo in photos.object_list %}
-    
+    {% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 %}
+    <ul class="thumbnails row">
+    {% endif %}
     {% include "twitter/snippets/item.html" %}
-    
+    {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 %}
+    </ul>
+    {% endif %}
 {% endfor %}
-</ul>
+</div>
 {% include "twitter/snippets/pagination.html" %}
 
 </div>

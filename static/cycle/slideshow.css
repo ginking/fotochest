@@ -1,0 +1,19 @@
+body
+{
+    background: #2E2928;
+    margin-top: 50px;
+}
+
+#wrapper
+{
+    margin: 0 auto;
+    width: 1070px;
+}
+
+
+img
+{
+    max-height: 1020px;
+    max-width: 970px;
+}
+
