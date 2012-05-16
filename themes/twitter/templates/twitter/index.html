@@ -60,7 +60,7 @@
 
 
 
-<div data-toggle="modal-gallery" data-target="#modal-gallery">
+
 {% for photo in photos.object_list %}
     {% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 %}
     <ul class="thumbnails row">
@@ -70,7 +70,6 @@
     </ul>
     {% endif %}
 {% endfor %}
-</div>
 {% include "twitter/snippets/pagination.html" %}
 
 </div>

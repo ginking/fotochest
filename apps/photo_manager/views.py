@@ -30,7 +30,6 @@ def album(request, album_id, album_slug):
     photos = Photo.objects.active().filter(album__slug=album_slug)
     photo_paginator = Paginator(photos, 12)
     photo_page = request.GET.get('page', 1)
-    context['full_album'] = photos
     try:
         context['photos'] = photo_paginator.page(photo_page)
     except PageNotAnInteger:
