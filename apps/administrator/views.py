@@ -267,6 +267,7 @@ def build_thumbnails(request):
     messages.add_message(request, messages.SUCCESS, "Job queued.")
     return redirect('admin_utilities')
     
+   
 @login_required
 def delete_thumbnails(request):
     from administrator.tasks import ThumbnailCleanupTask

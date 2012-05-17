@@ -7,27 +7,48 @@
 {% endblock navigation %}
 
 {% block main_content %}
+<div class="modal hide fade" id="deleteThumbnails">
+    <div class="modal-header">
+      <a data-dismiss="modal" class="close">×</a>
+      <h3>Are You Sure?</h3>
+    </div>
+    <div class="modal-body">
+      <h4>Use with Caution</h4>
+      <p>Deleting thumbnails can make your site un responsive until thumbnails are regenerated.</p>
+            
+    </div>
+    <div class="modal-footer">
+      <a data-dismiss="modal" class="btn" href="#">Close</a>
+      <a href="{% url delete_thumbnails %}" class="btn btn-danger">Yes, Delete Thumbnails</a>
+      
+    </div>
+    
+  </div>
 <div class="page-header">
 <h2>Utilities</h2>
 </div>
+<h3>Jobs</h3>
+<div class="well">
+
 <div class="row">
     <div class="span3">
-<a href="{% url build_thumbnails %}" class="btn btn-info btn-small" id="build_thumbnails"><i class="icon-refresh icon-white"></i> Re-Build Thumbnails</a>
+<a href="{% url build_thumbnails %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Re-Build Thumbnails</a>
 </div>
-<div class="span6">
+<div class="span5">
 <p class="help-block">Running this will queue up all photos to have their thumbnails rebuilt.  This can be helpful if some thumbnails failed, or if you've upgraded to a newer version and some new thumbnails are required.</p>
 </div>
 </div>
 
+
 <div class="row">
     <div class="span3">
-<a href="{% url delete_thumbnails %}" class="btn btn-danger btn-small" id="delete_thumbnail"><i class="icon-refresh icon-white"></i> Clean Out Thumbnails</a>
+<a href="#deleteThumbnails" class="btn btn-danger btn-small"  data-toggle="modal"><i class="icon-trash icon-white"></i> Clean Out Thumbnails</a>
 </div>
-<div class="span6">
+<div class="span5">
 <p class="help-block">This job deletes all thumbnails and resets the flag on all images to be rebuilt.  This can cause the site to become un-responsive to some users.  It is recommended to rebuild thumbs after running this job.</p>
 </div>
 </div>
-
+</div>
 {% endblock main_content %}
 {% block extra_foot %}
 <script>
