@@ -181,36 +181,34 @@ def photo_upload(request, location_slug, album_slug, user_id):
 
 ### Forms
 @login_required
-def edit_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
+def edit_photo(request, photo_id):
     context = {}
-    context['current_user'] = get_object_or_404(User, username=username)
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    if request.user != photo.user:
-        return render(request, '%s/not_authorized.html' % app_settings.ACTIVE_THEME)
         
     if request.method == "POST":
         form = PhotoForm(request.POST, instance=photo)
         if form.is_valid():
-            new_photo = form.save()
+            form.save()
+            messages.add_message(request, messages.SUCCESS, "Photo %s saved" % photo.title)
             
-            return redirect(new_photo)
-    else:        
-        form = PhotoForm(instance=photo)
-    context['form'] = form
-    context['photo'] = photo
-    context['exif_data'] = photo.get_exif_data()
-    return render(request, '%s/edit_photo.html' % app_settings.ACTIVE_THEME, context)
+            return redirect('administrator.views.dashboard')
+        else:
+            print form.errors
+            print("poop")
+    else:
+        messages.add_message(request, messages.ERROR, "ERROR")
+            
+        return redirect('administrator.views.dashboard')
+
 
 @login_required    
 def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
-    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    if request.user != photo.user:
-        return render(request, '%s/not_authorized.html' % app_settings.ACTIVE_THEME)
-    
+    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)    
     photo.deleted = True
     photo.save()
     #@todo - This needs to point somewhere else after deletion..
-    return render(request, '%s/edit_photo.html' % app_settings.ACTIVE_THEME)
+    messages.add_message(request, messages.SUCCESS, "Photo %s deleted" % photo.title)
+    return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
     
 @login_required
 def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=None, photo_slug=None):
@@ -227,4 +225,16 @@ def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=
     photo.make_thumbnails()
     return redirect(photo.get_absolute_url())
 
+@login_required
+def build_thumbnails(request):
+    from conf import defaults
+    ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
+    from photo_manager.tasks import ThumbnailTask
+    for photo in Photo.objects.all():
+        photo.thumbs_created = False
+        photo.save()
+        if ENABLE_CELERY:
+            ThumbnailTask.delay(photo.id)
+    return HttpResponse("OK")
+    
 

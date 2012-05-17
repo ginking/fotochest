@@ -1,11 +1,9 @@
 from django import forms
-from photo_manager.models import Album
+from photo_manager.models import Album, Photo
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
 
 class AlbumForm(forms.ModelForm):
-
-    
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
@@ -25,3 +23,6 @@ class AlbumForm(forms.ModelForm):
         model = Album
         exclude = ('user', 'album_cover',)
         
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo

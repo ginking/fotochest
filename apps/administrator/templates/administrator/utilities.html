@@ -1,0 +1,31 @@
+
+{% extends "administrator/base.html" %}
+{% block navigation %}
+
+{% include "administrator/nav.html" with nav=6 %}
+
+{% endblock navigation %}
+
+{% block main_content %}
+<div class="page-header">
+<h2>Utilities</h2>
+</div>
+<div class="row">
+    <div class="span3">
+<a href="{% url build_thumbnails %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Re-Build Thumbnails</a>
+</div>
+<div class="span6">
+<p class="help-block">Running this will queue up all photos to have their thumbnails rebuilt.  This can be helpful if some thumbnails failed, or if you've upgraded to a newer version and some new thumbnails are required.</p>
+</div>
+</div>
+
+<div class="row">
+    <div class="span3">
+<a href="#" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Clean Out Thumbnails</a>
+</div>
+<div class="span6">
+<p class="help-block"></p>
+</div>
+</div>
+
+{% endblock main_content %}
