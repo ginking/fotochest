@@ -12,7 +12,7 @@
 </div>
 <div class="row">
     <div class="span3">
-<a href="{% url build_thumbnails %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Re-Build Thumbnails</a>
+<a href="{% url build_thumbnails %}" class="btn btn-info btn-small" id="build_thumbnails"><i class="icon-refresh icon-white"></i> Re-Build Thumbnails</a>
 </div>
 <div class="span6">
 <p class="help-block">Running this will queue up all photos to have their thumbnails rebuilt.  This can be helpful if some thumbnails failed, or if you've upgraded to a newer version and some new thumbnails are required.</p>
@@ -21,11 +21,22 @@
 
 <div class="row">
     <div class="span3">
-<a href="#" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Clean Out Thumbnails</a>
+<a href="{% url delete_thumbnails %}" class="btn btn-danger btn-small" id="delete_thumbnail"><i class="icon-refresh icon-white"></i> Clean Out Thumbnails</a>
 </div>
 <div class="span6">
-<p class="help-block"></p>
+<p class="help-block">This job deletes all thumbnails and resets the flag on all images to be rebuilt.  This can cause the site to become un-responsive to some users.  It is recommended to rebuild thumbs after running this job.</p>
 </div>
 </div>
 
 {% endblock main_content %}
+{% block extra_foot %}
+<script>
+$(document).ready(function() {
+   // do stuff when DOM is ready
+     $(".btn").click(function(){
+         $(this).addClass("disabled");
+     });
+     
+ });
+</script>
+{% endblock extra_foot %}

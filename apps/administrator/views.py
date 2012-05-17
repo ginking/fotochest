@@ -25,12 +25,41 @@ def add_photos(request):
     context = {}
     return render(request, "administrator/add_photos.html", context)
 
+def get_size(start_path = '%s/images' % app_settings.MEDIA_ROOT):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+    return total_size
+
+def convert_bytes(bytes):
+    bytes = float(bytes)
+    if bytes >= 1099511627776:
+        terabytes = bytes / 1099511627776
+        size = '%.2fT' % terabytes
+    elif bytes >= 1073741824:
+        gigabytes = bytes / 1073741824
+        size = '%.2fG' % gigabytes
+    elif bytes >= 1048576:
+        megabytes = bytes / 1048576
+        size = '%.2fM' % megabytes
+    elif bytes >= 1024:
+        kilobytes = bytes / 1024
+        size = '%.2fK' % kilobytes
+    else:
+        size = '%.2fb' % bytes
+    return size
+
 @login_required
 def dashboard(request):
     photos = Photo.objects.active()
     albums = Album.objects.filter(parent_album=None)
     context = {'albums': albums}
-    
+    context['total_photos'] = Photo.objects.filter(deleted=False).count()
+    context['total_albums'] = albums.count()
+    context['total_locations'] = Location.objects.all().count()
+    context['total_size'] = convert_bytes(get_size())
     paginator = Paginator(photos, 16)
     page = request.GET.get('page', 1)
     
@@ -235,6 +264,13 @@ def build_thumbnails(request):
         photo.save()
         if ENABLE_CELERY:
             ThumbnailTask.delay(photo.id)
-    return HttpResponse("OK")
+    messages.add_message(request, messages.SUCCESS, "Job queued.")
+    return redirect('admin_utilities')
     
-
+@login_required
+def delete_thumbnails(request):
+    from administrator.tasks import ThumbnailCleanupTask
+    for photo in Photo.objects.all():
+        ThumbnailCleanupTask.delay(photo.id)
+    messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
+    return redirect('admin_utilities')

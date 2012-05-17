@@ -57,13 +57,13 @@
             <label>Album</label>
             <select name="album" class="span2">
             {% for album in form_albums %}
-                <option value="{{ album.id }}">{{ album }}</option>
+                <option {% if photo.album == album %} selected="selected"{% endif %} value="{{ album.id }}">{{ album }}</option>
             {% endfor %}
             </select>
             <label>Location</label>
             <select name="location" class="span2">
                 {% for location in form_locations %}
-                <option value="{{ location.id }}">{{ location }}</option>
+                <option {% if photo.location == location %} selected="selected"{% endif %} value="{{ location.id }}">{{ location }}</option>
                 
                 {% endfor %}
             </select>
@@ -110,7 +110,19 @@
 {% endblock main_content %}
 
 {% block sidebar %}
-
+<div class="well">
+    <h4>Quick Stats</h4>
+    <dl class="dl-horizontal">
+        <dt>Photos</dt>
+        <dd>{{ total_photos }}</dd>
+        <dt>Albums</dt>
+        <dd>{{ total_albums }}</dd>
+        <dt>Locations</dt>
+        <dd>{{ total_locations }}</dd>
+        <dt>Size on Disk</dt>
+        <dd>{{ total_size }}</dd>
+    </dl>
+</div>
 
 {% endblock sidebar%}
 
