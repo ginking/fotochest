@@ -85,12 +85,13 @@ INSTALLED_APPS = (
     'api_docs',
     # Everyone should be using south.  Seriously.
     'south',
+    'crispy_forms',
     'sorl.thumbnail',
     'djcelery',
     'djkombu',
     'test_utils',
     #'photo_admin',
-    'locations',
+    'hadrian.contrib.locations',
     'profiles',
     #'tagging',
 

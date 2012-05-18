@@ -4,8 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 from photo_manager.models import Photo, Album
 from administrator.models import Settings
 from administrator.forms import SettingsForm
-from locations.models import *
-from locations.forms import *
+from hadrian.contrib.locations.models import *
+from hadrian.contrib.locations.forms import *
 from django.contrib.auth.models import User
 import os
 from django.conf import settings as app_settings
@@ -25,12 +25,41 @@ def add_photos(request):
     context = {}
     return render(request, "administrator/add_photos.html", context)
 
+def get_size(start_path = '%s/images' % app_settings.MEDIA_ROOT):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+    return total_size
+
+def convert_bytes(bytes):
+    bytes = float(bytes)
+    if bytes >= 1099511627776:
+        terabytes = bytes / 1099511627776
+        size = '%.2fT' % terabytes
+    elif bytes >= 1073741824:
+        gigabytes = bytes / 1073741824
+        size = '%.2fG' % gigabytes
+    elif bytes >= 1048576:
+        megabytes = bytes / 1048576
+        size = '%.2fM' % megabytes
+    elif bytes >= 1024:
+        kilobytes = bytes / 1024
+        size = '%.2fK' % kilobytes
+    else:
+        size = '%.2fb' % bytes
+    return size
+
 @login_required
 def dashboard(request):
     photos = Photo.objects.active()
     albums = Album.objects.filter(parent_album=None)
     context = {'albums': albums}
-    
+    context['total_photos'] = Photo.objects.filter(deleted=False).count()
+    context['total_albums'] = albums.count()
+    context['total_locations'] = Location.objects.all().count()
+    context['total_size'] = convert_bytes(get_size())
     paginator = Paginator(photos, 16)
     page = request.GET.get('page', 1)
     
@@ -63,7 +92,16 @@ def album_list(request):
 @login_required
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
-    context = {'album': album, 'album_form':AlbumForm(instance=album)}
+    context = {}
+    if request.method == "POST":
+        form = AlbumForm(request.POST, instance=album)
+        if form.is_valid():
+            album = form.save()
+    else:
+        form = AlbumForm(instance=album)
+        
+    context['album_form'] = form
+    context['album'] = album
     return render(request, "administrator/album_detail.html", context)
 
 @login_required
@@ -172,36 +210,34 @@ def photo_upload(request, location_slug, album_slug, user_id):
 
 ### Forms
 @login_required
-def edit_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
+def edit_photo(request, photo_id):
     context = {}
-    context['current_user'] = get_object_or_404(User, username=username)
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    if request.user != photo.user:
-        return render(request, '%s/not_authorized.html' % app_settings.ACTIVE_THEME)
         
     if request.method == "POST":
         form = PhotoForm(request.POST, instance=photo)
         if form.is_valid():
-            new_photo = form.save()
+            form.save()
+            messages.add_message(request, messages.SUCCESS, "Photo %s saved" % photo.title)
             
-            return redirect(new_photo)
-    else:        
-        form = PhotoForm(instance=photo)
-    context['form'] = form
-    context['photo'] = photo
-    context['exif_data'] = photo.get_exif_data()
-    return render(request, '%s/edit_photo.html' % app_settings.ACTIVE_THEME, context)
+            return redirect('administrator.views.dashboard')
+        else:
+            print form.errors
+            print("poop")
+    else:
+        messages.add_message(request, messages.ERROR, "ERROR")
+            
+        return redirect('administrator.views.dashboard')
+
 
 @login_required    
 def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
-    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    if request.user != photo.user:
-        return render(request, '%s/not_authorized.html' % app_settings.ACTIVE_THEME)
-    
+    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)    
     photo.deleted = True
     photo.save()
     #@todo - This needs to point somewhere else after deletion..
-    return render(request, '%s/edit_photo.html' % app_settings.ACTIVE_THEME)
+    messages.add_message(request, messages.SUCCESS, "Photo %s deleted" % photo.title)
+    return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
     
 @login_required
 def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=None, photo_slug=None):
@@ -218,4 +254,24 @@ def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=
     photo.make_thumbnails()
     return redirect(photo.get_absolute_url())
 
-
+@login_required
+def build_thumbnails(request):
+    from conf import defaults
+    ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
+    from photo_manager.tasks import ThumbnailTask
+    for photo in Photo.objects.all():
+        photo.thumbs_created = False
+        photo.save()
+        if ENABLE_CELERY:
+            ThumbnailTask.delay(photo.id)
+    messages.add_message(request, messages.SUCCESS, "Job queued.")
+    return redirect('admin_utilities')
+    
+   
+@login_required
+def delete_thumbnails(request):
+    from administrator.tasks import ThumbnailCleanupTask
+    for photo in Photo.objects.all():
+        ThumbnailCleanupTask.delay(photo.id)
+    messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
+    return redirect('admin_utilities')

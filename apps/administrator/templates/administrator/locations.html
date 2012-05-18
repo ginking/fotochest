@@ -114,8 +114,9 @@ rules: [
 <div class="well">
     <h4>Locations</h4>
     <ul class="unstyled">
+    {% load location_tags %}
     {% for location in locations %}
-        <li><i class="icon-map-marker"></i>  <span class="label label-success">120 Photos</span> {{ location }}</li>
+        <li><i class="icon-map-marker"></i>  <span class="label label-success">{% location_photo_count location.slug %} Photos</span> {{ location }}</li>
     {% endfor %}
     </ul>
 </div>
