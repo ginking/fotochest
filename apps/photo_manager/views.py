@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from photo_manager.models import Photo, Album
 from hadrian.contrib.locations.models import *
 from django.conf import settings
-
+from django.http import HttpResponse
 
 
 def album(request, album_id, album_slug):
