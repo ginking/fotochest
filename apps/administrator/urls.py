@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo, delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails
+from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo, delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails
 from administrator.upload import upload_photo, upload_delete
 # This maps static files dirs to URLS.
 from django.views.generic.simple import direct_to_template
@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^utilities/$', direct_to_template, {'template': 'administrator/utilities.html'}, name="admin_utilities"),
     url(r'^utilities/build/$', build_thumbnails, name="build_thumbnails"),
     url(r'^utilities/thumbs/delete/$', delete_thumbnails, name="delete_thumbnails"),
+    url(r'^utilities/thumbs/clear/$', clear_thumbnails, name="clear_thumbnails"),
     url(r'^add/$', add_photos, name="admin_add_photos"),
     url(r'^update_photo_title/$', 'administrator.ajax.update_photo_title'),
     url(r'^update_album_title/$', 'administrator.ajax.update_album_title'),

@@ -106,7 +106,7 @@ rules: [
 			</div>
 				<div class="thumbnail">
 				{% load thumbnail %}
-				{% thumbnail photo.image "1024x768" as im %}
+				{% thumbnail photo.image "1024x768" quality=100 as im %}
 					<img src="{{ im.url }}">
 				{% endthumbnail %}
 				</div>
@@ -142,7 +142,7 @@ rules: [
 					        <li class="span1">
 					            <a href="{{ photo.get_absolute_url }}" class="thumbnail">
 					                {% load thumbnail %}
-					                {% thumbnail photo.image "75x75" crop="center" as im %}
+					                {% thumbnail photo.image "75x75" crop="center" quality=75 as im %}
 					                <img src="{{ im.url }}">
 					                {% endthumbnail %}
 					            </a>

@@ -60,6 +60,7 @@ def dashboard(request):
     context['total_albums'] = albums.count()
     context['total_locations'] = Location.objects.all().count()
     context['total_size'] = convert_bytes(get_size())
+    context['cache_size'] = convert_bytes(get_size(start_path = '%s/cache' % app_settings.MEDIA_ROOT))
     paginator = Paginator(photos, 16)
     page = request.GET.get('page', 1)
     
@@ -275,3 +276,18 @@ def delete_thumbnails(request):
         ThumbnailCleanupTask.delay(photo.id)
     messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
     return redirect('admin_utilities')
+    
+    
+@login_required
+def clear_thumbnails(request):
+    from django.core import management
+    management.call_command('thumbnail', 'clear')
+    messages.add_message(request, messages.SUCCESS, "Key Value Store Cleared")
+    return redirect('admin_utilities')
+    
+    
+    
+    
+    
+    
+    

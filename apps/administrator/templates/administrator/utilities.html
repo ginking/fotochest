@@ -41,6 +41,15 @@
 
 
 <div class="row">
+<div class="span3">
+<a href="{% url clear_thumbnails %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Clear Key Values Cache</a>
+</div>
+<div class="span5">
+<p class="help-block">Removes all key values in the thumbnail cache.  This is a safe command to run, if you have some thumbnails not showing up.  References will be removed, but the files themeselves will not be touched.</p>
+</div>
+</div>
+
+<div class="row">
     <div class="span3">
 <a href="#deleteThumbnails" class="btn btn-danger btn-small"  data-toggle="modal"><i class="icon-trash icon-white"></i> Clean Out Thumbnails</a>
 </div>
