@@ -82,7 +82,7 @@ rules: [
 
 			<div class="span8">
 
-			    <ul class="breadcrumb">
+			    <ul class="breadcrumb pull-right">
 			        <li>
 			            <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
 			        </li>
@@ -106,7 +106,8 @@ rules: [
 			</div>
 				<div class="thumbnail">
 				{% load thumbnail %}
-				{% thumbnail photo.image "1024x768" quality=100 as im %}
+				{% thumbnail photo.image "1024x650" quality=100 as im %}
+				<!-- 1024x768-->
 					<img src="{{ im.url }}">
 				{% endthumbnail %}
 				</div>

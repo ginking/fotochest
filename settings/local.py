@@ -77,7 +77,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     #'grappelli',
     'django.contrib.admin',
-    'hadrian.contrib.gravatar',
+    'hadrian.contrib.locations',
     'hadrian.contrib.pomona',
     'tastypie',
     'photo_manager',
@@ -91,7 +91,7 @@ INSTALLED_APPS = (
     'djkombu',
     'test_utils',
     #'photo_admin',
-    'hadrian.contrib.locations',
+    
     'profiles',
     #'tagging',
 
