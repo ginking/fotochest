@@ -101,7 +101,7 @@ INSTALLED_APPS = (
     'test_utils',
     #'photo_admin',
     
-    'profiles',
+    #'profiles',
     #'tagging',
 
 )

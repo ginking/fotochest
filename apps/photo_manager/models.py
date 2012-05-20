@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from hadrian.utils.slugs import unique_slugify
 import os
-
 from hadrian.contrib.locations.models import *
 from sorl.thumbnail import get_thumbnail
 from PIL import Image

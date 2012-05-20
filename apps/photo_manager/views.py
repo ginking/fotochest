@@ -5,7 +5,6 @@ from hadrian.contrib.locations.models import *
 from django.conf import settings
 from django.http import HttpResponse
 
-
 def album(request, album_id, album_slug):
     context = {}
     context['album_slug'] = album_slug
@@ -98,10 +97,8 @@ def photo_download(request, photo_id):
 def photo_fullscreen(request, photo_id, album_slug, photo_slug):
     context = {}
     context['photo'] = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    
     return render(request, '%s/fullscreen.html' % settings.ACTIVE_THEME, context)
 
-    
 def slideshow(request, location_slug=None, album_slug=None):
     context = {}
     photos = Photo.objects.filter(album__slug=album_slug)[:2]

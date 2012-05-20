@@ -1,31 +1,23 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.csrf import csrf_exempt
 from photo_manager.models import Photo, Album
 from administrator.models import Settings
 from administrator.forms import SettingsForm
 from hadrian.contrib.locations.models import *
 from hadrian.contrib.locations.forms import *
-from django.contrib.auth.models import User
-import os
 from django.conf import settings as app_settings
 import random
 import sorl
 from PIL import Image
 from photo_manager.forms import *
 from django.contrib.auth.decorators import login_required
-from photo_manager.tasks import ThumbnailTask
 from photo_manager.forms import AlbumForm
-from conf import defaults
 from django.contrib import messages
-from django.http import HttpResponse
 
 @login_required
 def add_photos(request):
     context = {}
     return render(request, "administrator/add_photos.html", context)
-
-
 
 @login_required
 def dashboard(request):
@@ -132,59 +124,6 @@ def locations(request, username=None):
 def choose(request):
     return redirect('file_uploader', location_slug=request.GET.get('location'), album_slug=request.GET.get("album"), user_id=request.GET.get('user_id'))
 
-#--------------------------------------------#
-#
-# photo_upload().  Tired as I write this.  the
-# method should add photos to a specific location
-# THIS NEEDS FIXING
-#
-#--------------------------------------------#
-@csrf_exempt
-def photo_upload(request, location_slug, album_slug, user_id):
-    context = {}
-        
-    if request.method == 'POST':
-        for field_name in request.FILES:
-            uploaded_file = request.FILES[field_name]
-            
-            # write the file into /tmp
-            num1 = str(random.randint(0, 1000000))
-            num2 = str(random.randint(1001, 9000000))
-            
-            ext = os.path.splitext(uploaded_file.name)[1]
-            filename = str(num1 + num2) + ext
-            album_used = get_object_or_404(Album, slug=album_slug)
-            photo_new = Photo(title=filename, album=album_used)
-            photo_new.file_name = filename
-            photo_new.image = 'images/' + filename
-            # Set location to default location
-            photo_new.location = get_object_or_404(Location, slug=location_slug)
-            user = get_object_or_404(User, pk=user_id)
-            photo_new.user = user
-            photo_new.save()
-            destination_path = app_settings.PHOTO_DIRECTORY + '/%s' % (filename)   
-            destination = open(destination_path, 'wb+')
-            for chunk in uploaded_file.chunks():
-                destination.write(chunk)
-            destination.close()
-            ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
-            if ENABLE_CELERY:
-                ThumbnailTask.delay(photo_new.id)
-            print "IT WORKED"
-        # indicate that everything is OK for SWFUpload
-        
-        return HttpResponse("ok", mimetype="text/plain")
-        
-    else:
-        
-        context['upload_dir'] = app_settings.PHOTO_DIRECTORY
-        context['album_slug'] = album_slug
-        context['location_slug'] = location_slug
-        context['domain_static'] = app_settings.DOMAIN_STATIC    
-        return render(request,'administrator/add_photos.html', context)
-
-
-### Forms
 @login_required
 def edit_photo(request, photo_id):
     context = {}
