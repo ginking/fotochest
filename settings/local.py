@@ -63,7 +63,15 @@ TEMPLATE_DIRS = (
 
 DOMAIN_STATIC = '/static/'
 
-
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+)
+INTERNAL_IPS = ('127.0.0.1',)
 
 ROOT_URLCONF = 'urls.local'
 
@@ -77,6 +85,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     #'grappelli',
     'django.contrib.admin',
+    'debug_toolbar',
     'hadrian.contrib.locations',
     'hadrian.contrib.pomona',
     'tastypie',
