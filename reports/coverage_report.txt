@@ -34,12 +34,11 @@ apps/profiles/views                           48     37    23%   10, 13-26, 29-3
 conf/__init__                                  0      0   100%   
 conf/defaults                                  1      0   100%   
 conf/environment                              15      0   100%   
-jobs   NoSource: No source for code: '/Users/derekstegelman/Documents/Derek/Code/fotochest/jobs.py'
 manage                                         6      0   100%   
 settings/__init__                              0      0   100%   
 settings/common                               25      0   100%   
-settings/local                                19      0   100%   
+settings/local                                21      0   100%   
 urls/__init__                                  0      0   100%   
 urls/local                                     6      0   100%   
 ------------------------------------------------------------------------
-TOTAL                                        849    407    52%   
+TOTAL                                        851    407    52%   
