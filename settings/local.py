@@ -99,6 +99,7 @@ INSTALLED_APPS = (
     'djcelery',
     'djkombu',
     'test_utils',
+    'haystack',
     #'photo_admin',
     
     #'profiles',

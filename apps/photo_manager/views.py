@@ -1,9 +1,21 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import DetailView, ListView
 from photo_manager.models import Photo, Album
 from hadrian.contrib.locations.models import *
 from django.conf import settings
 from django.http import HttpResponse
+
+
+
+'''
+class CountryDetailView(DetailView):
+    
+    context_object_name = "country"
+    template_name = "traveler/country_detail.html"
+    queryset = Country.objects.all()
+    
+'''
 
 def album(request, album_id, album_slug):
     context = {}
@@ -37,25 +49,14 @@ def album(request, album_id, album_slug):
         context['photos'] = photo_paginator.page(photo_paginator.num_pages)
             
     return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
-    
-def albums(request):
-    context = {}
-    
-    albums = Album.objects.filter(parent_album=None)
-    
-    paginator = Paginator(albums, 12)
-    page = request.GET.get('page', 1)
-    
-    try:
-        context['albums'] = paginator.page(page)
-    except PageNotAnInteger:
-        context['albums'] = paginator.page(1)
-    except EmptyPage:
-        context['albums'] = paginator.page(paginator.num_pages)
-        context['parent_albums'] = Album.objects.all()
-            
-    
-    return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
+
+
+class AlbumListView(ListView):
+    context_object_name = "albums"
+    template_name = "%s/albums.html" % settings.ACTIVE_THEME
+    queryset = Album.objects.filter(parent_album=None)
+    paginate_by = 12
+
        
 def homepage(request):
     context = {}
@@ -109,11 +110,10 @@ def slideshow(request, location_slug=None, album_slug=None):
     
 ### Map/Location views
 
-def locations(request):
-    context = {}
-    context['locations'] = Location.objects.all()
-    
-    return render(request, "%s/map.html" % settings.ACTIVE_THEME, context)
+class LocationsListView(ListView):
+    context_object_name = "locations"
+    template_name = "%s/map.html" % settings.ACTIVE_THEME
+    queryset = Location.objects.all()
     
 def location(request, location_slug):
     location = get_object_or_404(Location, slug=location_slug)
