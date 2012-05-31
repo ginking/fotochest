@@ -13,6 +13,7 @@ from photo_manager.forms import *
 from django.contrib.auth.decorators import login_required
 from photo_manager.forms import AlbumForm
 from django.contrib import messages
+from django.views.decorators.cache import never_cache
 
 @login_required
 def add_photos(request):
@@ -20,6 +21,7 @@ def add_photos(request):
     return render(request, "administrator/add_photos.html", context)
 
 @login_required
+@never_cache
 def dashboard(request):
     photos = Photo.objects.active()
     albums = Album.objects.filter(parent_album=None)
@@ -42,6 +44,7 @@ def dashboard(request):
     return render(request, "administrator/dashboard.html", context)
 
 @login_required
+@never_cache
 def album_list(request):
     albums = Album.objects.all()
     if request.method == "POST":
@@ -58,6 +61,7 @@ def album_list(request):
     return render(request, "administrator/albums.html", context)
 
 @login_required
+@never_cache
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
     context = {}
@@ -73,6 +77,7 @@ def album_detail(request, album_id):
     return render(request, "administrator/album_detail.html", context)
 
 @login_required
+@never_cache
 def album_photo_details(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
     context = {'album':album}
@@ -80,6 +85,7 @@ def album_photo_details(request, album_id):
     return render(request, "administrator/", context)
 
 @login_required
+@never_cache
 def add_location(request):
     context = {}
     if request.method == "POST":
@@ -93,6 +99,7 @@ def add_location(request):
     return render(request, "administrator/add_location.html", context) 
 
 @login_required
+@never_cache
 def settings(request):
     context = {}
     setting = get_object_or_404(Settings, pk=1)
@@ -108,6 +115,7 @@ def settings(request):
     return render(request, "administrator/settings.html", context)
 
 @login_required
+@never_cache
 def locations(request, username=None):
     context = {}
     context['locations'] = Location.objects.all()
@@ -125,6 +133,7 @@ def choose(request):
     return redirect('file_uploader', location_slug=request.GET.get('location'), album_slug=request.GET.get("album"), user_id=request.GET.get('user_id'))
 
 @login_required
+@never_cache
 def edit_photo(request, photo_id):
     context = {}
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
@@ -145,7 +154,8 @@ def edit_photo(request, photo_id):
         return redirect('administrator.views.dashboard')
 
 
-@login_required    
+@login_required
+@never_cache    
 def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)    
     photo.deleted = True
@@ -155,6 +165,7 @@ def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=N
     return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
     
 @login_required
+@never_cache
 def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=None, photo_slug=None):
     photo = get_object_or_404(Photo, pk=photo_id)
     if request.user != photo.user:
@@ -170,6 +181,7 @@ def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=
     return redirect(photo.get_absolute_url())
 
 @login_required
+@never_cache
 def build_thumbnails(request):
     from conf import defaults
     ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
