@@ -97,3 +97,10 @@ LOGGING = {
         },
     }
 }
+
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_SITECONF = 'search_sites'
+HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, "whoosh")
+
+
+

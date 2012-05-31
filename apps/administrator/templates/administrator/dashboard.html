@@ -1,5 +1,25 @@
 {% extends "administrator/base.html" %}
-
+{% block extra_foot %}
+<script>
+$(document).ready(function () {
+    $.ajax({
+        url: "/admin/ajax/disk/size/",
+        //dataType: 'jsonp',
+        success: function(data){
+        $("#disk_size").replaceWith("<dd>" + data + "</dd>");
+        }
+    });
+    
+    $.ajax({
+        url: "/admin/ajax/cache/size/",
+        //dataType: 'jsonp',
+        success: function(data){
+        $("#cache_size").replaceWith("<dd>" + data + "</dd>");
+        }
+    });
+}); 
+</script>
+{% endblock %}
 {% block main_content %}
 
 
@@ -24,7 +44,7 @@
           <div class="span2">
               <div class="thumbnail">
                   {% load thumbnail %}
-                  {% thumbnail photo.image "240x161" crop="center" as im %}
+                  {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
                   <img src="{{ im.url }}">
                   {% endthumbnail %}
               </div>
@@ -42,7 +62,7 @@
     <li class="span2 thumb">
     <a class="thumbnail" href="#">
     {% load thumbnail %}
-    {% thumbnail photo.image "240x161" crop="center" as im %}
+    {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
         <img src="{{ im.url }}">
                 
         <a class="btn edit-photo"><i class="icon-pencil"></i> Edit</a>
@@ -120,7 +140,11 @@
         <dt>Locations</dt>
         <dd>{{ total_locations }}</dd>
         <dt>Size on Disk</dt>
-        <dd>{{ total_size }}</dd>
+        <dd id="disk_size"><span class="label label-info">Loading..</span></dd>
+        <dt>Cache Size</dt>
+        <dd id="cache_size"><span class="label label-info">Loading..</span></dd>
+        <dt>Thumbs Building</dt>
+        <dd>{{ thumbnails_building }}</dd>
     </dl>
 </div>
 

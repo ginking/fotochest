@@ -1,10 +1,11 @@
-<li class="span3 {% if forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}clear-photo{% endif %}">
-<a href="{{ photo.get_absolute_url }}" class="thumbnail polaroid">
 {% load thumbnail %}
-{% thumbnail photo.image "300x220" as im %}
-	<img src="{{ im.url }}" alt="{{ photo.title }}" rel="gallery">
-{% endthumbnail %}
+<li class="span3 {% if forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}clear-photo{% endif %}{% if photo.image|is_portrait %} portrait{% endif %}">
+<a href="{{ photo.get_absolute_url }}" class="thumbnail polaroid">
+
+{% thumbnail photo.image "300x300" as im %}
+	<img src="{{ im.url }}" alt="{{ photo.title }}">
+
 <span>{{ photo.title }}</span>
 </a>
 </li>
-
+{% endthumbnail %}

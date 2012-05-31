@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from hadrian.utils.slugs import unique_slugify
 import os
-
 from hadrian.contrib.locations.models import *
 from sorl.thumbnail import get_thumbnail
 from PIL import Image
@@ -134,10 +133,11 @@ class Photo(models.Model):
         # 1024x768 for photo.html
         
         get_thumbnail(self.image, '75x75', crop="center", quality=50)
-        get_thumbnail(self.image, '1024x768')
+        get_thumbnail(self.image, '1024x650', quality=100)
         get_thumbnail(self.image, '240x165')
-        get_thumbnail(self.image, '240x161', crop="center")
+        get_thumbnail(self.image, '240x161', crop="center", quality=75)
         get_thumbnail(self.image, '300x220')
+        get_thumbnail(self.image, '300x300')
         
     def get_exif_data(self):
         exif_data = {}

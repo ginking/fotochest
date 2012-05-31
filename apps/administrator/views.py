@@ -1,55 +1,23 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.csrf import csrf_exempt
 from photo_manager.models import Photo, Album
 from administrator.models import Settings
 from administrator.forms import SettingsForm
 from hadrian.contrib.locations.models import *
 from hadrian.contrib.locations.forms import *
-from django.contrib.auth.models import User
-import os
 from django.conf import settings as app_settings
 import random
 import sorl
 from PIL import Image
 from photo_manager.forms import *
 from django.contrib.auth.decorators import login_required
-from photo_manager.tasks import ThumbnailTask
 from photo_manager.forms import AlbumForm
-from conf import defaults
 from django.contrib import messages
-from django.http import HttpResponse
 
 @login_required
 def add_photos(request):
     context = {}
     return render(request, "administrator/add_photos.html", context)
-
-def get_size(start_path = '%s/images' % app_settings.MEDIA_ROOT):
-    total_size = 0
-    for dirpath, dirnames, filenames in os.walk(start_path):
-        for f in filenames:
-            fp = os.path.join(dirpath, f)
-            total_size += os.path.getsize(fp)
-    return total_size
-
-def convert_bytes(bytes):
-    bytes = float(bytes)
-    if bytes >= 1099511627776:
-        terabytes = bytes / 1099511627776
-        size = '%.2fT' % terabytes
-    elif bytes >= 1073741824:
-        gigabytes = bytes / 1073741824
-        size = '%.2fG' % gigabytes
-    elif bytes >= 1048576:
-        megabytes = bytes / 1048576
-        size = '%.2fM' % megabytes
-    elif bytes >= 1024:
-        kilobytes = bytes / 1024
-        size = '%.2fK' % kilobytes
-    else:
-        size = '%.2fb' % bytes
-    return size
 
 @login_required
 def dashboard(request):
@@ -57,9 +25,9 @@ def dashboard(request):
     albums = Album.objects.filter(parent_album=None)
     context = {'albums': albums}
     context['total_photos'] = Photo.objects.filter(deleted=False).count()
-    context['total_albums'] = albums.count()
+    context['total_albums'] = Album.objects.all().count()
     context['total_locations'] = Location.objects.all().count()
-    context['total_size'] = convert_bytes(get_size())
+    context['thumbnails_building'] = Photo.objects.filter(deleted=False, thumbs_created=False).count()
     paginator = Paginator(photos, 16)
     page = request.GET.get('page', 1)
     
@@ -156,59 +124,6 @@ def locations(request, username=None):
 def choose(request):
     return redirect('file_uploader', location_slug=request.GET.get('location'), album_slug=request.GET.get("album"), user_id=request.GET.get('user_id'))
 
-#--------------------------------------------#
-#
-# photo_upload().  Tired as I write this.  the
-# method should add photos to a specific location
-# THIS NEEDS FIXING
-#
-#--------------------------------------------#
-@csrf_exempt
-def photo_upload(request, location_slug, album_slug, user_id):
-    context = {}
-        
-    if request.method == 'POST':
-        for field_name in request.FILES:
-            uploaded_file = request.FILES[field_name]
-            
-            # write the file into /tmp
-            num1 = str(random.randint(0, 1000000))
-            num2 = str(random.randint(1001, 9000000))
-            
-            ext = os.path.splitext(uploaded_file.name)[1]
-            filename = str(num1 + num2) + ext
-            album_used = get_object_or_404(Album, slug=album_slug)
-            photo_new = Photo(title=filename, album=album_used)
-            photo_new.file_name = filename
-            photo_new.image = 'images/' + filename
-            # Set location to default location
-            photo_new.location = get_object_or_404(Location, slug=location_slug)
-            user = get_object_or_404(User, pk=user_id)
-            photo_new.user = user
-            photo_new.save()
-            destination_path = app_settings.PHOTO_DIRECTORY + '/%s' % (filename)   
-            destination = open(destination_path, 'wb+')
-            for chunk in uploaded_file.chunks():
-                destination.write(chunk)
-            destination.close()
-            ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
-            if ENABLE_CELERY:
-                ThumbnailTask.delay(photo_new.id)
-            print "IT WORKED"
-        # indicate that everything is OK for SWFUpload
-        
-        return HttpResponse("ok", mimetype="text/plain")
-        
-    else:
-        
-        context['upload_dir'] = app_settings.PHOTO_DIRECTORY
-        context['album_slug'] = album_slug
-        context['location_slug'] = location_slug
-        context['domain_static'] = app_settings.DOMAIN_STATIC    
-        return render(request,'administrator/add_photos.html', context)
-
-
-### Forms
 @login_required
 def edit_photo(request, photo_id):
     context = {}
@@ -275,3 +190,23 @@ def delete_thumbnails(request):
         ThumbnailCleanupTask.delay(photo.id)
     messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
     return redirect('admin_utilities')
+    
+    
+@login_required
+def clear_thumbnails(request):
+    from django.core import management
+    management.call_command('thumbnail', 'clear')
+    messages.add_message(request, messages.SUCCESS, "Key Value Store Cleared")
+    return redirect('admin_utilities')
+    
+@login_required
+def rebuild_search(request):
+    from django.core import management
+    management.call_command('update_index')
+    messages.add_message(request, messages.SUCCESS, "Search index updated.")
+    return redirect('admin_utilities')
+    
+    
+    
+    
+    
