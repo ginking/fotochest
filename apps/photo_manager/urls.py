@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from photo_manager.views import homepage, photo, photo_fullscreen, LocationsListView, location, slideshow, album, photo_download, AlbumListView
+from photo_manager.views import homepage, photo, photo_fullscreen, LocationsListView, location, slideshow, album, photo_download, AlbumListView, tag
 from photo_manager.feeds import StreamFeed, AlbumStream
 from photo_manager.api import PhotoResource, AlbumResource, LocationResource
 from tastypie.api import Api
@@ -37,6 +37,9 @@ urlpatterns = patterns('',
     # Albums
     url(r'^albums/$', AlbumListView.as_view(), name="albums"),
     url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album),
-    url(r'^album/(?P<album_slug>[-\w]+)/slideshow/$', slideshow),                           
+    url(r'^album/(?P<album_slug>[-\w]+)/slideshow/$', slideshow),
+    
+    # Tags
+    url(r'^tag/(?P<tag_slug>[-\w]+)/$', tag),                           
 )
 

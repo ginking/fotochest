@@ -37,24 +37,21 @@
       <p>Select the album and location that you want to associate you uploaded photos with.</p>
       <form method="GET" action="{% url administrator.views.choose %}">
       <label>Album Name:</label>
-                      <select name="album">
-                          {% for album in form_albums %}
-                          <option value="{{ album.slug }}">{{ album.title }}</option>
-                          
-                      {% endfor %}
-                      
-                      </select>
-                      <input type="hidden" name="user_id" value="{{ request.user.id }}">
-                      
-                      <label>Location</label>
-                      <select name="location">
-                          {% for location in form_locations %}
-                          <option value="{{ location.slug }}">{{ location }}</option>
-                          
-                      {% endfor %}
-                      
-                      </select>
-
+      <select name="album">
+          {% for album in form_albums %}
+          <option value="{{ album.slug }}">{{ album.title }}</option>
+      {% endfor %}
+      </select>
+      <input type="hidden" name="user_id" value="{{ request.user.id }}">
+      <label>Location</label>
+      <select name="location">
+          {% for location in form_locations %}
+          <option value="{{ location.slug }}">{{ location }}</option>
+      {% endfor %}
+      </select>
+      <label>Tags (Optional)</label>
+      <input type="text" name="tags" id="tags">
+        <p class="help-block">Adding tags allows you to search and view photos by tags rather than album or location. Comma seperated please.</p>
       
     </div>
     <div class="modal-footer">

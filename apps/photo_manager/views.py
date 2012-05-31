@@ -51,6 +51,21 @@ def album(request, album_id, album_slug):
     return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
 
 
+def tag(request, tag_slug):
+    context = {}
+    photos = Photo.objects.filter(tags__slug__in=[tag_slug])
+    paginator = Paginator(photos, 12)
+    page = request.GET.get('page', 1)
+    try:
+        context['photos'] = pagniator.page(page)
+    except PageNotAnInteger:
+        context['photos'] = paginator.page(1)
+    except EmptyPage:
+        context['photos'] = paginator.page(paginator.num_pages)
+    context['paginator'] = paginator
+    return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
+
+
 class AlbumListView(ListView):
     context_object_name = "albums"
     template_name = "%s/albums.html" % settings.ACTIVE_THEME
@@ -62,7 +77,6 @@ def homepage(request):
     context = {}
     
     photos = Photo.objects.active()
-    context['form_albums'] = Album.objects.all()
         
     paginator = Paginator(photos, 12)
     page = request.GET.get('page', 1)
