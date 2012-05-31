@@ -199,7 +199,12 @@ def clear_thumbnails(request):
     messages.add_message(request, messages.SUCCESS, "Key Value Store Cleared")
     return redirect('admin_utilities')
     
-    
+@login_required
+def rebuild_search(request):
+    from django.core import management
+    management.call_command('update_index')
+    messages.add_message(request, messages.SUCCESS, "Search index updated.")
+    return redirect('admin_utilities')
     
     
     

@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo, delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails
+from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo, delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
 from administrator.upload import upload_photo, upload_delete
 from administrator.ajax import get_disk_size, get_cache_size
 # This maps static files dirs to URLS.
@@ -17,8 +17,10 @@ urlpatterns = patterns('',
     url(r'^settings/$', settings, name="settings"),
     url(r'^utilities/$', direct_to_template, {'template': 'administrator/utilities.html'}, name="admin_utilities"),
     url(r'^utilities/build/$', build_thumbnails, name="build_thumbnails"),
+    url(r'^utilities/search/update/$', rebuild_search, name="rebuild_search"),
     url(r'^utilities/thumbs/delete/$', delete_thumbnails, name="delete_thumbnails"),
     url(r'^utilities/thumbs/clear/$', clear_thumbnails, name="clear_thumbnails"),
+    
     url(r'^add/$', add_photos, name="admin_add_photos"),
     url(r'^foto/(?P<photo_id>\d+)/edit/$', edit_photo),
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/delete/$', delete_photo),

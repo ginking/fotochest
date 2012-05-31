@@ -51,12 +51,24 @@
 
 <div class="row">
     <div class="span3">
-<a href="#deleteThumbnails" class="btn btn-danger btn-small"  data-toggle="modal"><i class="icon-trash icon-white"></i> Clean Out Thumbnails</a>
+        <a href="#deleteThumbnails" class="btn btn-danger btn-small"  data-toggle="modal"><i class="icon-trash icon-white"></i> Clean Out Thumbnails</a>
+    </div>
+    <div class="span5">
+        <p class="help-block">This job deletes all thumbnails and resets the flag on all images to be rebuilt.  This can cause the site to become un-responsive to some users.  It is recommended to rebuild thumbs after running this job.</p>
+    </div>
 </div>
-<div class="span5">
-<p class="help-block">This job deletes all thumbnails and resets the flag on all images to be rebuilt.  This can cause the site to become un-responsive to some users.  It is recommended to rebuild thumbs after running this job.</p>
+
+<div class="row">
+    <div class="span3">
+        <a href="{% url rebuild_search %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Rebuild Search Index</a>
+    </div>
+    <div class="span5">
+        <p class="help-block">This reques the search index.  This needs rebuidling before searches can be performed.</p>
+    </div>
 </div>
-</div>
+
+
+
 </div>
 {% endblock main_content %}
 {% block extra_foot %}
