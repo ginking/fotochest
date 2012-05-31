@@ -1,13 +1,36 @@
 {% extends "administrator/base.html" %}
-
+{% block extra_foot %}
+<script>
+$(document).ready(function () {
+    $.ajax({
+        url: "/admin/ajax/disk/size/",
+        //dataType: 'jsonp',
+        success: function(data){
+        $("#disk_size").replaceWith("<dd>" + data + "</dd>");
+        }
+    });
+    
+    $.ajax({
+        url: "/admin/ajax/cache/size/",
+        //dataType: 'jsonp',
+        success: function(data){
+        $("#cache_size").replaceWith("<dd>" + data + "</dd>");
+        }
+    });
+}); 
+</script>
+{% endblock %}
 {% block main_content %}
 
 
 <div class="page-header">
 <h2>Recent Uploads</h2>
 </div>
-<ul class="thumbnails">
+
 {% for photo in photos.object_list %}
+{% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}
+<ul class="thumbnails row">
+{% endif %}
     <div class="modal hide fade" id="deletePhoto_{{ photo.id }}">
         <div class="modal-header">
           <a data-dismiss="modal" class="close">×</a>
@@ -21,7 +44,7 @@
           <div class="span2">
               <div class="thumbnail">
                   {% load thumbnail %}
-                  {% thumbnail photo.image "240x161" crop="center" as im %}
+                  {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
                   <img src="{{ im.url }}">
                   {% endthumbnail %}
               </div>
@@ -39,7 +62,7 @@
     <li class="span2 thumb">
     <a class="thumbnail" href="#">
     {% load thumbnail %}
-    {% thumbnail photo.image "240x161" crop="center" as im %}
+    {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
         <img src="{{ im.url }}">
                 
         <a class="btn edit-photo"><i class="icon-pencil"></i> Edit</a>
@@ -47,17 +70,26 @@
     </a>
     <div class="caption">
         <div class="controls">
-            <input type="text" value="{{ photo.title }}" class="span2">
-            <textarea class="span2">{{ photo.description }}</textarea>
+            <form method="POST" action="{% url administrator.views.edit_photo photo_id=photo.id %}">
+            {% csrf_token %}
+            <input type="text" name="title" value="{{ photo.title }}" class="span2">
+            <textarea class="span2" name="description">{{ photo.description }}</textarea>
+            <label>Album</label>
+            <select name="album" class="span2">
+            {% for album in form_albums %}
+                <option {% if photo.album == album %} selected="selected"{% endif %} value="{{ album.id }}">{{ album }}</option>
+            {% endfor %}
+            </select>
             <label>Location</label>
             <select name="location" class="span2">
                 {% for location in form_locations %}
-                <option value="{{ location.slug }}">{{ location }}</option>
+                <option {% if photo.location == location %} selected="selected"{% endif %} value="{{ location.id }}">{{ location }}</option>
                 
                 {% endfor %}
             </select>
             <a href="#deletePhoto_{{ photo.id }}" data-toggle="modal" class="btn btn-danger">Delete <i class="icon-trash icon-white"></i></a>
-            <a href="#" class="btn btn-success">Save</a>
+            <input type="submit" value="Save" class="btn btn-success">
+            </form>
         </div>
       <h5>{{ photo.title }}</h5>
       {% if photo.description %}
@@ -69,10 +101,11 @@
       
     </div>
     </li>
+    {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 or forloop.counter == 16 %}
+    </ul>
+    {% endif %}
 {% endfor %}
-    
-    
-</ul>
+
 <div class="pagination">
     <ul>
         {% if photos.has_previous %}
@@ -97,7 +130,23 @@
 {% endblock main_content %}
 
 {% block sidebar %}
-
+<div class="well">
+    <h4>Quick Stats</h4>
+    <dl class="dl-horizontal">
+        <dt>Photos</dt>
+        <dd>{{ total_photos }}</dd>
+        <dt>Albums</dt>
+        <dd>{{ total_albums }}</dd>
+        <dt>Locations</dt>
+        <dd>{{ total_locations }}</dd>
+        <dt>Size on Disk</dt>
+        <dd id="disk_size"><span class="label label-info">Loading..</span></dd>
+        <dt>Cache Size</dt>
+        <dd id="cache_size"><span class="label label-info">Loading..</span></dd>
+        <dt>Thumbs Building</dt>
+        <dd>{{ thumbnails_building }}</dd>
+    </dl>
+</div>
 
 {% endblock sidebar%}
 

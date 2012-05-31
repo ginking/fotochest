@@ -25,10 +25,13 @@
 </ul>
 
 <div class="page-header">
-    <h2>{{ album }}</h2>
+    <h2>{{ album.title }}</h2>
 </div>
+
 <ul class="thumbnails">
+
 {% for photo in photos.object_list %}
+    
     {% if album.has_child_albums %}
     {% include "twitter/snippets/smaller_item.html" %}
     {% else %}
@@ -40,7 +43,7 @@
 
 {% for album in albums.object_list %}
     <li class="span3">
-        <a href="{{ album.get_absolute_url }}" class="thumbnail">
+        <a href="{{ album.get_absolute_url }}" class="thumbnail polaroid">
             {% if album.album_cover %}
                     {% load thumbnail %}
                     {% thumbnail album.album_cover "300x220" as im %}
@@ -57,8 +60,9 @@
                     <img src="http://dummyimage.com/260x180">
                     {% endif %}
             {% endif %}
+        <span>{{ album.title }}</span>
         </a>
-        <h4>{{ album.title }}</h4>
+        
     </li>
 
 {% endfor %}
@@ -123,3 +127,33 @@
 
 
 {% endblock %}
+{% block extra_foot %}
+<script>
+/*jslint unparam: true */
+/*global window, document, $ */
+$(function () {
+    $('#modal-gallery').addClass('modal-fullscreen');
+    'use strict';
+
+    // Start slideshow button:
+    $('#start-slideshow').button().click(function () {
+        var options = $(this).data(),
+            modal = $(options.target),
+            data = modal.data('modal');
+        if (data) {
+            $.extend(data.options, options);
+        } else {
+            options = $.extend(modal.data(), options);
+        }
+        modal.find('.modal-slideshow').find('i')
+            .removeClass('icon-play')
+            .addClass('icon-pause');
+        modal.modal(options);
+    });
+
+    
+
+    
+});
+</script>
+{% endblock extra_foot %}

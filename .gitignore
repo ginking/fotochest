@@ -7,3 +7,5 @@ dev.db
 uploads
 .coverage
 reports/coverage_html
+.idea/
+whoosh/

@@ -1,46 +1,44 @@
-Name                                    Stmts   Miss  Cover   Missing
----------------------------------------------------------------------
-apps/administrator/__init__                 0      0   100%   
-apps/administrator/admin                    3      0   100%   
-apps/administrator/ajax                    17     14    18%   4-11, 15-22
-apps/administrator/context_processors       6      0   100%   
-apps/administrator/forms                    5      0   100%   
-apps/administrator/jobs                    13     11    15%   6-17
-apps/administrator/models                   6      1    83%   9
-apps/administrator/tasks                   10      4    60%   8-11
-apps/administrator/tests/__init__           0      0   100%   
-apps/administrator/tests/factories          6      0   100%   
-apps/administrator/urls                     3      0   100%   
-apps/administrator/views                  166    127    23%   26-27, 31-46, 50-62, 66-68, 72-75, 79-88, 92-103, 107-117, 120, 131-171, 177-194, 198-205, 209-220
-apps/photo_manager/__init__                 0      0   100%   
-apps/photo_manager/admin                    9      0   100%   
-apps/photo_manager/api                     50     23    54%   16-21, 41-48, 51-59
-apps/photo_manager/context_processors       6      0   100%   
-apps/photo_manager/feeds                   25      7    72%   11, 14, 17, 25, 28, 31, 34
-apps/photo_manager/forms                    6      0   100%   
-apps/photo_manager/managers                 4      0   100%   
-apps/photo_manager/models                 117     58    50%   30-31, 34-59, 65, 72, 76, 80, 99, 102-103, 107, 112-117, 121-126, 129-130, 140-142, 145-151, 156, 161, 169
-apps/photo_manager/tasks                   10      4    60%   8-11
-apps/photo_manager/tests/__init__           2      0   100%   
-apps/photo_manager/tests/factories          8      0   100%   
-apps/photo_manager/tests/live              26      0   100%   
-apps/photo_manager/tests/models            21      0   100%   
-apps/photo_manager/urls                    11      0   100%   
-apps/photo_manager/views                  112     89    21%   10-41, 44-60, 73-76, 81-89, 92-98, 101-104, 108-119, 124-127, 130-148
-apps/profiles/__init__                      0      0   100%   
-apps/profiles/admin                        14      0   100%   
-apps/profiles/choices                       1      0   100%   
-apps/profiles/forms                         5      0   100%   
-apps/profiles/models                        9      0   100%   
-apps/profiles/views                        48     37    23%   10, 13-26, 29-38, 43-58, 62-64
-conf/__init__                               0      0   100%   
-conf/defaults                               1      0   100%   
-conf/environment                           15      0   100%   
-manage                                      6      0   100%   
-settings/__init__                           0      0   100%   
-settings/common                            25      0   100%   
-settings/local                             19      0   100%   
-urls/__init__                               0      0   100%   
-urls/local                                  6      0   100%   
----------------------------------------------------------------------
-TOTAL                                     791    375    53%   
+Name                                       Stmts   Miss  Cover   Missing
+------------------------------------------------------------------------
+apps/administrator/__init__                    0      0   100%   
+apps/administrator/admin                       3      0   100%   
+apps/administrator/ajax                       32     25    22%   6-7, 10-11, 14-19, 22-37
+apps/administrator/context_processors          6      0   100%   
+apps/administrator/forms                       5      0   100%   
+apps/administrator/models                      6      1    83%   9
+apps/administrator/tasks                      18      9    50%   8-11, 18-22
+apps/administrator/templatetags/__init__       0      0   100%   
+apps/administrator/tests/__init__              0      0   100%   
+apps/administrator/tests/factories             6      0   100%   
+apps/administrator/upload                     54     38    30%   20-81, 85
+apps/administrator/urls                        6      0   100%   
+apps/administrator/views                     155    122    21%   19-20, 24-42, 46-58, 62-73, 77-80, 84-93, 97-108, 112-122, 125, 129-145, 150-155, 159-170, 174-183, 188-192, 197-200
+apps/photo_manager/__init__                    0      0   100%   
+apps/photo_manager/admin                       9      0   100%   
+apps/photo_manager/api                        50     23    54%   16-21, 41-48, 51-59
+apps/photo_manager/context_processors         12      0   100%   
+apps/photo_manager/feeds                      25      7    72%   11, 14, 17, 25, 28, 31, 34
+apps/photo_manager/forms                      16      4    75%   9-20
+apps/photo_manager/managers                    4      0   100%   
+apps/photo_manager/models                    117     53    55%   29-30, 37-58, 64, 71, 76, 95, 107-112, 116-121, 124-125, 135-140, 143-149, 154, 159, 167
+apps/photo_manager/tasks                      10      4    60%   8-11
+apps/photo_manager/tests/__init__              2      0   100%   
+apps/photo_manager/tests/factories             8      0   100%   
+apps/photo_manager/tests/live                 26      0   100%   
+apps/photo_manager/tests/models               37      0   100%   
+apps/photo_manager/urls                       10      0   100%   
+apps/photo_manager/views                     107     84    21%   9-39, 42-58, 71-74, 79-87, 90-95, 98-100, 103-108, 113-116, 119-137
+apps/profiles/__init__                         0      0   100%   
+apps/profiles/forms                            5      0   100%   
+apps/profiles/views                           48     37    23%   10, 13-26, 29-38, 43-58, 62-64
+conf/__init__                                  0      0   100%   
+conf/defaults                                  1      0   100%   
+conf/environment                              15      0   100%   
+manage                                         6      0   100%   
+settings/__init__                              0      0   100%   
+settings/common                               25      0   100%   
+settings/local                                21      0   100%   
+urls/__init__                                  0      0   100%   
+urls/local                                     6      0   100%   
+------------------------------------------------------------------------
+TOTAL                                        851    407    52%   
