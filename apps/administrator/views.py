@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from photo_manager.forms import AlbumForm
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+from django.contrib.comments.models import Comment
 
 @login_required
 def add_photos(request):
@@ -219,5 +221,8 @@ def rebuild_search(request):
     
     
     
-    
-    
+class CommentListView(ListView):
+    model = Comment
+    template_name = "administrator/comment_list_view.html"
+    context_object_name = "comments"
+    paginate_by = 40

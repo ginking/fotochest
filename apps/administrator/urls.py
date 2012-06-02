@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo, delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
+from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo, delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search, CommentListView
 from administrator.upload import upload_photo, upload_delete
 from administrator.ajax import get_disk_size, get_cache_size
 # This maps static files dirs to URLS.
@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # Send all remaming URLS to the App.
     url(r'^$', dashboard, name="admin_dashboard"),
     url(r'^choose/', choose, name="choose"),
+    url(r'^comments/$', CommentListView.as_view(), name="comment_list_view"),
     url(r'^albums/$', album_list, name="admin_albums"),
     url(r'^album/(?P<album_id>\d+)/$', album_detail, name="admin_album_detail"),
     url(r'^locations/$', locations, name="admin_locations"),
