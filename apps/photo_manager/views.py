@@ -6,17 +6,6 @@ from hadrian.contrib.locations.models import *
 from django.conf import settings
 from django.http import HttpResponse
 
-
-
-'''
-class CountryDetailView(DetailView):
-    
-    context_object_name = "country"
-    template_name = "traveler/country_detail.html"
-    queryset = Country.objects.all()
-    
-'''
-
 def album(request, album_id, album_slug):
     context = {}
     context['album_slug'] = album_slug
@@ -70,6 +59,12 @@ class AlbumListView(ListView):
     context_object_name = "albums"
     template_name = "%s/albums.html" % settings.ACTIVE_THEME
     queryset = Album.objects.filter(parent_album=None)
+    paginate_by = 12
+
+class HomepageListView(ListView):
+    context_object_name = "photos"
+    template_name = "%s/index.html" % settings.ACTIVE_THEME
+    queryset = Photo.objects.active()
     paginate_by = 12
 
        
