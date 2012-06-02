@@ -26,27 +26,7 @@
     {% endfor %}
     </tbody>
 </table>
-
-<div class="pagination">
-    <ul>
-        {% if photos.has_previous %}
-        <li><a href="?page={{ photos.previous_page_number }}">Prev</a></li>
-        {% endif %}
-        {% if photos.previous_page_number %}
-        <li><a href="?page={{ photos.previous_page_number }}">{{ photos.previous_page_number }}</a></li>
-        {% endif %}
-        <li class="active">
-            <a href="#">{{ photos.number }}</a>
-        </li>
-        {% if photos.next_page_number %}
-        <li><a href="?page={{ photos.next_page_number }}">{{ photos.next_page_number }}</a></li>
-        {% endif %}
-        {% if photos.has_next %}
-        <li><a href="?page={{ photos.next_page_number }}">Next</a></li>
-        {% endif %}
-    </ul>
-</div>
-
+{% include "administrator/snippets/pagination.html" %}
 
 {% endblock main_content %}
 
