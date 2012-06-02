@@ -1,4 +1,3 @@
-import datetime
 from haystack.indexes import *
 from photo_manager.models import Photo, Album
 from haystack import site

@@ -6,7 +6,6 @@ from administrator.forms import SettingsForm
 from hadrian.contrib.locations.models import *
 from hadrian.contrib.locations.forms import *
 from django.conf import settings as app_settings
-import random
 import sorl
 from PIL import Image
 from photo_manager.forms import *

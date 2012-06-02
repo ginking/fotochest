@@ -11,10 +11,8 @@ from conf import defaults
 from django.conf import settings as app_settings
 from sorl.thumbnail import get_thumbnail
 from django.core.files.uploadedfile import UploadedFile
-
 #importing json parser to generate jQuery plugin friendly json response
 from django.utils import simplejson
-
 
 def upload_photo(request, location_slug, album_slug, user_id):
     context = {}
@@ -79,7 +77,6 @@ def upload_photo(request, location_slug, album_slug, user_id):
         context['location_slug'] = location_slug
     
         return render(request,'administrator/add_photos.html', context)
-        
-        
+
 def upload_delete(request, pk):
     return render(request, "example.html")
