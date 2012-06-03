@@ -17,6 +17,8 @@ $(document).ready(function () {
         $("#cache_size").replaceWith("<dd>" + data + "</dd>");
         }
     });
+
+    $('.location_link').popover();
 }); 
 </script>
 {% endblock %}
@@ -97,7 +99,7 @@ $(document).ready(function () {
       {% endif %}
       <span class="label {% if photo.thumbs_created %}label-success{% else %}label-important{% endif %}">{% if photo.thumbs_created %}Thumbnails Created{% else %}Thumnails Failed{% endif %}</span>
       <br/>
-      <a href="#"><i class="icon-map-marker"></i>  {{ photo.location }}</a>
+      <a href="#" class="location_link" title="{{ photo.location }}" data-content="<img src='http://maps.googleapis.com/maps/api/staticmap?center={{ photo.location }}&zoom=7&size=300x200&maptype=roadmap&sensor=false'>"><i class="icon-map-marker"></i>  {{ photo.location }}</a>
       
     </div>
     </li>

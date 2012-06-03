@@ -30,7 +30,7 @@ def dashboard(request):
     context['total_photos'] = Photo.objects.filter(deleted=False).count()
     context['total_albums'] = Album.objects.all().count()
     context['total_locations'] = Location.objects.all().count()
-    context['thumbnails_building'] = Photo.objects.filter(deleted=False, thumbs_created=False).count()
+
     paginator = Paginator(photos, 16)
     page = request.GET.get('page', 1)
     
