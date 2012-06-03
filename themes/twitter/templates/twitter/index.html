@@ -74,3 +74,15 @@
 
 </div>
 {% endblock main_content %}
+
+{% block extra_foot %}
+ <script>
+     $(document).ready(function(){
+        $('.polaroid').popover({
+            delay: {show: 1000, hide:100},
+            placement: 'bottom'
+        });
+;     });
+
+ </script>
+{% endblock extra_foot %}
