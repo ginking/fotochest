@@ -33,9 +33,9 @@
 {% for photo in photos.object_list %}
     
     {% if album.has_child_albums %}
-    {% include "twitter/snippets/smaller_item.html" %}
+    {% include "default/snippets/smaller_item.html" %}
     {% else %}
-    {% include "twitter/snippets/item.html" %}
+    {% include "default/snippets/item.html" %}
     {% endif %}
 {% endfor %}
 

@@ -65,12 +65,12 @@
     {% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 %}
     <ul class="thumbnails row">
     {% endif %}
-    {% include "twitter/snippets/item.html" %}
+    {% include "default/snippets/item.html" %}
     {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 %}
     </ul>
     {% endif %}
 {% endfor %}
-{% include "twitter/snippets/pagination.html" %}
+{% include "default/snippets/pagination.html" %}
 
 </div>
 {% endblock main_content %}
