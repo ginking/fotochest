@@ -2,8 +2,11 @@
 {% block extra_html %}style="height: 100%"{% endblock %}
 {% block title %}Map{% endblock %}
 
-
+{% block nav %}
+{% include "default/nav.html" with current=3 %}
+{% endblock nav %}
 {% block extra_head %}
+{% load location_tags %}
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script>
   function initialize() {
@@ -54,7 +57,7 @@ rules: [
       var content{{ location.id }} = '<div id="content">'+
           
           
-          '<p><a style="color:#2d2d2d;" href="{% if current_user %}{% url photo_manager.views.location location_slug=location.slug username=current_user.username %}{% else %}{% url photo_manager.views.location location_slug=location.slug %}{% endif %}">{{ location }} ({{ location.get_photo_count }})</a></p>' +
+          '<p><a style="color:#2d2d2d;" href="{% if current_user %}{% url photo_manager.views.location location_slug=location.slug username=current_user.username %}{% else %}{% url photo_manager.views.location location_slug=location.slug %}{% endif %}">{{ location }} ({% location_photo_count location.slug %})</a></p>' +
           
           '</div>';
       var infowindow{{ location.id }} = new google.maps.InfoWindow({
@@ -90,6 +93,15 @@ rules: [
 {% block extra_body %}onLoad="initialize()" style="height:100%"{% endblock %}
 {% block main_class %}map_page{% endblock %}
 {% block main_content %}
+<style>
+.container,
+.row
+{
+   width: 100%;
+   height: 100%; 
+   margin-left: 0;
+}
+</style>
 <div id="map">
         
         </div>
