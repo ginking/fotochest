@@ -1,9 +1,9 @@
-{% extends "twitter/base.html" %}
+{% extends "default/base.html" %}
 {% block extra_html %}style="height: 100%"{% endblock %}
 {% block title %}Map{% endblock %}
 
 {% block nav %}
-{% include "twitter/nav.html" with current=3 %}
+{% include "default/nav.html" with current=3 %}
 {% endblock nav %}
 {% block extra_head %}
 {% load location_tags %}
