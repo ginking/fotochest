@@ -29,7 +29,7 @@ USE_L10N = True
 
 
 ENABLE_CELERY = True
-ACTIVE_THEME = "twitter"
+ACTIVE_THEME = "default"
 AUTH_PROFILE_MODULE = "profiles.Profile"
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 
