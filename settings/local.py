@@ -46,11 +46,6 @@ STATICFILES_DIRS = (
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-# URL prefix for admin static files -- CSS, JavaScript and images.
-# Make sure to use a trailing slash.
-# Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '%sadmin/' % STATIC_URL
-
 PHOTO_DIRECTORY = os.path.join(SITE_ROOT, 'uploads/images')
 
 WSGI_APPLICATION = 'wsgi.application'
@@ -63,7 +58,19 @@ TEMPLATE_DIRS = (
 
 DOMAIN_STATIC = '/static/'
 
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+)
+INTERNAL_IPS = ('127.0.0.1',)
 
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+}
 
 ROOT_URLCONF = 'urls.local'
 
@@ -77,21 +84,25 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     #'grappelli',
     'django.contrib.admin',
-    'hadrian.contrib.gravatar',
+    'debug_toolbar',
+    'hadrian.contrib.locations',
     'hadrian.contrib.pomona',
     'tastypie',
     'photo_manager',
     'administrator',
     'api_docs',
+    'taggit',
     # Everyone should be using south.  Seriously.
     'south',
+    'crispy_forms',
     'sorl.thumbnail',
     'djcelery',
     'djkombu',
     'test_utils',
+    'haystack',
     #'photo_admin',
-    'locations',
-    'profiles',
+    
+    #'profiles',
     #'tagging',
 
 )

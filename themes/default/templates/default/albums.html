@@ -1,91 +1,164 @@
 {% extends "default/base.html" %}
-{% block title %}Albums{% endblock %}
-{% block extra_head %}
-<script src="{{ STATIC_URL }}default/js/live_edit.js"></script>
-{% endblock %}
-{% block extra_nav %}
-    <li><a href="#" class="osx">Add Album</a></li>
-{% endblock %}
-
+{% block nav %}
+{% include "default/nav.html" with current=2 %}
+{% endblock nav %}
 {% block main_content %}
 
-    {% for album in albums %}
-                <article class="photo stream">
-                <a href="{{ album.get_absolute_url }}">
-                    {% if album.album_cover %}
-                        {% load thumbnail %}
-                        {% thumbnail album.album_cover "240x165" as im %}
-                        <img src="{{ im.url }}">
-                        {% endthumbnail %}
-                        
-                    {% else %}
-                        {% if album.get_album_cover %}
-                            {% load thumbnail %}
-                    {% thumbnail album.get_album_cover.image "240x165" as im %}
-                <img src="{{ im.url }}">
+<div class="{% if album.has_child_albums %}span9{% else %}span12{% endif %}">
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
+  </li>
+  {% if albums %}
+  <li class="active">
+  Albums
+  </li>
+  {% else %}
+  <li>
+    <a href="{% url albums %}">Albums</a> <span class="divider">/</span>
+  </li>
+  
+  <li class="active">
+      {{ album }}
+  </li>
+  {% endif %}
+</ul>
+
+<div class="page-header">
+    <h2>{{ album.title }}</h2>
+</div>
+
+<ul class="thumbnails">
+
+{% for photo in photos.object_list %}
+    
+    {% if album.has_child_albums %}
+    {% include "default/snippets/smaller_item.html" %}
+    {% else %}
+    {% include "default/snippets/item.html" %}
+    {% endif %}
+{% endfor %}
+
+
+
+{% for album in albums %}
+    <li class="span3">
+        <a href="{{ album.get_absolute_url }}" class="thumbnail polaroid">
+            {% if album.album_cover %}
+                    {% load thumbnail %}
+                    {% thumbnail album.album_cover "300x220" as im %}
+                    <img src="{{ im.url }}">
                     {% endthumbnail %}
-                        {% else %}
-                        <img src="http://dummyimage.com/240x161">
-                        {% endif %}
-                {% endif %}
-                </a>
-                <h3>
-                    {% if request.user.is_authenticated and request.user == album.user %}
-                    <div class="title_controls">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" class="csrf"> 
-                    <input type="text" value="{{ album.title }}" class="title_control" title="Click to edit Photo Title">
-                    <input type="hidden" value="{{ album.id }}" class="album_id">
-                        <a href="#" class="positive button album">Save</a>
-                    </div>
+                    
+                {% else %}
+                    {% if album.get_album_cover %}
+                        {% load thumbnail %}
+                {% thumbnail album.get_album_cover.image "300x220" as im %}
+            <img src="{{ im.url }}">
+                {% endthumbnail %}
                     {% else %}
-                        {{ album.title }}
-                        {% endif %}
-                </h3>
-                
-                </article>
-    {% endfor %}
+                    <img src="http://dummyimage.com/260x180">
+                    {% endif %}
+            {% endif %}
+        <span>{{ album.title }}</span>
+        </a>
+        
+    </li>
 
-
+{% endfor %}
+</ul>
 <div class="pagination">
-            {% if photos.has_previous %}
-            <a href="?page={{ photos.previous_page_number }}">{{ photos.previous_page_number }}</a>
-            {% endif %}
-            {% if photos.number %}
-            <span class="current">{{ photos.number }}</span>
-            {% endif %}
-            {% if photos.has_next %}
-            <a href="?page={{ photos.next_page_number }}" class="inactive">{{ photos.next_page_number }}</a>
-            {% endif %}
-       </div>
+<ul>
+    {% if photos.has_previous %}
+    <li><a href="?page={{ photos.previous_page_number }}">Prev</a></li>
+    {% endif %}
+    {% if photos.number %}
+    <li class="active">
+        <a href="?page={{ photos.number }}">{{ photos.number }}</a>
+    </li>
+    {% endif %}
+    {% if photos.has_next %}
+    <li><a href="?page={{ photos.next_page_number }}">Next</a></li>
+    {% endif %}
+</ul>
+</div>
 
-{% if user.is_authenticated %}
-            <!-- modal content -->
-		<div id="osx-modal-content">
-			<div id="osx-modal-title">FotoChest - Add Album</div>
-			<div class="close"><a href="#" class="simplemodal-close">x</a></div>
-			<div id="osx-modal-data">
-                            <form method="POST" action=".">{% csrf_token %}
-                            {{ album_form.non_field_errors }}
-				{{ album_form.title.errors }}
-                                <label for="title">Title:</label>
-                                {{ album_form.title }}
-                                {{ album_form.description.errors }}
-                                <label for="description">Description:</label>
-                                {{ album_form.description }}
-                                <label for="parent_album">Parent Album:</label>
-                                {{ album_form.parent_album.errors }}
-                                <select id="id_parent_album" name="parent_album">
-                                    
-                                    <option selected="selected" value="">---------</option>
-                                    {% for album in parent_albums %}
-                                    <option value="{{ album.id }}">{{ album.title }}</option>
-                                    {% endfor %}
-                                </select>
 
-                                <input type="submit" value="Add Album" class="button">
-                            </form>
-			</div>
-		</div>
-                
-            {% endif %}
+{% if is_paginated %}
+<div class="pagination">
+    <ul>
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+        <li><a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+        {% endif %}
+        <li class="active">
+            <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+        </li>
+        
+        
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+        <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+
+
+</div>
+{% if album.has_child_albums %}
+<div class="span3">
+	<div class="well">
+		<h3>Sub Albums for {{ album }}</h3>
+		<ul class="thumbnails">
+		{% for album in child_albums.object_list %}
+        		
+		{% load thumbnail %}
+		{% thumbnail album.get_album_cover.image "240x161" crop="center" as im %}
+		<li class="span2">
+			<a href="{{ album.get_absolute_url }}" class="thumbnail">
+		<img src="{{ im.url }}" alt="">
+		{{ album }}
+		</a>
+		</li>
+		{% endthumbnail %}
+		
+		{% endfor %}
+		
+		</ul>
+	</div>
+</div>
+{% endif %}
+
+
 {% endblock %}
+{% block extra_foot %}
+<script>
+/*jslint unparam: true */
+/*global window, document, $ */
+$(function () {
+    $('#modal-gallery').addClass('modal-fullscreen');
+    'use strict';
+
+    // Start slideshow button:
+    $('#start-slideshow').button().click(function () {
+        var options = $(this).data(),
+            modal = $(options.target),
+            data = modal.data('modal');
+        if (data) {
+            $.extend(data.options, options);
+        } else {
+            options = $.extend(modal.data(), options);
+        }
+        modal.find('.modal-slideshow').find('i')
+            .removeClass('icon-play')
+            .addClass('icon-pause');
+        modal.modal(options);
+    });
+
+    
+
+    
+});
+</script>
+{% endblock extra_foot %}

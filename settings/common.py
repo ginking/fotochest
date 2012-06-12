@@ -27,10 +27,11 @@ USE_I18N = True
 
 USE_L10N = True
 
-ENABLE_REGISTRATION = False
+
 ENABLE_CELERY = True
-ACTIVE_THEME = "twitter"
+ACTIVE_THEME = "default"
 AUTH_PROFILE_MODULE = "profiles.Profile"
+CRISPY_TEMPLATE_PACK = 'bootstrap'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -57,6 +58,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "photo_manager.context_processors.theme_files",
     "photo_manager.context_processors.locations_albums",
+    "administrator.context_processors.settings",
 ) 
 
 MIDDLEWARE_CLASSES = (
@@ -95,3 +97,10 @@ LOGGING = {
         },
     }
 }
+
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_SITECONF = 'search_sites'
+HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, "whoosh")
+
+
+

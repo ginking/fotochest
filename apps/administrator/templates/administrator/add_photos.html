@@ -1,25 +1,35 @@
-{% extends "administrator/base.html" %}
-{% block extra_foot %}
-    <link href="{{ STATIC_URL }}js/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/swfobject.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-      $('#file_upload').uploadify({
-        'uploader'  : '{{ STATIC_URL }}js/uploadify/uploadify.swf',
-        'script'    : '{% url file_uploader album_slug=album_slug location_slug=location_slug %}',
-        'cancelImg' : '{{ STATIC_URL }}js/uploadify/cancel.png',
-        'folder'    : '{{ upload_dir }}',
-        'auto'      : true,
-        'multi'     : true,
-        'scriptAccess' : 'always',
-      });
-    });
-    </script>
+<!-- new -->
 
-  {% endblock extra_foot %}
+
+
+<!-- End new -->
+
+{% extends "administrator/base.html" %}
+
+{% block extra_foot %}
+{{ block.super }}
+
+
+  {% load upload_tags %}
   
+      <link rel="stylesheet" href="{{ STATIC_URL }}uploader/css/bootstrap-image-gallery.min.css">
+      <link rel="stylesheet" href="{{ STATIC_URL }}uploader/css/jquery.fileupload-ui.css">
+      
+             {% upload_js %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.ui.widget.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/tmpl.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/load-image.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/canvas-to-blob.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/bootstrap.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/bootstrap-image-gallery.min.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.iframe-transport.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-fp.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-ui.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/locale.js"></script>
+      <script src="{{ STATIC_URL }}uploader/js/main.js"></script>
+        {% endblock extra_foot %}
   {% block navigation %}
   
   {% include "administrator/nav.html" with nav=2 %}
@@ -30,6 +40,68 @@
 <div class="page-header">
 <h2>Add Photos</h2>
 </div>
-<input id="file_upload" name="file_upload" type="file" />
+<form id="fileupload" method="post" action="{% url administrator.upload.upload_photo location_slug=location_slug album_slug=album_slug user_id=request.user.id %}" enctype="multipart/form-data">{% csrf_token %}
+        <div class="row fileupload-buttonbar">
+            <div class="span7">
+                <span class="btn btn-primary fileinput-button">
+                    <i class="icon-plus icon-white"></i>
+                    <span>Add files...</span>
+                    <input type="file" name="file" multiple>
+                </span>
+                <button type="submit" class="btn btn-success start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start upload</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>Cancel upload</span>
+                </button>
+                <button type="button" class="btn btn-danger delete">
+                    <i class="icon-trash icon-white"></i>
+                    <span>Delete files</span>
+                </button>
+                <input type="checkbox" class="toggle">
+            </div>
+            <div class="span5 fileupload-progress fade">
+                <div class="progress progress-success progres-striped active">
+                    <div class="bar" style="width:0%"></div>
+                </div>
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <div class="fileupload-loading"></div>
+        <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    </form>
+    <div class="fileupload-content">
+        <table class="files"></table>
+        <div class="fileupload-progressbar"></div>
+    </div>
+</div>
+<!-- modal-gallery is the modal dialog used for the image gallery -->
+<div id="modal-gallery" class="modal modal-gallery hide fade" data-filter=":odd">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body"><div class="modal-image"></div></div>
+    <div class="modal-footer">
+        <a class="btn modal-download" target="_blank">
+            <i class="icon-download"></i>
+            <span>Download</span>
+        </a>
+        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
+            <i class="icon-play icon-white"></i>
+            <span>Slideshow</span>
+        </a>
+        <a class="btn btn-info modal-prev">
+            <i class="icon-arrow-left icon-white"></i>
+            <span>Previous</span>
+        </a>
+        <a class="btn btn-primary modal-next">
+            <span>Next</span>
+            <i class="icon-arrow-right icon-white"></i>
+        </a>
+    </div>
+</div>
 
 {% endblock main_content %}

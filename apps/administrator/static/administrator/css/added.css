@@ -4,6 +4,11 @@ a.brand img
     margin-bottom: 3px;
 }
 
+.navbar .navbar-inner
+{
+    border-radius: 0;
+}
+
 .sidebar
 {
     margin-top: 73px
@@ -44,4 +49,17 @@ li.thumb:hover a.btn.edit-photo
 .clear-photo
 {
     clear: both;
+}
+
+
+/* Dashboard */
+
+.caption .controls
+{
+    display: none;
+}
+
+.caption.active .controls
+{
+    display: block;
 }

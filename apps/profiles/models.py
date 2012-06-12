@@ -12,9 +12,9 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to="profile_pics/", max_length=400, blank=True, null=True)
     
     
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-post_save.connect(create_user_profile, sender=User)
+#def create_user_profile(sender, instance, created, **kwargs):
+#    if created:
+#        Profile.objects.create(user=instance)
+#post_save.connect(create_user_profile, sender=User)
 
 

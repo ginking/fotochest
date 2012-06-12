@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from hadrian.utils.slugs import unique_slugify
 import os
-from django.conf import settings
-from locations.models import *
+from hadrian.contrib.locations.models import *
 from sorl.thumbnail import get_thumbnail
 from PIL import Image
 from PIL.ExifTags import TAGS
@@ -71,9 +70,6 @@ class Album(models.Model):
     def get_absolute_url(self):
         return ('photo_manager.views.album', (), {'album_id': self.id, 'album_slug': self.slug})
         
-    @models.permalink
-    def get_slideshow(self):
-        return ('photo_manager.views.slideshow', (), {'album_slug': self.slug})
 
     @models.permalink
     def get_admin_url(self):
@@ -101,6 +97,10 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
         super(Photo, self).save()
+    
+    @property    
+    def filename(self):
+        return os.path.basename(self.image.name)
     
     @models.permalink
     def get_next(self):
@@ -132,9 +132,12 @@ class Photo(models.Model):
         # 75x75 for map (Other location photos)
         # 1024x768 for photo.html
         
-        im = get_thumbnail(self.image, '75x75', crop="center")
-        im2 = get_thumbnail(self.image, '1024x768')
-        im3 = get_thumbnail(self.image, '240x165')
+        get_thumbnail(self.image, '75x75', crop="center", quality=50)
+        get_thumbnail(self.image, '1024x650', quality=100)
+        get_thumbnail(self.image, '240x165')
+        get_thumbnail(self.image, '240x161', crop="center", quality=75)
+        get_thumbnail(self.image, '300x220')
+        get_thumbnail(self.image, '300x300')
         
     def get_exif_data(self):
         exif_data = {}
@@ -158,4 +161,8 @@ class Photo(models.Model):
         
     class Meta:
         ordering = ['-id']
+        
+        
+def photos_by_location(location):
+    return Photo.objects.filter(deleted=False, location=location).count()
          

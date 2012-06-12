@@ -11,6 +11,7 @@ urlpatterns = staticfiles_urlpatterns() + patterns('',
     # Admin URLS.
     url(r'^django_admin/', include(admin.site.urls)),
     url(r'^admin/', include("administrator.urls")),
+    url(r'^search/', include('haystack.urls')),
 
     url(r'^500/$', 'django.views.defaults.server_error'),
     url(r'^404/$', 'django.views.defaults.page_not_found'),

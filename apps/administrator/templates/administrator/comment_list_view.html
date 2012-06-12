@@ -1,0 +1,42 @@
+{% extends "administrator/base.html" %}
+
+{% block main_content %}
+
+
+<div class="page-header">
+    <h2>Comments</h2>
+</div>
+
+<table class="table table-bordered">
+
+    <thead>
+    <tr>
+        <th>Author</th>
+        <th>Comment</th>
+        <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for comment in comments %}
+    <tr>
+        <td>{{ comment.user_name }}</td>
+        <td>{{ comment.comment|truncatewords:30 }}</td>
+        <td><a href="{{ comment.content_object.get_absolute_url }}">Photo</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include "administrator/snippets/pagination.html" %}
+
+{% endblock main_content %}
+
+{% block sidebar %}
+<div class="well">
+
+</div>
+
+{% endblock sidebar%}
+
+{% block navigation %}
+{% include "administrator/nav.html" with nav=4 %}
+{% endblock navigation %}
