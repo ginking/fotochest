@@ -21,7 +21,7 @@
     <tr>
         <td>{{ comment.user_name }}</td>
         <td>{{ comment.comment|truncatewords:30 }}</td>
-        <td><a href="{{ comment.content_object.get_absolute_url }}">Photo</a></td>
+        <td><a href="{{ comment.content_object.get_absolute_url }}" class="btn btn-primary" target="_blank">Photo</a></td>
     </tr>
     {% endfor %}
     </tbody>

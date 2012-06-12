@@ -2,6 +2,20 @@
 {% block nav %}
 {% include "default/nav.html" with current=1 %}
 {% endblock nav %}
+{% block extra_foot %}
+<script>
+    $(document).ready(function(){
+        $('.polaroid').popover({
+           delay: {show: 1000, hide: 100},
+           placement: 'bottom'
+        });
+
+    });
+</script>
+
+{% endblock extra_foot %}
+
+
 {% block main_content %}
 
 <div class="span12">

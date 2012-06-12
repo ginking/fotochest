@@ -116,13 +116,20 @@ rules: [
     <ul class="unstyled">
     {% load location_tags %}
     {% for location in locations %}
-        <li><i class="icon-map-marker"></i>  <span class="label label-success">{% location_photo_count location.slug %} Photos</span> {{ location }}</li>
+        <li class="location_pop" title="{{ location }}"><i class="icon-map-marker"></i>  <span class="label label-success">{% location_photo_count location.slug %} Photos</span> {{ location }}</li>
     {% endfor %}
     </ul>
 </div>
 
 {% endblock sidebar %}
+{% block extra_foot %}
+<script>
+    $(document).ready(function(){
+        $('.location_pop').popover()
 
+    });
+</script>
+{% endblock extra_foot %}
 
 {% block navigation %}
 {% include "administrator/nav.html" with nav=3 %}
