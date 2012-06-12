@@ -26,7 +26,7 @@ Python/Django
 
 ##Road Map
 
-See the wiki
+https://github.com/fotochest/fotochest/wiki/Roadmap
 
 ###Thanks
 
