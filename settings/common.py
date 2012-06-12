@@ -30,6 +30,7 @@ USE_L10N = True
 
 ENABLE_CELERY = True
 ACTIVE_THEME = "default"
+VERSION_NUMBER = "2.3"
 AUTH_PROFILE_MODULE = "profiles.Profile"
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 
@@ -58,6 +59,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "photo_manager.context_processors.theme_files",
     "photo_manager.context_processors.locations_albums",
+    "photo_manager.context_processors.version",
     "administrator.context_processors.settings",
 ) 
 
