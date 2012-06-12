@@ -14,6 +14,7 @@
         <th>Author</th>
         <th>Comment</th>
         <th>Link</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
         <td>{{ comment.user_name }}</td>
         <td>{{ comment.comment|truncatewords:30 }}</td>
         <td><a href="{{ comment.content_object.get_absolute_url }}" class="btn btn-primary" target="_blank">Photo</a></td>
+        <td><a href="#" class="btn btn-danger">Delete</a></td>
     </tr>
     {% endfor %}
     </tbody>
