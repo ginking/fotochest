@@ -218,11 +218,18 @@ def rebuild_search(request):
     management.call_command('update_index')
     messages.add_message(request, messages.SUCCESS, "Search index updated.")
     return redirect('admin_utilities')
-    
-    
-    
+
 class CommentListView(ListView):
     model = Comment
     template_name = "administrator/comment_list_view.html"
     context_object_name = "comments"
     paginate_by = 40
+
+@login_required()
+@never_cache
+def delete_comment(request, comment_id):
+    from django.contrib.comments.models import Comment
+    comment = get_object_or_404(Comment, pk=comment_id)
+    comment.delete()
+    messages.add_message(request, messages.SUCCESS, "Comment deleted.")
+    return redirect('comment_list_view')
