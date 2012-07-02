@@ -1,7 +1,7 @@
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
 from photo_manager.tests.factories import *
-from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium import webdriver
 from administrator.tests.factories import SettingsFactory
 from django.conf import settings
 
@@ -20,7 +20,7 @@ class PhotoManagerServerTests(LiveServerTestCase):
     
     @classmethod
     def setUpClass(cls):
-        cls.selenium = WebDriver()
+        cls.selenium = webdriver.Firefox()
         super(PhotoManagerServerTests, cls).setUpClass()
     
     @classmethod
