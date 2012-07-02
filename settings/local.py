@@ -100,9 +100,6 @@ INSTALLED_APPS = (
     'djkombu',
     'test_utils',
     'haystack',
-    #'photo_admin',
-    
-    #'profiles',
-    #'tagging',
+
 
 )
