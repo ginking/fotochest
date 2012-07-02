@@ -72,7 +72,7 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 
-ROOT_URLCONF = 'urls.local'
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',

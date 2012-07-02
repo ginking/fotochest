@@ -46,6 +46,7 @@ STATIC_URL = '/static/'
 
 
 
+
 PHOTO_DIRECTORY = os.path.join(SITE_ROOT, 'uploads/images')
 
 TEMPLATE_DIRS = (
@@ -57,7 +58,7 @@ DOMAIN_STATIC = '/static/'
 
 
 
-ROOT_URLCONF = 'urls.local'
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
