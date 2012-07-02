@@ -72,8 +72,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 
-
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -100,6 +98,5 @@ INSTALLED_APPS = (
     'djkombu',
     'test_utils',
     'haystack',
-
-
+    'django_extensions',
 )
