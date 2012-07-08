@@ -83,7 +83,21 @@ def homepage(request):
     except EmptyPage:
         context['photos'] = paginator.page(paginator.num_pages)
     return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
-    
+
+
+class PhotoDetailView(DetailView):
+    queryset = Photo.objects.filter(deleted=False)
+    pk_url_kwarg = "photo_id"
+    context_object_name = "photo"
+    template_name = "%s/photo.html" % settings.ACTIVE_THEME
+
+    def get_context_data(self, **kwargs):
+        context = super(PhotoDetailView, self).get_context_data(**kwargs)
+        context['photo_id'] = self.kwargs['photo_id']
+        photo = Photo.objects.get(pk=self.kwargs['photo_id'])
+        context['other_photos'] = Photo.objects.active().filter(album=photo.album, id__lt=photo.id)[:9]
+        context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
+        return context
 
 def photo(request, photo_id, album_slug=None, photo_slug=None):
     context = {}
@@ -103,11 +117,6 @@ def photo_download(request, photo_id):
     response = HttpResponse(file.read(), mimetype=mimetype)
     response["Content-Disposition"]= "attachment; filename=%s" % photo.filename
     return response
-
-def photo_fullscreen(request, photo_id, album_slug, photo_slug):
-    context = {}
-    context['photo'] = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    return render(request, '%s/fullscreen.html' % settings.ACTIVE_THEME, context)
 
 class PhotoFullScreen(DetailView):
     context_object_name = 'photo'

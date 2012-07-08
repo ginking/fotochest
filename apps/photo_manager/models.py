@@ -152,7 +152,8 @@ class Photo(models.Model):
             decoded = TAGS.get(tag, tag)
             exif_data[decoded] = value
         return exif_data
-    
+
+    #@todo - point to new class ivew.
     @models.permalink
     def get_absolute_url(self):
 
