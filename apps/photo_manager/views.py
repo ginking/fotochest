@@ -109,6 +109,11 @@ def photo_fullscreen(request, photo_id, album_slug, photo_slug):
     context['photo'] = get_object_or_404(Photo, pk=photo_id, deleted=False)
     return render(request, '%s/fullscreen.html' % settings.ACTIVE_THEME, context)
 
+class PhotoFullScreen(DetailView):
+    context_object_name = 'photo'
+
+
+
 def slideshow(request, location_slug=None, album_slug=None):
     context = {}
     photos = Photo.objects.filter(album__slug=album_slug)[:2]
@@ -127,13 +132,14 @@ class LocationsListView(ListView):
 class PhotoLocationsListView(ListView):
     paginate_by = 12
     template_name = "%s/location.html" % settings.ACTIVE_THEME
+    context_object_name = "photos"
 
     def get_queryset(self):
         location = Location.objects.get(slug=self.kwargs['location_slug'])
         return Photo.objects.filter(location=location)
 
     def get_context_data(self, **kwargs):
-        context = super(LocationDetailView, self).get_context_data(**kwargs)
+        context = super(PhotoLocationsListView, self).get_context_data(**kwargs)
         location_slug = self.kwargs['location_slug']
         location = Location.objects.get(slug=location_slug)
         context['location'] = location

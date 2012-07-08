@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from photo_manager.views import homepage, photo, photo_fullscreen, LocationsListView, location, slideshow, album, photo_download, AlbumListView, tag, PhotoLocationsListView
+from photo_manager.views import homepage, photo, photo_fullscreen, LocationsListView, slideshow, album, photo_download, AlbumListView, tag, PhotoLocationsListView
 from photo_manager.feeds import StreamFeed, AlbumStream
 from photo_manager.api import PhotoResource, AlbumResource, LocationResource
 from tastypie.api import Api
