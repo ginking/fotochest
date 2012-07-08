@@ -35,7 +35,7 @@ $(document).ready(function () {
 {% endif %}
     <div class="modal hide fade" id="deletePhoto_{{ photo.id }}">
         <div class="modal-header">
-          <a data-dismiss="modal" class="close">×</a>
+          <button type="button" data-dismiss="modal" class="close">×</button>
           <h3>Delete {{ photo.title }}?</h3>
         </div>
         <div class="modal-body">
@@ -58,8 +58,35 @@ $(document).ready(function () {
           <a class="btn btn-danger" href="#">Confirm Delete</a>
         </div>
         </form>
-      </div>
+    </div>
+    <div class="modal hide fade" id="edit_photo_{{ photo.id }}">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Edit Photo</h3>
+        </div>
+        <div class="modal-body">
+            {% load thumbnail %}
+            {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
+            <img src="{{ im.url }}">
+            {% endthumbnail %}
+            <label for="title">Title</label>
+            <input type="text" class='span6' name="title">
+            <label for="album">Album</label>
+            <select name="album" class="span6">
+                <option value="1">Album</option>
+            </select>
+            <label for="location">Location</label>
+            <select name="location" class="span6">
+                <option value="1">Manhattan</option>
+            </select>
 
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-success">Save changes</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
 
     <li class="span2 thumb">
     <a class="thumbnail" href="#">
@@ -67,7 +94,7 @@ $(document).ready(function () {
     {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
         <img src="{{ im.url }}">
                 
-        <a class="btn edit-photo"><i class="icon-pencil"></i> Edit</a>
+        <a class="btn edit-photo" href="#edit_photo_{{ photo.id }}" data-toggle="modal"><i class="icon-pencil"></i> Edit</a>
     {% endthumbnail %}
     </a>
     <div class="caption">
