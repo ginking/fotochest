@@ -27,7 +27,7 @@ def dashboard(request):
     photos = Photo.objects.active()
     albums = Album.objects.filter(parent_album=None)
     context = {'albums': albums}
-    context['total_photos'] = Photo.objects.filter(deleted=False).count()
+    context['total_photos'] = Photo.objects.active().count()
     context['total_albums'] = Album.objects.all().count()
     context['total_locations'] = Location.objects.all().count()
 
