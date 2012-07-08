@@ -111,8 +111,9 @@ def photo_fullscreen(request, photo_id, album_slug, photo_slug):
 
 class PhotoFullScreen(DetailView):
     context_object_name = 'photo'
-
-
+    queryset = Photo.objects.filter(deleted=False)
+    pk_url_kwarg = "photo_id"
+    template_name = "%s/fullscreen.html" % settings.ACTIVE_THEME
 
 def slideshow(request, location_slug=None, album_slug=None):
     context = {}

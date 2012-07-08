@@ -161,7 +161,7 @@ class Photo(models.Model):
     @models.permalink
     def get_fullscreen(self):
         # update with enable multi user
-        return ('photo_manager.views.photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
+        return ('photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
         
         
     class Meta:
