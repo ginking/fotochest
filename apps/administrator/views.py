@@ -44,6 +44,16 @@ def dashboard(request):
     # Add pagination
     return render(request, "administrator/dashboard.html", context)
 
+
+class AlbumPhotoListView(ListView):
+    template_name = "administrator/photos.html"
+    context_object_name = "photos"
+    paginate_by = 16
+
+    def get_queryset(self):
+        return Photo.objects.filter(album__id=self.kwargs['album_id'])
+
+
 @login_required
 @never_cache
 def album_list(request):
