@@ -107,5 +107,33 @@ HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, "whoosh")
 
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.comments',
+    #'grappelli',
+    'django.contrib.admin',
+
+    'hadrian.contrib.locations',
+    'hadrian.contrib.pomona',
+    'tastypie',
+    'photo_manager',
+    'administrator',
+    'api_docs',
+    'taggit',
+    # Everyone should be using south.  Seriously.
+    'south',
+    'crispy_forms',
+    'sorl.thumbnail',
+    'djcelery',
+    'djkombu',
+    'test_utils',
+    'haystack',
+    'django_extensions',
+    )
 
 
