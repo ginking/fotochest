@@ -233,3 +233,10 @@ def delete_comment(request, comment_id):
     comment.delete()
     messages.add_message(request, messages.SUCCESS, "Comment deleted.")
     return redirect('comment_list_view')
+
+@login_required()
+@never_cache
+def rotate_right(request, photo_id):
+    from administrator.edit import rotate_right
+    rotate_right(photo_id)
+    return redirect("dashboard")

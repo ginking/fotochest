@@ -63,7 +63,10 @@ $(document).ready(function () {
 
     <li class="span2 thumb">
     <a class="thumbnail" href="#">
-    {% load thumbnail %}
+        <a href="{% url admin_rotate_right photo_id=photo.id %}" class="btn"><i class="icon-refresh"></i> Rotate Right</a>
+        <a href="#" class="btn"><i class="icon-refresh"></i> Rotate Left</a>
+
+        {% load thumbnail %}
     {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
         <img src="{{ im.url }}">
                 
