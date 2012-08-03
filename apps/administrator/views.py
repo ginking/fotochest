@@ -239,4 +239,11 @@ def delete_comment(request, comment_id):
 def rotate_right(request, photo_id):
     from administrator.edit import rotate_right
     rotate_right(photo_id)
-    return redirect("dashboard")
+    return redirect("admin_dashboard")
+
+@login_required()
+@never_cache
+def rotate_left(request, photo_id):
+    from administrator.edit import rotate_left
+    rotate_left(photo_id)
+    return redirect("admin_dashboard")

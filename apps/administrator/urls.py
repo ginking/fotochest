@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
-from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo, delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search, CommentListView, delete_comment, rotate_right
+from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
+    delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search, CommentListView,\
+    delete_comment, rotate_right, rotate_left
 from administrator.upload import upload_photo, upload_delete
 from administrator.ajax import get_disk_size, get_cache_size
 # This maps static files dirs to URLS.
@@ -31,7 +33,7 @@ urlpatterns = patterns('',
     url(r'^upload/delete/(?P<pk>\d+)$', upload_delete, name='upload_delete'),
 
     url(r'^edit/(?P<photo_id>\d+)/rotate/right/$', rotate_right, name="admin_rotate_right"),
-
+    url(r'^edit/(?P<photo_id>\d+)/rotate/left/$', rotate_left, name="admin_rotate_left"),
 
     #ajaxy
     
