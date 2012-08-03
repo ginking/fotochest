@@ -124,6 +124,28 @@ class LocationsListView(ListView):
     template_name = "%s/map.html" % settings.ACTIVE_THEME
     queryset = Location.objects.all()
     
+class PhotoLocationsListView(ListView):
+    paginate_by = 12
+    template_name = "%s/location.html" % settings.ACTIVE_THEME
+
+    def get_queryset(self):
+        location = Location.objects.get(slug=self.kwargs['location_slug'])
+        return Photo.objects.filter(location=location)
+
+    def get_context_data(self, **kwargs):
+        context = super(LocationDetailView, self).get_context_data(**kwargs)
+        location_slug = self.kwargs['location_slug']
+        location = Location.objects.get(slug=location_slug)
+        context['location'] = location
+        context['location_view'] = True
+        context['location_slug'] = location_slug
+        return context
+
+
+
+
+
+
 def location(request, location_slug):
     location = get_object_or_404(Location, slug=location_slug)
     # Get location object, now get more location objects where location.city = location.city?

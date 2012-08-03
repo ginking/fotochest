@@ -72,37 +72,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 
-ROOT_URLCONF = 'urls.local'
-
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.comments',
-    #'grappelli',
-    'django.contrib.admin',
+INSTALLED_APPS = INSTALLED_APPS + (
     'debug_toolbar',
-    'hadrian.contrib.locations',
-    'hadrian.contrib.pomona',
-    'tastypie',
-    'photo_manager',
-    'administrator',
-    'api_docs',
-    'taggit',
-    # Everyone should be using south.  Seriously.
-    'south',
-    'crispy_forms',
-    'sorl.thumbnail',
-    'djcelery',
-    'djkombu',
-    'test_utils',
-    'haystack',
-    #'photo_admin',
-    
-    #'profiles',
-    #'tagging',
-
 )

@@ -72,86 +72,62 @@
 <div class="page-header">
 <h2>Albums</h2>
 </div>
-<ul class="thumbnails">
-{% for album in albums %}
-    <div class="modal hide fade" id="addChildAlbum_{{ album.id }}">
-        <div class="modal-header">
-          <a data-dismiss="modal" class="close">×</a>
-          <h3>Add Child Album</h3>
-        </div>
-         <form method="POST" action=".">{% csrf_token %}
-        <div class="modal-body">
-          <h4>Add a Child Album for {{ album }}</h4>
-         
-          <label>Title</label>
-          <input type="text" name="title" class="span5">
-          <label>Description</label>
-          <textarea name="description" class="span5"></textarea>
-          <input type="hidden" value="{{ album.id }}" name="parent_album">
-          
-    
-          
-        </div>
-        <div class="modal-footer">
-          <a data-dismiss="modal" class="btn" href="#">Close</a>
-          <input type="submit" value="Add Album" class="btn btn-primary">
-          
-        </div>
-        </form>
-      </div>
+<table class="table table-striped">
 
+    <thead>
+        <tr>
+            <th>Album Name</th>
+            <th>Parent Album</th>
+            <th>Photo Count</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for album in albums %}
+    {% load thumbnail %}
+    {% thumbnail album.get_album_cover.image "240x165" as im %}
+        <tr title="{{ album }}" data-content="<img src='{{ im.url }}'>" class="pop">
+    {% endthumbnail %}
+            <td>{{ album }}</td>
+            <td>{% if album.parent_album %}<span class="label label-success">Yes</span>{% else %}<span class="label label-important">No</span>{% endif %} </td>
+            <td>{{ album.count }}</td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-primary">Actions</button>
+                    <button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ album.get_admin_url }}">Edit</a></li>
+                        <li><a href="#">View Photos</a></li>
+                        <li><a href="#chooseLocation" data-toggle="modal">Add Photos</a></li>
+                        <!-- dropdown menu links -->
+                        <li class="divider"></li>
+                        <li><a href="#addChildAlbum_{{ album.id }}" data-toggle="modal">Add Child Album</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
 
-    <li class="span3 {% if forloop.counter == 4 %}clear-photo{% endif %}">
-    <div class="thumbnail">
-    {% if album.album_cover %}
-            {% load thumbnail %}
-            {% thumbnail album.album_cover "240x165" as im %}
-            <img src="{{ im.url }}">
-            {% endthumbnail %}
-            
-        {% else %}
-            {% if album.get_album_cover %}
-                {% load thumbnail %}
-        {% thumbnail album.get_album_cover.image "240x165" as im %}
-    <img src="{{ im.url }}">
-        {% endthumbnail %}
-            {% else %}
-            <img src="http://dummyimage.com/240x161">
-            {% endif %}
-    {% endif %}
-    
-    <div class="caption">
-          <h5>{{ album.title }}</h5>
-          {% if album.description %}
-          <p>{{ album.description }}</p>
-          {% if album.parent_album %}
-          <p><span class="label label-info">Child Album - {{ album.parent_album }}</span></p>
-          {% endif %}
-          {% endif %}
-          <div class="btn-group">
-              <button class="btn">Album Actions</button>
-              <button class="btn dropdown-toggle" data-toggle="dropdown">
-                  <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                  <li><a href="{{ album.get_admin_url }}">Edit</a></li>
-                  <li><a href="#">View Photos</a></li>
-                  <li><a href="#chooseLocation" data-toggle="modal">Add Photos</a></li>
-                  <!-- dropdown menu links -->
-                  <li class="divider"></li>
-                  <li><a href="#addChildAlbum_{{ album.id }}" data-toggle="modal">Add Child Album</a></li>
-              </ul>
-          </div>
-        </div>
-    </div>
-    </li>
-{% endfor %}
-    
-    
-</ul>
+    {% endfor %}
+
+    </tbody>
+
+</table>
 
 {% endblock main_content %}
 
 {% block navigation %}
 {% include "administrator/nav.html" with nav=2 %}
 {% endblock %}
+{% block extra_foot %}
+<script>
+    $(document).ready(function(){
+        $('.pop').popover({
+            placement: 'left',
+            delay: {'show': 1000, hide: 200}
+        })
+
+    });
+</script>
+{% endblock extra_foot %}

@@ -57,7 +57,7 @@ rules: [
       var content{{ location.id }} = '<div id="content">'+
           
           
-          '<p><a style="color:#2d2d2d;" href="{% if current_user %}{% url photo_manager.views.location location_slug=location.slug username=current_user.username %}{% else %}{% url photo_manager.views.location location_slug=location.slug %}{% endif %}">{{ location }} ({% location_photo_count location.slug %})</a></p>' +
+          '<p><a style="color:#2d2d2d;" href="{% url photo_location location_slug=location.slug %}">{{ location }} ({% location_photo_count location.slug %})</a></p>' +
           
           '</div>';
       var infowindow{{ location.id }} = new google.maps.InfoWindow({
@@ -105,20 +105,5 @@ rules: [
 <div id="map">
         
         </div>
-{% if user.is_authenticated %}
-            <!-- modal content -->
-		<div id="osx-modal-content">
-			<div id="osx-modal-title">FotoChest - Add Photo Location</div>
-			<div class="close"><a href="#" class="simplemodal-close">x</a></div>
-			<div id="osx-modal-data">
-				<form method="POST" action=".">{% csrf_token %}
-                                {{ location.non_field_errors }}
-                                    {{ location_form.as_p }}
-                                <input type="submit" value="Add Location" class="button">
-                                </form>
-				
-			</div>
-		</div>
-                
-            {% endif %}
+
 {% endblock %}

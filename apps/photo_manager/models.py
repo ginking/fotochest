@@ -65,7 +65,12 @@ class Album(models.Model):
         else:
             return True
 
-    
+    @property
+    def count(self):
+        return Photo.objects.filter(album=self).count()
+
+
+
     @models.permalink
     def get_absolute_url(self):
         return ('photo_manager.views.album', (), {'album_id': self.id, 'album_slug': self.slug})

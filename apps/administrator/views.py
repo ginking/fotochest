@@ -30,7 +30,7 @@ def dashboard(request):
     context['total_photos'] = Photo.objects.filter(deleted=False).count()
     context['total_albums'] = Album.objects.all().count()
     context['total_locations'] = Location.objects.all().count()
-    context['thumbnails_building'] = Photo.objects.filter(deleted=False, thumbs_created=False).count()
+
     paginator = Paginator(photos, 16)
     page = request.GET.get('page', 1)
     
@@ -218,11 +218,32 @@ def rebuild_search(request):
     management.call_command('update_index')
     messages.add_message(request, messages.SUCCESS, "Search index updated.")
     return redirect('admin_utilities')
-    
-    
-    
+
 class CommentListView(ListView):
     model = Comment
     template_name = "administrator/comment_list_view.html"
     context_object_name = "comments"
     paginate_by = 40
+
+@login_required()
+@never_cache
+def delete_comment(request, comment_id):
+    from django.contrib.comments.models import Comment
+    comment = get_object_or_404(Comment, pk=comment_id)
+    comment.delete()
+    messages.add_message(request, messages.SUCCESS, "Comment deleted.")
+    return redirect('comment_list_view')
+
+@login_required()
+@never_cache
+def rotate_right(request, photo_id):
+    from administrator.edit import rotate_right
+    rotate_right(photo_id)
+    return redirect("admin_dashboard")
+
+@login_required()
+@never_cache
+def rotate_left(request, photo_id):
+    from administrator.edit import rotate_left
+    rotate_left(photo_id)
+    return redirect("admin_dashboard")

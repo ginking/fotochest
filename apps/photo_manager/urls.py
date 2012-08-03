@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from photo_manager.views import homepage, photo, photo_fullscreen, LocationsListView, location, slideshow, album, photo_download, AlbumListView, tag
+from photo_manager.views import homepage, photo, photo_fullscreen, LocationsListView, location, slideshow, album, photo_download, AlbumListView, tag, PhotoLocationsListView
 from photo_manager.feeds import StreamFeed, AlbumStream
 from photo_manager.api import PhotoResource, AlbumResource, LocationResource
 from tastypie.api import Api
@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     # Map - This is not ideal. Should we have a maps.urls?
     
     url(r'map/$', LocationsListView.as_view(), name="map"),
-    url(r'map/(?P<location_slug>[-\w]+)/$', location),
+    url(r'map/(?P<location_slug>[-\w]+)/$', PhotoLocationsListView.as_view(), name="photo_location"),
     url(r'map/(?P<location_slug>[-\w]+)/slideshow/$', slideshow),
     
     # Feeds

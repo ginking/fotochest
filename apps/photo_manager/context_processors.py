@@ -13,3 +13,7 @@ def locations_albums(request):
     context['form_albums'] = Album.objects.all()
     return context
     
+def version(request):
+    context = {}
+    context['version'] = settings.VERSION_NUMBER
+    return context

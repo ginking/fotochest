@@ -13,3 +13,6 @@ env.log_location = "/var/log/apache2/ome-error.log"
 env.git_production_branch = "production"
 
 from hadrian.conf.fab import *
+
+def debug():
+    local("python manage.py runserver_plus --settings=settings.local")

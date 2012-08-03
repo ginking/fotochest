@@ -30,6 +30,7 @@ USE_L10N = True
 
 ENABLE_CELERY = True
 ACTIVE_THEME = "default"
+VERSION_NUMBER = "2.3"
 AUTH_PROFILE_MODULE = "profiles.Profile"
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 
@@ -58,6 +59,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "photo_manager.context_processors.theme_files",
     "photo_manager.context_processors.locations_albums",
+    "photo_manager.context_processors.version",
     "administrator.context_processors.settings",
 ) 
 
@@ -68,6 +70,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
+
+
+ROOT_URLCONF = 'urls'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -102,5 +107,33 @@ HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, "whoosh")
 
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.comments',
+    #'grappelli',
+    'django.contrib.admin',
+
+    'hadrian.contrib.locations',
+    'hadrian.contrib.pomona',
+    'tastypie',
+    'photo_manager',
+    'administrator',
+    'api_docs',
+    'taggit',
+    # Everyone should be using south.  Seriously.
+    'south',
+    'crispy_forms',
+    'sorl.thumbnail',
+    'djcelery',
+    'djkombu',
+    'test_utils',
+    'haystack',
+    'django_extensions',
+    )
 
 
