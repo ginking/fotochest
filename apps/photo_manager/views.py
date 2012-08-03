@@ -133,7 +133,7 @@ class PhotoLocationsListView(ListView):
         return Photo.objects.filter(location=location)
 
     def get_context_data(self, **kwargs):
-        context = super(LocationDetailView, self).get_context_data(**kwargs)
+        context = super(PhotoLocationsListView, self).get_context_data(**kwargs)
         location_slug = self.kwargs['location_slug']
         location = Location.objects.get(slug=location_slug)
         context['location'] = location
