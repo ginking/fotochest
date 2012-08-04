@@ -127,23 +127,20 @@ class LocationsListView(ListView):
 class PhotoLocationsListView(ListView):
     paginate_by = 12
     template_name = "%s/location.html" % settings.ACTIVE_THEME
+    context_object_name = "photos"
 
     def get_queryset(self):
         location = Location.objects.get(slug=self.kwargs['location_slug'])
         return Photo.objects.filter(location=location)
 
     def get_context_data(self, **kwargs):
-        context = super(LocationDetailView, self).get_context_data(**kwargs)
+        context = super(PhotoLocationsListView, self).get_context_data(**kwargs)
         location_slug = self.kwargs['location_slug']
         location = Location.objects.get(slug=location_slug)
         context['location'] = location
         context['location_view'] = True
         context['location_slug'] = location_slug
         return context
-
-
-
-
 
 
 def location(request, location_slug):
