@@ -37,9 +37,6 @@
       <p>Select the album and location that you want to associate you uploaded photos with.</p>
       <form method="GET" action="{% url administrator.views.choose %}">
      <label>Album Name:</label>
-     <input type="text" data-provide="typeahead" class="typeahead-album">
-
-     <label>Album Name:</label>
       <select name="album">
           {% for album in form_albums %}
           <option value="{{ album.slug }}">{{ album.title }}</option>
