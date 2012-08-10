@@ -6,6 +6,9 @@ from hadrian.contrib.locations.models import *
 from django.conf import settings
 from django.http import HttpResponse
 
+__authors__ = "Derek Stegelman"
+__date__ = "August 2012"
+
 def album(request, album_id, album_slug):
     context = {}
     context['album_slug'] = album_slug
@@ -66,6 +69,12 @@ class HomepageListView(ListView):
     template_name = "%s/index.html" % settings.ACTIVE_THEME
     queryset = Photo.objects.active()
     paginate_by = 12
+
+class PhotoDetailView(DetailView):
+    context_object_name = "photo"
+    template_name = "%s/photo.html" % settings.ACTIVE_THEME
+    pk_url_kwarg = "photo_id"
+
 
 def photo(request, photo_id, album_slug=None, photo_slug=None):
     context = {}
