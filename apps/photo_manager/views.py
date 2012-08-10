@@ -141,28 +141,4 @@ class PhotoLocationsListView(ListView):
         context['location_view'] = True
         context['location_slug'] = location_slug
         return context
-
-
-def location(request, location_slug):
-    location = get_object_or_404(Location, slug=location_slug)
-    # Get location object, now get more location objects where location.city = location.city?
-    # how do we know if we are asking for city, state or country?  Should we have that specified?
-    context = {}
-    
-    photos = Photo.objects.filter(location=location)
-    paginator = Paginator(photos, 12)
-
-    page = request.GET.get('page', 1)
-    context['location'] = location
-    context['location_view'] = True
-    context['location_slug'] = location_slug
-    try:
-        context['photos'] = paginator.page(page)
-    except PageNotAnInteger:
-        context['photos'] = paginator.page(1)
-    except EmptyPage:
-        context['photos'] = paginator.page(paginator.num_pages)
-    return render(request, "%s/location.html" % settings.ACTIVE_THEME, context)  
-    
-
     
