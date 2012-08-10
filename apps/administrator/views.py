@@ -16,6 +16,9 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django.contrib.comments.models import Comment
 
+__authors__ = "Derek Stegelman"
+__date__ = "August 2012"
+
 @login_required
 def add_photos(request):
     context = {}
