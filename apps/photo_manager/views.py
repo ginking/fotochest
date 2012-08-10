@@ -67,24 +67,6 @@ class HomepageListView(ListView):
     queryset = Photo.objects.active()
     paginate_by = 12
 
-       
-def homepage(request):
-    context = {}
-    
-    photos = Photo.objects.active()
-        
-    paginator = Paginator(photos, 12)
-    page = request.GET.get('page', 1)
-    
-    try:
-        context['photos'] = paginator.page(page)
-    except PageNotAnInteger:
-        context['photos'] = paginator.page(1)
-    except EmptyPage:
-        context['photos'] = paginator.page(paginator.num_pages)
-    return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
-    
-
 def photo(request, photo_id, album_slug=None, photo_slug=None):
     context = {}
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
