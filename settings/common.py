@@ -64,11 +64,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ) 
 
 MIDDLEWARE_CLASSES = (
+    'downtime.middleware.DowntimeMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
     'django.contrib.messages.middleware.MessageMiddleware',
+    'site_notifications.middleware.NotificationMiddleware',
 )
 
 
@@ -107,5 +110,39 @@ HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, "whoosh")
 
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.comments',
+    'django.contrib.admin',
+
+    # Dependencies
+
+    'hadrian.contrib.locations',
+    'hadrian.contrib.pomona',
+    'tastypie',
+    'api_docs',
+    'taggit',
+    # Everyone should be using south.  Seriously.
+    'south',
+    'crispy_forms',
+    'sorl.thumbnail',
+    'djcelery',
+    'djkombu',
+    'test_utils',
+    'haystack',
+    'django_extensions',
+    'downtime',
+    'site_notifications',
+    'bootstrap',
+
+    'photo_manager',
+    'administrator',
+
+    )
 
 

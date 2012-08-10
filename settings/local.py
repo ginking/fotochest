@@ -58,45 +58,16 @@ TEMPLATE_DIRS = (
 
 DOMAIN_STATIC = '/static/'
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+
+
+MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+
 INTERNAL_IPS = ('127.0.0.1',)
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.comments',
-    #'grappelli',
-    'django.contrib.admin',
+INSTALLED_APPS = INSTALLED_APPS + (
     'debug_toolbar',
-    'hadrian.contrib.locations',
-    'hadrian.contrib.pomona',
-    'tastypie',
-    'photo_manager',
-    'administrator',
-    'api_docs',
-    'taggit',
-    # Everyone should be using south.  Seriously.
-    'south',
-    'crispy_forms',
-    'sorl.thumbnail',
-    'djcelery',
-    'djkombu',
-    'test_utils',
-    'haystack',
-    'django_extensions',
 )
