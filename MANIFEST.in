@@ -1,0 +1,4 @@
+include README.md AUTHORS.txt LICENSE.txt
+recursive-include fotochest/templates *.*
+recursive-include fotochest/static *.*
+recursive-inlcude fotochest/themes *.*
