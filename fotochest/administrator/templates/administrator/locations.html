@@ -1,0 +1,136 @@
+{% extends "administrator/base.html" %}
+{% block extra_html %}style="height: 100%"{% endblock %}
+{% block title %}Map{% endblock %}
+
+
+{% block extra_head %}
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+  function initialize() {
+    var blackStyles = [
+{
+featureType: 'all',
+rules: [
+{visibility: 'off'}
+]
+},
+{
+featureType: 'water',
+rules: [
+{visibility: 'on'},
+{lightness: -100 }
+]
+}
+];
+    var blackMapType = new google.maps.StyledMapType(blackStyles,
+    {name: "Black Map"});
+
+  
+  
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      //zoom: 2,
+      //center: latlng,
+      
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+       styles: blackStyles,    
+    };
+    var map = new google.maps.Map(document.getElementById("map"),
+        myOptions);
+
+      var bounds = new google.maps.LatLngBounds();
+
+
+      {% for location in locations %}
+      {% if location.photo_set.all %}
+      
+      var latlng{{ location.id }} = new google.maps.LatLng({{ location.latitude }}, {{ location.longitude }});
+      var marker{{ location.id }} = new google.maps.Marker({
+         position: latlng{{ location.id }},
+         map: map,
+         title: ""
+      });
+
+      var content{{ location.id }} = '<div id="content">'+
+          
+          
+          '<p><a style="color:#2d2d2d;" href="{% if current_user %}{% url photo_location location_slug=location.slug %}{% else %}{% url photo_location location_slug=location.slug %}{% endif %}">{{ location }} ({{ location.get_photo_count }})</a></p>' +
+          
+          '</div>';
+      var infowindow{{ location.id }} = new google.maps.InfoWindow({
+          content: content{{ location.id }}
+      });
+      google.maps.event.addListener(marker{{ location.id }}, 'click', function() {
+         infowindow{{ location.id }}.open(map, marker{{ location.id }});
+      });
+
+      bounds.extend(latlng{{ location.id }})
+      {% endif %}
+      {% endfor %}
+
+      map.fitBounds(bounds);    
+      map.mapTypes.set('black_map', blackMapType);
+      map.setMapTypeId('black_map');
+
+  }
+</script>
+
+{% endblock %}
+
+
+{% block extra_body %}onLoad="initialize()" style="height:100%"{% endblock %}
+{% block main_class %}map_page{% endblock %}
+{% block main_content %}
+<div class="modal hide fade" id="addLocation">
+    <div class="modal-header">
+      <a data-dismiss="modal" class="close">×</a>
+      <h3>Add Location</h3>
+    </div>
+    <div class="modal-body">
+      <h4>Add New Location</h4>
+      <form method="POST" action="">{% csrf_token %}
+      {{ form }}
+      
+    </div>
+    <div class="modal-footer">
+      <a data-dismiss="modal" class="btn" href="#">Close</a>
+      <input type="submit" value="Add Location" class="btn btn-primary">
+      
+    </div>
+    </form>
+  </div>
+<div class="page-header">
+<h2>Locations</h2>
+</div>
+<div id="map">
+        
+        </div>
+
+{% endblock %}
+
+{% block sidebar %}
+
+<a href="#addLocation" data-toggle="modal" class="btn btn-success full">Add Location</a>
+<div class="well">
+    <h4>Locations</h4>
+    <ul class="unstyled">
+    {% load location_tags %}
+    {% for location in locations %}
+        <li class="location_pop" title="{{ location }}"><i class="icon-map-marker"></i>  <span class="label label-success">{% location_photo_count location.slug %} Photos</span> {{ location }}</li>
+    {% endfor %}
+    </ul>
+</div>
+
+{% endblock sidebar %}
+{% block extra_foot %}
+<script>
+    $(document).ready(function(){
+        $('.location_pop').popover()
+
+    });
+</script>
+{% endblock extra_foot %}
+
+{% block navigation %}
+{% include "administrator/nav.html" with nav=3 %}
+{% endblock navigation %}
