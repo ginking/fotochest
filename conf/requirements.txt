@@ -1,5 +1,5 @@
-django==1.4
-south==0.7.5
+django==1.4.1
+south==0.7.6
 hadrian==1.1.4
 PIL==1.1.7
 sorl-thumbnail==11.12
@@ -23,4 +23,6 @@ whoosh==2.4.1
 celery==2.5.5
 Werkzeug==0.8.3
 django-extensions==0.9
-
+django-site-notifications==0.1
+django-downtime==0.2
+django-bootstrap-static==2.0.2

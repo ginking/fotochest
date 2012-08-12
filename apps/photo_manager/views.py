@@ -6,6 +6,9 @@ from hadrian.contrib.locations.models import *
 from django.conf import settings
 from django.http import HttpResponse
 
+__authors__ = "Derek Stegelman"
+__date__ = "August 2012"
+
 def album(request, album_id, album_slug):
     context = {}
     context['album_slug'] = album_slug
@@ -67,23 +70,11 @@ class HomepageListView(ListView):
     queryset = Photo.objects.active()
     paginate_by = 12
 
-       
-def homepage(request):
-    context = {}
-    
-    photos = Photo.objects.active()
-        
-    paginator = Paginator(photos, 12)
-    page = request.GET.get('page', 1)
-    
-    try:
-        context['photos'] = paginator.page(page)
-    except PageNotAnInteger:
-        context['photos'] = paginator.page(1)
-    except EmptyPage:
-        context['photos'] = paginator.page(paginator.num_pages)
-    return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
-    
+class PhotoDetailView(DetailView):
+    context_object_name = "photo"
+    template_name = "%s/photo.html" % settings.ACTIVE_THEME
+    pk_url_kwarg = "photo_id"
+
 
 def photo(request, photo_id, album_slug=None, photo_slug=None):
     context = {}
@@ -127,45 +118,18 @@ class LocationsListView(ListView):
 class PhotoLocationsListView(ListView):
     paginate_by = 12
     template_name = "%s/location.html" % settings.ACTIVE_THEME
+    context_object_name = "photos"
 
     def get_queryset(self):
         location = Location.objects.get(slug=self.kwargs['location_slug'])
         return Photo.objects.filter(location=location)
 
     def get_context_data(self, **kwargs):
-        context = super(LocationDetailView, self).get_context_data(**kwargs)
+        context = super(PhotoLocationsListView, self).get_context_data(**kwargs)
         location_slug = self.kwargs['location_slug']
         location = Location.objects.get(slug=location_slug)
         context['location'] = location
         context['location_view'] = True
         context['location_slug'] = location_slug
         return context
-
-
-
-
-
-
-def location(request, location_slug):
-    location = get_object_or_404(Location, slug=location_slug)
-    # Get location object, now get more location objects where location.city = location.city?
-    # how do we know if we are asking for city, state or country?  Should we have that specified?
-    context = {}
-    
-    photos = Photo.objects.filter(location=location)
-    paginator = Paginator(photos, 12)
-
-    page = request.GET.get('page', 1)
-    context['location'] = location
-    context['location_view'] = True
-    context['location_slug'] = location_slug
-    try:
-        context['photos'] = paginator.page(page)
-    except PageNotAnInteger:
-        context['photos'] = paginator.page(1)
-    except EmptyPage:
-        context['photos'] = paginator.page(paginator.num_pages)
-    return render(request, "%s/location.html" % settings.ACTIVE_THEME, context)  
-    
-
     

@@ -64,11 +64,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ) 
 
 MIDDLEWARE_CLASSES = (
+    'downtime.middleware.DowntimeMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
     'django.contrib.messages.middleware.MessageMiddleware',
+    'site_notifications.middleware.NotificationMiddleware',
 )
 
 
@@ -115,14 +118,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.comments',
-    #'grappelli',
     'django.contrib.admin',
+
+    # Dependencies
 
     'hadrian.contrib.locations',
     'hadrian.contrib.pomona',
     'tastypie',
-    'photo_manager',
-    'administrator',
     'api_docs',
     'taggit',
     # Everyone should be using south.  Seriously.
@@ -134,6 +136,13 @@ INSTALLED_APPS = (
     'test_utils',
     'haystack',
     'django_extensions',
+    'downtime',
+    'site_notifications',
+    'bootstrap',
+
+    'photo_manager',
+    'administrator',
+
     )
 
 
