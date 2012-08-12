@@ -25,4 +25,4 @@ Werkzeug==0.8.3
 django-extensions==0.9
 django-site-notifications==0.1
 django-downtime==0.2
-git+ssh://git@github.com/dstegelman/django-bootstrap-static@master#egg=bootstrap
+django-bootstrap-static==2.0.2
