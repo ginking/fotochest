@@ -30,7 +30,8 @@ USE_L10N = True
 
 ENABLE_CELERY = True
 ACTIVE_THEME = "default"
-VERSION_NUMBER = "2.3"
+from setup import version
+VERSION_NUMBER = version
 AUTH_PROFILE_MODULE = "profiles.Profile"
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 

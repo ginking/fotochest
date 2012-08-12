@@ -1,6 +1,11 @@
+"""
+FotoChest
+
+"""
+
 from setuptools import setup, find_packages
 
-version = '2.3'
+version = 'dev2.3'
 
 install_requires = [
     'django==1.4.1',
