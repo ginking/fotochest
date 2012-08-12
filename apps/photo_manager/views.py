@@ -6,6 +6,9 @@ from hadrian.contrib.locations.models import *
 from django.conf import settings
 from django.http import HttpResponse
 
+__authors__ = "Derek Stegelman"
+__date__ = "August 2012"
+
 def album(request, album_id, album_slug):
     context = {}
     context['album_slug'] = album_slug
@@ -67,23 +70,6 @@ class HomepageListView(ListView):
     queryset = Photo.objects.active()
     paginate_by = 12
 
-       
-def homepage(request):
-    context = {}
-    
-    photos = Photo.objects.active()
-        
-    paginator = Paginator(photos, 12)
-    page = request.GET.get('page', 1)
-    
-    try:
-        context['photos'] = paginator.page(page)
-    except PageNotAnInteger:
-        context['photos'] = paginator.page(1)
-    except EmptyPage:
-        context['photos'] = paginator.page(paginator.num_pages)
-    return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
-
 
 class PhotoDetailView(DetailView):
     queryset = Photo.objects.filter(deleted=False)
@@ -98,6 +84,7 @@ class PhotoDetailView(DetailView):
         context['other_photos'] = Photo.objects.active().filter(album=photo.album, id__lt=photo.id)[:9]
         context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
         return context
+
 
 def photo(request, photo_id, album_slug=None, photo_slug=None):
     context = {}
