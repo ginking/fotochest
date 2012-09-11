@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from hadrian.contrib.locations.models import Location
 from django.core.urlresolvers import reverse
 from fotochest.photo_manager.tasks import ThumbnailTask
-from conf import defaults
+from fotochest.conf import defaults
 from django.conf import settings as app_settings
 from sorl.thumbnail import get_thumbnail
 from django.core.files.uploadedfile import UploadedFile

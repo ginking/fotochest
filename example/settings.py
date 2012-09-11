@@ -97,7 +97,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     )
 
-ROOT_URLCONF = 'poop.urls'
+ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
@@ -121,6 +121,8 @@ INSTALLED_APPS = (
     'fotochest.administrator',
     'south',
     'hadrian.contrib.locations',
+    'crispy_forms',
+    #'haystack',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     )
@@ -156,3 +158,8 @@ LOGGING = {
 
 
 
+# Settings to Add
+
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_SITECONF = 'search_sites'
+HAYSTACK_WHOOSH_PATH = os.path.join("whoosh")
