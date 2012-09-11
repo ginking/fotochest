@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'fotochest.photo_manager',
     'fotochest.administrator',
     'south',
+    'hadrian.contrib.locations',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     )
