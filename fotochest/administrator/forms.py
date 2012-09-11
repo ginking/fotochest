@@ -1,5 +1,5 @@
 from django import forms
-from administrator.models import Settings
+from fotochest.administrator.models import Settings
         
 class SettingsForm(forms.ModelForm):
     class Meta:

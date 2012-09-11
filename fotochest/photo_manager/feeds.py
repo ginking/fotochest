@@ -1,5 +1,5 @@
 from django.contrib.syndication.views import Feed
-from photo_manager.models import *
+from fotochest.photo_manager.models import *
 from django.shortcuts import get_object_or_404
 
 class StreamFeed(Feed):

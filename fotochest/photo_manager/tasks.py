@@ -1,6 +1,6 @@
 from celery.task import Task
 from celery.registry import tasks
-from photo_manager.models import Photo
+from fotochest.photo_manager.models import Photo
 
 
 class ThumbnailTask(Task):

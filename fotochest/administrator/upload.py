@@ -1,4 +1,4 @@
-from photo_manager.models import Album, Photo
+from fotochest.photo_manager.models import Album, Photo
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 import os
@@ -6,7 +6,7 @@ import random
 from django.http import HttpResponse
 from hadrian.contrib.locations.models import Location
 from django.core.urlresolvers import reverse
-from photo_manager.tasks import ThumbnailTask 
+from fotochest.photo_manager.tasks import ThumbnailTask
 from conf import defaults
 from django.conf import settings as app_settings
 from sorl.thumbnail import get_thumbnail

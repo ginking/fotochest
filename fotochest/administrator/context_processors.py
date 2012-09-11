@@ -1,5 +1,5 @@
-from administrator.models import Settings
-from photo_manager.models import Photo
+from fotochest.administrator.models import Settings
+from fotochest.photo_manager.models import Photo
 from django.shortcuts import get_object_or_404
 
 def settings(request):

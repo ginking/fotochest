@@ -1,5 +1,5 @@
 from django import template
-from photo_manager.models import Photo
+from fotochest.photo_manager.models import Photo
 register = template.Library()
 
 @register.inclusion_tag('administrator/templatetags/locations.html')

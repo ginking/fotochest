@@ -1,5 +1,5 @@
 from tastypie.resources import ModelResource
-from photo_manager.models import Photo, Album
+from fotochest.photo_manager.models import Photo, Album
 from hadrian.contrib.locations.models import Location
 from tastypie import fields
 from sorl.thumbnail import get_thumbnail
