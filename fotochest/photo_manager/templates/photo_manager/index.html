@@ -1,0 +1,88 @@
+{% extends "photo_manager/base.html" %}
+{% block nav %}
+{% include "photo_manager/nav.html" with current=1 %}
+{% endblock nav %}
+{% block extra_foot %}
+<script>
+    $(document).ready(function(){
+        $('.polaroid').popover({
+           delay: {show: 1000, hide: 100},
+           placement: 'bottom'
+        });
+
+    });
+</script>
+
+{% endblock extra_foot %}
+
+
+{% block main_content %}
+
+<div class="span12">
+{% if album_view %}
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
+  </li>
+  {% if album.parent_album %}
+  <li>
+    <a href="{{ album.parent_album.get_absolute_url }}">{{ album.parent_album }}</a> <span class="divider">/</span>
+  </li>
+  {% endif %}
+  <li class="active">{{ album.title }}</li>
+</ul>
+
+{% else %}
+<ul class="breadcrumb">
+  <li class="active">
+    <a href="{% url homepage %}">Home</a>
+  </li>
+  
+</ul>
+{% endif %}
+
+{% if album_view %}
+	{% if album.has_child_albums %}
+		<h2>Sub Albums of {{ album.title }}</h2>
+	{% endif %}
+	<ul class="thumbnails">
+	{% for album in child_albums.object_list %}
+		<li class="span3">
+		    <a href="{{ album.get_absolute_url }}" class="thumbnail">
+		        {% if album.album_cover %}
+		                {% load thumbnail %}
+		                {% thumbnail album.album_cover "300x220" as im %}
+		                <img src="{{ im.url }}">
+		                {% endthumbnail %}
+		                
+		            {% else %}
+		                {% if album.get_album_cover %}
+		                    {% load thumbnail %}
+		            {% thumbnail album.get_album_cover.image "300x220" as im %}
+		        <img src="{{ im.url }}">
+		            {% endthumbnail %}
+		                {% else %}
+		                <img src="http://dummyimage.com/260x180">
+		                {% endif %}
+		        {% endif %}
+		    </a>
+		    <h4>{{ album.title }}</h4>
+		</li>
+	{% endfor %}
+	</ul>
+{% endif %}
+
+
+{% for photo in photos.object_list %}
+    {% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 %}
+    <ul class="thumbnails row">
+    {% endif %}
+    {% include "photo_manager/snippets/item.html" %}
+    {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 %}
+    </ul>
+    {% endif %}
+{% endfor %}
+{% include "photo_manager/snippets/pagination.html" %}
+
+</div>
+{% endblock main_content %}
