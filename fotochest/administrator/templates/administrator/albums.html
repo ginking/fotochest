@@ -39,7 +39,7 @@
     <div class="modal-body">
       <h4>Select Album and Location</h4>
       <p>Select the album and location that you want to associate you uploaded photos with.</p>
-      <form method="GET" action="{% url administrator.views.choose %}">
+      <form method="GET" action="{% url choose %}">
       <label>Album Name:</label>
           <select name="album">
               {% for album in form_albums %}
