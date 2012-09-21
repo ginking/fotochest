@@ -1,6 +1,6 @@
-{% extends "default/base.html" %}
+{% extends "photo_manager/base.html" %}
 {% block nav %}
-{% include "default/nav.html" with current=1 %}
+{% include "photo_manager/nav.html" with current=1 %}
 {% endblock nav %}
 {% block extra_foot %}
 <script>
@@ -73,18 +73,16 @@
 {% endif %}
 
 
-
-
 {% for photo in photos.object_list %}
     {% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 %}
     <ul class="thumbnails row">
     {% endif %}
-    {% include "default/snippets/item.html" %}
+    {% include "photo_manager/snippets/item.html" %}
     {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 %}
     </ul>
     {% endif %}
 {% endfor %}
-{% include "default/snippets/pagination.html" %}
+{% include "photo_manager/snippets/pagination.html" %}
 
 </div>
 {% endblock main_content %}

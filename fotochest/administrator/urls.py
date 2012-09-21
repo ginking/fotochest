@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, include, url
-from administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
+from fotochest.administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
     delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search, CommentListView,\
     delete_comment, rotate_right, rotate_left
-from administrator.upload import upload_photo, upload_delete
-from administrator.ajax import get_disk_size, get_cache_size
+from fotochest.administrator.upload import upload_photo, upload_delete
+from fotochest.administrator.ajax import get_disk_size, get_cache_size
 # This maps static files dirs to URLS.
 from django.views.generic.simple import direct_to_template
 urlpatterns = patterns('',

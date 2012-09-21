@@ -1,5 +1,5 @@
 from django import forms
-from photo_manager.models import Album, Photo
+from fotochest.photo_manager.models import Album, Photo
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
 

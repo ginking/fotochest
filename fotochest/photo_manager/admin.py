@@ -1,5 +1,5 @@
 from django.contrib import admin
-from photo_manager.models import *
+from fotochest.photo_manager.models import *
 
 
 class PhotoAdmin(admin.ModelAdmin):

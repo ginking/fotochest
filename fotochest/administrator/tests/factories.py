@@ -1,5 +1,5 @@
 import factory
-from administrator.models import Settings
+from fotochest.administrator.models import Settings
 
 class SettingsFactory(factory.Factory):
     FACTORY_FOR = Settings

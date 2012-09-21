@@ -35,7 +35,7 @@
     <div class="modal-body">
       <h4>Select Album and Location</h4>
       <p>Select the album and location that you want to associate you uploaded photos with.</p>
-      <form method="GET" action="{% url administrator.views.choose %}">
+      <form method="GET" action="{% url choose %}">
      <label>Album Name:</label>
       <select name="album">
           {% for album in form_albums %}
@@ -72,7 +72,7 @@
             <ul class="nav">
               <li class="active"><a href="{% url admin_dashboard %}">Dashboard <span class="label label-info">{{ thumbnails_building }}</span></a></li>
               <li><a href="#myModal" data-toggle="modal">Add Photos</a></li>
-              <li><a target="_blank" href="{% url photo_manager.views.homepage %}">View Site</a></li>
+              <li><a target="_blank" href="{% url homepage %}">View Site</a></li>
             </ul>
               <div class="btn-group pull-right">
                   <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
