@@ -6,7 +6,7 @@ from hadrian.contrib.locations.models import *
 from sorl.thumbnail import get_thumbnail
 from PIL import Image
 from PIL.ExifTags import TAGS
-from photo_manager.managers import *
+from fotochest.photo_manager.managers import *
 
 class Album(models.Model):
     title = models.CharField(max_length=250)

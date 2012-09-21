@@ -1,5 +1,5 @@
 from haystack.indexes import *
-from photo_manager.models import Photo, Album
+from fotochest.photo_manager.models import Photo, Album
 from haystack import site
 
 class PhotoIndex(SearchIndex):

@@ -1,6 +1,6 @@
-{% extends "default/base.html" %}
+{% extends "photo_manager/base.html" %}
 {% block nav %}
-{% include "default/nav.html" with current=2 %}
+{% include "photo_manager/nav.html" with current=2 %}
 {% endblock nav %}
 {% block main_content %}
 
@@ -33,9 +33,9 @@
 {% for photo in photos.object_list %}
     
     {% if album.has_child_albums %}
-    {% include "default/snippets/smaller_item.html" %}
+    {% include "photo_manager/snippets/smaller_item.html" %}
     {% else %}
-    {% include "default/snippets/item.html" %}
+    {% include "photo_manager/snippets/item.html" %}
     {% endif %}
 {% endfor %}
 

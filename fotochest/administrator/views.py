@@ -1,16 +1,16 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
-from photo_manager.models import Photo, Album
-from administrator.models import Settings
-from administrator.forms import SettingsForm
+from fotochest.photo_manager.models import Photo, Album
+from fotochest.administrator.models import Settings
+from fotochest.administrator.forms import SettingsForm
 from hadrian.contrib.locations.models import *
 from hadrian.contrib.locations.forms import *
 from django.conf import settings as app_settings
 import sorl
 from PIL import Image
-from photo_manager.forms import *
+from fotochest.photo_manager.forms import *
 from django.contrib.auth.decorators import login_required
-from photo_manager.forms import AlbumForm
+from fotochest.photo_manager.forms import AlbumForm
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -186,7 +186,7 @@ def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=
 def build_thumbnails(request):
     from conf import defaults
     ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
-    from photo_manager.tasks import ThumbnailTask
+    from fotochest.photo_manager.tasks import ThumbnailTask
     for photo in Photo.objects.all():
         photo.thumbs_created = False
         photo.save()
@@ -198,7 +198,7 @@ def build_thumbnails(request):
    
 @login_required
 def delete_thumbnails(request):
-    from administrator.tasks import ThumbnailCleanupTask
+    from fotochest.administrator.tasks import ThumbnailCleanupTask
     for photo in Photo.objects.all():
         ThumbnailCleanupTask.delay(photo.id)
     messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
@@ -237,13 +237,13 @@ def delete_comment(request, comment_id):
 @login_required()
 @never_cache
 def rotate_right(request, photo_id):
-    from administrator.edit import rotate_right
+    from fotochest.administrator.edit import rotate_right
     rotate_right(photo_id)
     return redirect("admin_dashboard")
 
 @login_required()
 @never_cache
 def rotate_left(request, photo_id):
-    from administrator.edit import rotate_left
+    from fotochest.administrator.edit import rotate_left
     rotate_left(photo_id)
     return redirect("admin_dashboard")

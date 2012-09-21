@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
-from photo_manager.models import *
-from photo_manager.tests.factories import AlbumFactory, PhotoFactory
+from fotochest.photo_manager.models import *
+from fotochest.photo_manager.tests.factories import AlbumFactory, PhotoFactory
 from django.contrib.auth.models import User
 
 class AlbumModelTest(TestCase):

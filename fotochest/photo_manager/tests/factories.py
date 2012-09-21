@@ -1,5 +1,5 @@
 import factory
-from photo_manager.models import Album, Photo
+from fotochest.photo_manager.models import Album, Photo
 
 # Album Factory
 class AlbumFactory(factory.Factory):
