@@ -40,7 +40,7 @@ def album(request, album_id, album_slug):
     except EmptyPage:
         context['photos'] = photo_paginator.page(photo_paginator.num_pages)
             
-    return render(request, "%s/albums.html" % settings.ACTIVE_THEME, context)
+    return render(request, "photo_manager/albums.html", context)
 
 
 def tag(request, tag_slug):
@@ -55,24 +55,24 @@ def tag(request, tag_slug):
     except EmptyPage:
         context['photos'] = paginator.page(paginator.num_pages)
     context['paginator'] = paginator
-    return render(request, "%s/index.html" % settings.ACTIVE_THEME, context)
+    return render(request, "photo_manager/index.html", context)
 
 
 class AlbumListView(ListView):
     context_object_name = "albums"
-    template_name = "%s/albums.html" % settings.ACTIVE_THEME
+    template_name = "photo_manager/albums.html"
     queryset = Album.objects.filter(parent_album=None)
     paginate_by = 12
 
 class HomepageListView(ListView):
     context_object_name = "photos"
-    template_name = "%s/index.html" % settings.ACTIVE_THEME
+    template_name = "photo_manager/index.html"
     queryset = Photo.objects.active()
     paginate_by = 12
 
 class PhotoDetailView(DetailView):
     context_object_name = "photo"
-    template_name = "%s/photo.html" % settings.ACTIVE_THEME
+    template_name = "photo_manager/photo.html"
     pk_url_kwarg = "photo_id"
 
 
@@ -85,7 +85,7 @@ def photo(request, photo_id, album_slug=None, photo_slug=None):
     context['photo'] = photo
     context['other_photos'] = photos
     context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
-    return render(request, "%s/photo.html" % settings.ACTIVE_THEME, context)
+    return render(request, "photo_manager/photo.html", context)
 
 def photo_download(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
@@ -98,7 +98,7 @@ def photo_download(request, photo_id):
 def photo_fullscreen(request, photo_id, album_slug, photo_slug):
     context = {}
     context['photo'] = get_object_or_404(Photo, pk=photo_id, deleted=False)
-    return render(request, '%s/fullscreen.html' % settings.ACTIVE_THEME, context)
+    return render(request, 'photo_manager/fullscreen.html', context)
 
 def slideshow(request, location_slug=None, album_slug=None):
     context = {}
@@ -106,18 +106,18 @@ def slideshow(request, location_slug=None, album_slug=None):
     context['initial_photos'] = photos
     all_photos = Photo.objects.filter(album__slug=album_slug)[:12]
     context['all_photos'] = all_photos
-    return render(request, "%s/slideshow.html" % settings.ACTIVE_THEME, context)
+    return render(request, "photo_manager/slideshow.html", context)
     
 ### Map/Location views
 
 class LocationsListView(ListView):
     context_object_name = "locations"
-    template_name = "%s/map.html" % settings.ACTIVE_THEME
+    template_name = "photo_manager/map.html"
     queryset = Location.objects.all()
     
 class PhotoLocationsListView(ListView):
     paginate_by = 12
-    template_name = "%s/location.html" % settings.ACTIVE_THEME
+    template_name = "photo_manager/location.html"
     context_object_name = "photos"
 
     def get_queryset(self):

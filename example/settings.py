@@ -122,6 +122,8 @@ INSTALLED_APPS = (
     'south',
     'hadrian.contrib.locations',
     'crispy_forms',
+    'sorl.thumbnail',
+    'bootstrap',
     #'haystack',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
