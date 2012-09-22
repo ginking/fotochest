@@ -1,8 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from fotochest.photo_manager.models import Photo, Album
-from fotochest.administrator.models import Settings
-from fotochest.administrator.forms import SettingsForm
+
 from hadrian.contrib.locations.models import *
 from hadrian.contrib.locations.forms import *
 from django.conf import settings as app_settings
@@ -58,7 +57,7 @@ def album_list(request):
             album.user = request.user
             album.save()
             messages.add_message(request, messages.SUCCESS, "New Album Saved.")
-            return redirect("administrator.views.album_list")
+            return redirect("admin_albums")
     else:
         form = AlbumForm()
     context = {'albums':albums, 'album_form':form}
@@ -100,23 +99,7 @@ def add_location(request):
     else:
         form = LocationForm()
     context['form'] = form    
-    return render(request, "administrator/add_location.html", context) 
-
-@login_required
-@never_cache
-def settings(request):
-    context = {}
-    setting = get_object_or_404(Settings, pk=1)
-    if request.method == "POST":
-        form = SettingsForm(request.POST, instance=setting)
-        if form.is_valid():
-            setting = form.save()
-            messages.add_message(request, messages.SUCCESS, "Settings Updated.")
-            return redirect("administrator.views.settings")
-    else:
-        form = SettingsForm(instance=setting)
-    context['form'] = form
-    return render(request, "administrator/settings.html", context)
+    return render(request, "administrator/add_location.html", context)
 
 @login_required
 @never_cache

@@ -108,6 +108,18 @@ TEMPLATE_DIRS = (
 # Don't forget to use absolute paths, not relative paths.
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages",
+    "fotochest.photo_manager.context_processors.locations_albums",
+    "fotochest.photo_manager.context_processors.version",
+    "fotochest.administrator.context_processors.settings",
+    )
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -161,6 +173,10 @@ LOGGING = {
 
 
 # Settings to Add
+
+APP_NAME = "Dereks Photos"
+ENABLE_DOWNLOAD = True
+
 
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_SITECONF = 'search_sites'

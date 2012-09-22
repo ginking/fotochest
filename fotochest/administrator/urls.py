@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from fotochest.administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
-    delete_photo, rotate_photo, settings, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search, CommentListView,\
+    delete_photo, rotate_photo, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search, CommentListView,\
     delete_comment, rotate_right, rotate_left
 from fotochest.administrator.upload import upload_photo, upload_delete
 from fotochest.administrator.ajax import get_disk_size, get_cache_size
@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^album/(?P<album_id>\d+)/$', album_detail, name="admin_album_detail"),
     url(r'^locations/$', locations, name="admin_locations"),
     url(r'^locations/add/$', add_location, name="admin_add_location"),
-    url(r'^settings/$', settings, name="settings"),
+
     url(r'^utilities/$', direct_to_template, {'template': 'administrator/utilities.html'}, name="admin_utilities"),
     url(r'^utilities/build/$', build_thumbnails, name="build_thumbnails"),
     url(r'^utilities/search/update/$', rebuild_search, name="rebuild_search"),
