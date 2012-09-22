@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from fotochest.administrator.views import dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
+from fotochest.administrator.views import Dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
     delete_photo, rotate_photo, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search, CommentListView,\
     delete_comment, rotate_right, rotate_left
 from fotochest.administrator.upload import upload_photo, upload_delete
@@ -10,7 +10,7 @@ urlpatterns = patterns('',
 
         
     # Send all remaming URLS to the App.
-    url(r'^$', dashboard, name="admin_dashboard"),
+    url(r'^$', Dashboard.as_view(), name="admin_dashboard"),
     url(r'^choose/', choose, name="choose"),
     url(r'^comments/$', CommentListView.as_view(), name="comment_list_view"),
     url(r'^comments/delete/(?P<comment_id>\d+)/$', delete_comment, name="comment_delete_view"),

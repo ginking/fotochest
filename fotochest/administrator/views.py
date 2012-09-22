@@ -1,19 +1,24 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
-from fotochest.photo_manager.models import Photo, Album
+from django.contrib import messages
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView, DetailView
+from django.contrib.comments.models import Comment
+from django.conf import settings as app_settings
+from django.contrib.auth.decorators import login_required
+
+import sorl
+
+from PIL import Image
 
 from hadrian.contrib.locations.models import *
 from hadrian.contrib.locations.forms import *
-from django.conf import settings as app_settings
-import sorl
-from PIL import Image
+
+from braces.views import LoginRequiredMixin
+
 from fotochest.photo_manager.forms import *
-from django.contrib.auth.decorators import login_required
+from fotochest.photo_manager.models import Photo, Album
 from fotochest.photo_manager.forms import AlbumForm
-from django.contrib import messages
-from django.views.decorators.cache import never_cache
-from django.views.generic import ListView
-from django.contrib.comments.models import Comment
 
 __authors__ = "Derek Stegelman"
 __date__ = "August 2012"
@@ -23,28 +28,21 @@ def add_photos(request):
     context = {}
     return render(request, "administrator/add_photos.html", context)
 
-@login_required
-@never_cache
-def dashboard(request):
-    photos = Photo.objects.active()
-    albums = Album.objects.filter(parent_album=None)
-    context = {'albums': albums}
-    context['total_photos'] = Photo.objects.filter(deleted=False).count()
-    context['total_albums'] = Album.objects.all().count()
-    context['total_locations'] = Location.objects.all().count()
 
-    paginator = Paginator(photos, 16)
-    page = request.GET.get('page', 1)
-    
-    try:
-        context['photos'] = paginator.page(page)
-    except PageNotAnInteger:
-        context['photos'] = paginator.page(1)
-    except EmptyPage:
-        context['photos'] = paginator.page(paginator.num_pages)
-    context['paginator'] = paginator
-    # Add pagination
-    return render(request, "administrator/dashboard.html", context)
+class Dashboard(LoginRequiredMixin, ListView):
+    queryset = Photo.objects.active()
+    paginate_by = 16
+    template_name = "administrator/dashboard.html"
+    context_object_name = 'photos'
+
+    # Should not cache this.
+    def get_context_data(self, **kwargs):
+        context = super(Dashboard, self).get_context_data(**kwargs)
+        context['albums'] = Album.objects.filter(parent_album=None)
+        context['total_photos'] = Photo.objects.filter(deleted=False).count()
+        context['total_albums'] = Album.objects.all().count()
+        context['total_locations'] = Location.objects.all().count()
+        return context
 
 @login_required
 @never_cache
