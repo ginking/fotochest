@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/fullscreen/$', PhotoFullScreen.as_view(), name="photo_fullscreen"),
     
     # ShortURL
-    url(r'^f/(?P<photo_id>\d+)/$', photo, name="short_photo_url"),
+    url(r'^f/(?P<photo_id>\d+)/$', PhotoDetailView.as_view(), name="short_photo_url"),
     
     #download
     url(r'^foto/download/(?P<photo_id>\d+)/$', photo_download, name="photo_download"),
