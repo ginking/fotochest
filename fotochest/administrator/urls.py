@@ -1,11 +1,11 @@
 from django.conf.urls import patterns, include, url
-from fotochest.administrator.views import Dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
+from fotochest.administrator.views.general import Dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
     delete_photo, rotate_photo, build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search, CommentListView,\
     delete_comment, rotate_right, rotate_left
-from fotochest.administrator.upload import upload_photo, upload_delete
-from fotochest.administrator.ajax import get_disk_size, get_cache_size
+from fotochest.administrator.views.upload import upload_photo, upload_delete
+from fotochest.administrator.views.ajax import get_disk_size, get_cache_size
 # This maps static files dirs to URLS.
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 urlpatterns = patterns('',
 
         
@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url(r'^locations/$', locations, name="admin_locations"),
     url(r'^locations/add/$', add_location, name="admin_add_location"),
 
-    url(r'^utilities/$', direct_to_template, {'template': 'administrator/utilities.html'}, name="admin_utilities"),
+    url(r'^utilities/$', TemplateView.as_view(template_name='administrator/utilities.html'), name="admin_utilities"),
     url(r'^utilities/build/$', build_thumbnails, name="build_thumbnails"),
     url(r'^utilities/search/update/$', rebuild_search, name="rebuild_search"),
     url(r'^utilities/thumbs/delete/$', delete_thumbnails, name="delete_thumbnails"),
