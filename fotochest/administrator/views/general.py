@@ -72,18 +72,10 @@ def album_detail(request, album_id):
             album = form.save()
     else:
         form = AlbumForm(instance=album)
-        
+
     context['album_form'] = form
     context['album'] = album
     return render(request, "administrator/album_detail.html", context)
-
-@login_required
-@never_cache
-def album_photo_details(request, album_id):
-    album = get_object_or_404(Album, pk=album_id)
-    context = {'album':album}
-    #Fix this Add pagination
-    return render(request, "administrator/", context)
 
 @login_required
 @never_cache
@@ -96,7 +88,7 @@ def add_location(request):
             return redirect("administrator.views.locations")
     else:
         form = LocationForm()
-    context['form'] = form    
+    context['form'] = form
     return render(request, "administrator/add_location.html", context)
 
 @login_required
@@ -111,7 +103,7 @@ def locations(request, username=None):
             return redirect("admin_locations")
     else:
         form = LocationForm()
-    context['form'] = form  
+    context['form'] = form
     return render(request, "administrator/locations.html", context)
 
 def choose(request):
@@ -122,33 +114,33 @@ def choose(request):
 def edit_photo(request, photo_id):
     context = {}
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-        
+
     if request.method == "POST":
         form = PhotoForm(request.POST, instance=photo)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, "Photo %s saved" % photo.title)
-            
+
             return redirect('administrator.views.dashboard')
         else:
             print form.errors
             print("poop")
     else:
         messages.add_message(request, messages.ERROR, "ERROR")
-            
+
         return redirect('administrator.views.dashboard')
 
 
 @login_required
-@never_cache    
+@never_cache
 def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
-    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)    
+    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
     photo.deleted = True
     photo.save()
     #@todo - This needs to point somewhere else after deletion..
     messages.add_message(request, messages.SUCCESS, "Photo %s deleted" % photo.title)
     return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
-    
+
 @login_required
 @never_cache
 def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=None, photo_slug=None):
@@ -178,8 +170,8 @@ def build_thumbnails(request):
             ThumbnailTask.delay(photo.id)
     messages.add_message(request, messages.SUCCESS, "Job queued.")
     return redirect('admin_utilities')
-    
-   
+
+
 @login_required
 def delete_thumbnails(request):
     from fotochest.administrator.tasks import ThumbnailCleanupTask
@@ -187,15 +179,15 @@ def delete_thumbnails(request):
         ThumbnailCleanupTask.delay(photo.id)
     messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
     return redirect('admin_utilities')
-    
-    
+
+
 @login_required
 def clear_thumbnails(request):
     from django.core import management
     management.call_command('thumbnail', 'clear')
     messages.add_message(request, messages.SUCCESS, "Key Value Store Cleared")
     return redirect('admin_utilities')
-    
+
 @login_required
 def rebuild_search(request):
     from django.core import management

@@ -11,6 +11,6 @@ before_script:
 
 # command to install dependencies
 install:
-  - pip install -r conf/requirements.txt --use-mirrors
+
 # command to run tests
 
