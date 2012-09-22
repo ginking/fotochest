@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-from fotochest.photo_manager.views import HomepageListView, photo, LocationsListView, slideshow, album, photo_download, AlbumListView, tag, PhotoLocationsListView, PhotoFullScreen, PhotoDetailView
+from fotochest.photo_manager.views import HomepageListView, LocationsListView, album, photo_download, AlbumListView, PhotoLocationsListView, PhotoFullScreen, PhotoDetailView
 from fotochest.photo_manager.feeds import StreamFeed, AlbumStream
 from fotochest.photo_manager.api import PhotoResource, AlbumResource, LocationResource
 
@@ -30,7 +30,6 @@ urlpatterns = patterns('',
     
     url(r'map/$', LocationsListView.as_view(), name="map"),
     url(r'map/(?P<location_slug>[-\w]+)/$', PhotoLocationsListView.as_view(), name="photo_location"),
-    url(r'map/(?P<location_slug>[-\w]+)/slideshow/$', slideshow),
     
     # Feeds
     url(r'^feed/$', StreamFeed(), name="homepage_feed"),
@@ -39,7 +38,6 @@ urlpatterns = patterns('',
     # Albums
     url(r'^albums/$', AlbumListView.as_view(), name="albums"),
     url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album),
-    url(r'^album/(?P<album_slug>[-\w]+)/slideshow/$', slideshow),
 
 )
 
