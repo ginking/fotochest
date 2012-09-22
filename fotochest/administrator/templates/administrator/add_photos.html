@@ -12,23 +12,23 @@
 
   {% load upload_tags %}
   
-      <link rel="stylesheet" href="{{ STATIC_URL }}uploader/css/bootstrap-image-gallery.min.css">
-      <link rel="stylesheet" href="{{ STATIC_URL }}uploader/css/jquery.fileupload-ui.css">
+      <link rel="stylesheet" href="{{ STATIC_URL }}administrator/js/uploader/css/bootstrap-image-gallery.min.css">
+      <link rel="stylesheet" href="{{ STATIC_URL }}administrator/js/uploader/css/jquery.fileupload-ui.css">
       
              {% upload_js %}
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/jquery.ui.widget.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/tmpl.min.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/load-image.min.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/canvas-to-blob.min.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/bootstrap.min.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/bootstrap-image-gallery.min.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/jquery.iframe-transport.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-fp.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/jquery.fileupload-ui.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/locale.js"></script>
-      <script src="{{ STATIC_URL }}uploader/js/main.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/jquery.ui.widget.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/tmpl.min.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/load-image.min.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/canvas-to-blob.min.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/bootstrap.min.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/bootstrap-image-gallery.min.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/jquery.iframe-transport.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/jquery.fileupload.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/jquery.fileupload-fp.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/jquery.fileupload-ui.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/locale.js"></script>
+      <script src="{{ STATIC_URL }}administrator/js/uploader/js/main.js"></script>
         {% endblock extra_foot %}
   {% block navigation %}
   
@@ -40,7 +40,7 @@
 <div class="page-header">
 <h2>Add Photos</h2>
 </div>
-<form id="fileupload" method="post" action="{% url administrator.upload.upload_photo location_slug=location_slug album_slug=album_slug user_id=request.user.id %}" enctype="multipart/form-data">{% csrf_token %}
+<form id="fileupload" method="post" action="{% url file_uploader location_slug=location_slug album_slug=album_slug user_id=request.user.id %}" enctype="multipart/form-data">{% csrf_token %}
         <div class="row fileupload-buttonbar">
             <div class="span7">
                 <span class="btn btn-primary fileinput-button">

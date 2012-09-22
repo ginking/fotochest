@@ -76,7 +76,7 @@ $(document).ready(function () {
         <div class="controls">
             <a href="{% url admin_rotate_right photo_id=photo.id %}" class="btn">Rotate Right</a>
             <a href="{% url admin_rotate_left photo_id=photo.id %}" class="btn">Rotate Left</a>
-            <form method="POST" action="{% url administrator.views.edit_photo photo_id=photo.id %}">
+            <form method="POST" action="{% url admin_edit_photo photo_id=photo.id %}">
             {% csrf_token %}
 
             <input type="text" name="title" value="{{ photo.title }}" class="span2">

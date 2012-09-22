@@ -110,7 +110,7 @@ def locations(request, username=None):
         form = LocationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("administrator.views.locations")
+            return redirect("admin_locations")
     else:
         form = LocationForm()
     context['form'] = form  
