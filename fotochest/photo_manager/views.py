@@ -43,21 +43,6 @@ def album(request, album_id, album_slug):
     return render(request, "photo_manager/albums.html", context)
 
 
-def tag(request, tag_slug):
-    context = {}
-    photos = Photo.objects.filter(tags__slug__in=[tag_slug])
-    paginator = Paginator(photos, 12)
-    page = request.GET.get('page', 1)
-    try:
-        context['photos'] = pagniator.page(page)
-    except PageNotAnInteger:
-        context['photos'] = paginator.page(1)
-    except EmptyPage:
-        context['photos'] = paginator.page(paginator.num_pages)
-    context['paginator'] = paginator
-    return render(request, "photo_manager/index.html", context)
-
-
 class AlbumListView(ListView):
     context_object_name = "albums"
     template_name = "photo_manager/albums.html"
