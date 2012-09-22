@@ -1,11 +1,6 @@
 from hadrian.contrib.locations.models import *
-from django.conf import settings  	
+from fotochest.conf import settings
 from fotochest.photo_manager.models import *
-
-def theme_files(request):
-    context = {}    
-    context['THEME_URL'] = "%sphoto_manager/themes/%s/" % (settings.STATIC_URL, settings.ACTIVE_THEME)
-    return context
 
 def locations_albums(request):
     context ={}
