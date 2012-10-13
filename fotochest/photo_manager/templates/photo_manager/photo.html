@@ -95,7 +95,7 @@ rules: [
 			    {% if photo.get_previous %}
 				<a href="{{ photo.get_previous }}" class="btn"><i class="icon-arrow-left"></i> Previous</a>
 				{% endif %}
-				<a href="{{ photo.get_fullscreen }}" class="btn"><i class="icon-picture"></i> Full Screen</a>
+				<a href="{% url photo_fullscreen photo_id=photo.id album_slug=photo.album.slug photo_slug=photo.slug %}" class="btn"><i class="icon-picture"></i> Full Screen</a>
 				{% if enable_download %}
 				<a href="{% url photo_download photo_id=photo.id %}" class="btn"><i class="icon-download-alt"></i> Download Full Size</a>
 				{% endif %}

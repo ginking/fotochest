@@ -1,11 +1,16 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
+
 from hadrian.utils.slugs import unique_slugify
-import os
 from hadrian.contrib.locations.models import *
+
 from sorl.thumbnail import get_thumbnail
+
 from PIL import Image
 from PIL.ExifTags import TAGS
+
 from fotochest.photo_manager.managers import *
 
 class Album(models.Model):
@@ -68,8 +73,6 @@ class Album(models.Model):
     @property
     def count(self):
         return Photo.objects.filter(album=self).count()
-
-
 
     @models.permalink
     def get_absolute_url(self):
@@ -152,7 +155,8 @@ class Photo(models.Model):
             decoded = TAGS.get(tag, tag)
             exif_data[decoded] = value
         return exif_data
-    
+
+    #@todo - point to new class ivew.
     @models.permalink
     def get_absolute_url(self):
 
@@ -161,7 +165,7 @@ class Photo(models.Model):
     @models.permalink
     def get_fullscreen(self):
         # update with enable multi user
-        return ('photo_manager.views.photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
+        return ('photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
         
         
     class Meta:

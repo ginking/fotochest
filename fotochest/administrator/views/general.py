@@ -1,48 +1,48 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
-from fotochest.photo_manager.models import Photo, Album
-from fotochest.administrator.models import Settings
-from fotochest.administrator.forms import SettingsForm
-from hadrian.contrib.locations.models import *
-from hadrian.contrib.locations.forms import *
-from django.conf import settings as app_settings
-import sorl
-from PIL import Image
-from fotochest.photo_manager.forms import *
-from django.contrib.auth.decorators import login_required
-from fotochest.photo_manager.forms import AlbumForm
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.comments.models import Comment
+from django.conf import settings as app_settings
+from django.contrib.auth.decorators import login_required
+
+import sorl
+
+from PIL import Image
+
+from hadrian.contrib.locations.models import *
+from hadrian.contrib.locations.forms import *
+
+from braces.views import LoginRequiredMixin
+
+from fotochest.photo_manager.forms import *
+from fotochest.photo_manager.models import Photo, Album
+from fotochest.photo_manager.forms import AlbumForm
+
+__authors__ = "Derek Stegelman"
+__date__ = "August 2012"
 
 @login_required
 def add_photos(request):
     context = {}
     return render(request, "administrator/add_photos.html", context)
 
-@login_required
-@never_cache
-def dashboard(request):
-    photos = Photo.objects.active()
-    albums = Album.objects.filter(parent_album=None)
-    context = {'albums': albums}
-    context['total_photos'] = Photo.objects.filter(deleted=False).count()
-    context['total_albums'] = Album.objects.all().count()
-    context['total_locations'] = Location.objects.all().count()
 
-    paginator = Paginator(photos, 16)
-    page = request.GET.get('page', 1)
-    
-    try:
-        context['photos'] = paginator.page(page)
-    except PageNotAnInteger:
-        context['photos'] = paginator.page(1)
-    except EmptyPage:
-        context['photos'] = paginator.page(paginator.num_pages)
-    context['paginator'] = paginator
-    # Add pagination
-    return render(request, "administrator/dashboard.html", context)
+class Dashboard(LoginRequiredMixin, ListView):
+    queryset = Photo.objects.active()
+    paginate_by = 16
+    template_name = "administrator/dashboard.html"
+    context_object_name = 'photos'
+
+    # Should not cache this.
+    def get_context_data(self, **kwargs):
+        context = super(Dashboard, self).get_context_data(**kwargs)
+        context['albums'] = Album.objects.filter(parent_album=None)
+        context['total_photos'] = Photo.objects.filter(deleted=False).count()
+        context['total_albums'] = Album.objects.all().count()
+        context['total_locations'] = Location.objects.all().count()
+        return context
 
 @login_required
 @never_cache
@@ -55,7 +55,7 @@ def album_list(request):
             album.user = request.user
             album.save()
             messages.add_message(request, messages.SUCCESS, "New Album Saved.")
-            return redirect("administrator.views.album_list")
+            return redirect("admin_albums")
     else:
         form = AlbumForm()
     context = {'albums':albums, 'album_form':form}
@@ -72,18 +72,10 @@ def album_detail(request, album_id):
             album = form.save()
     else:
         form = AlbumForm(instance=album)
-        
+
     context['album_form'] = form
     context['album'] = album
     return render(request, "administrator/album_detail.html", context)
-
-@login_required
-@never_cache
-def album_photo_details(request, album_id):
-    album = get_object_or_404(Album, pk=album_id)
-    context = {'album':album}
-    #Fix this Add pagination
-    return render(request, "administrator/", context)
 
 @login_required
 @never_cache
@@ -96,24 +88,8 @@ def add_location(request):
             return redirect("administrator.views.locations")
     else:
         form = LocationForm()
-    context['form'] = form    
-    return render(request, "administrator/add_location.html", context) 
-
-@login_required
-@never_cache
-def settings(request):
-    context = {}
-    setting = get_object_or_404(Settings, pk=1)
-    if request.method == "POST":
-        form = SettingsForm(request.POST, instance=setting)
-        if form.is_valid():
-            setting = form.save()
-            messages.add_message(request, messages.SUCCESS, "Settings Updated.")
-            return redirect("administrator.views.settings")
-    else:
-        form = SettingsForm(instance=setting)
     context['form'] = form
-    return render(request, "administrator/settings.html", context)
+    return render(request, "administrator/add_location.html", context)
 
 @login_required
 @never_cache
@@ -124,10 +100,10 @@ def locations(request, username=None):
         form = LocationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("administrator.views.locations")
+            return redirect("admin_locations")
     else:
         form = LocationForm()
-    context['form'] = form  
+    context['form'] = form
     return render(request, "administrator/locations.html", context)
 
 def choose(request):
@@ -138,33 +114,33 @@ def choose(request):
 def edit_photo(request, photo_id):
     context = {}
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
-        
+
     if request.method == "POST":
         form = PhotoForm(request.POST, instance=photo)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, "Photo %s saved" % photo.title)
-            
+
             return redirect('administrator.views.dashboard')
         else:
             print form.errors
             print("poop")
     else:
         messages.add_message(request, messages.ERROR, "ERROR")
-            
+
         return redirect('administrator.views.dashboard')
 
 
 @login_required
-@never_cache    
+@never_cache
 def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
-    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)    
+    photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
     photo.deleted = True
     photo.save()
     #@todo - This needs to point somewhere else after deletion..
     messages.add_message(request, messages.SUCCESS, "Photo %s deleted" % photo.title)
     return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
-    
+
 @login_required
 @never_cache
 def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=None, photo_slug=None):
@@ -194,8 +170,8 @@ def build_thumbnails(request):
             ThumbnailTask.delay(photo.id)
     messages.add_message(request, messages.SUCCESS, "Job queued.")
     return redirect('admin_utilities')
-    
-   
+
+
 @login_required
 def delete_thumbnails(request):
     from fotochest.administrator.tasks import ThumbnailCleanupTask
@@ -203,15 +179,15 @@ def delete_thumbnails(request):
         ThumbnailCleanupTask.delay(photo.id)
     messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
     return redirect('admin_utilities')
-    
-    
+
+
 @login_required
 def clear_thumbnails(request):
     from django.core import management
     management.call_command('thumbnail', 'clear')
     messages.add_message(request, messages.SUCCESS, "Key Value Store Cleared")
     return redirect('admin_utilities')
-    
+
 @login_required
 def rebuild_search(request):
     from django.core import management

@@ -1,4 +1,5 @@
 from environment import *
+SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -45,7 +46,8 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'upload'),
+PHOTO_DIRECTORY = os.path.join(SITE_ROOT, 'upload/fotochest')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -67,6 +69,7 @@ STATICFILES_DIRS = (
 # Put strings here, like "/home/html/static" or "C:/www/django/static".
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SITE_ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -107,6 +110,18 @@ TEMPLATE_DIRS = (
 # Always use forward slashes, even on Windows.
 # Don't forget to use absolute paths, not relative paths.
 )
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages",
+    "fotochest.photo_manager.context_processors.locations_albums",
+    "fotochest.photo_manager.context_processors.version",
+    "fotochest.administrator.context_processors.settings",
+    )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -161,6 +176,10 @@ LOGGING = {
 
 
 # Settings to Add
+
+APP_NAME = "Dereks Photos"
+ENABLE_DOWNLOAD = True
+
 
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_SITECONF = 'search_sites'
