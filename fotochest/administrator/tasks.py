@@ -1,6 +1,10 @@
 from celery.task import Task
 from celery.registry import tasks
+
 from fotochest.photo_manager.models import Photo
+
+__author__ = 'Derek Stegelman'
+__date__ = '8/22/12'
 
 class ThumbnailTask(Task):
     def run(self, photo_id, **kwargs):

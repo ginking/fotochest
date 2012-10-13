@@ -1,11 +1,16 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
+
 from hadrian.utils.slugs import unique_slugify
-import os
 from hadrian.contrib.locations.models import *
+
 from sorl.thumbnail import get_thumbnail
+
 from PIL import Image
 from PIL.ExifTags import TAGS
+
 from fotochest.photo_manager.managers import *
 
 class Album(models.Model):
@@ -68,8 +73,6 @@ class Album(models.Model):
     @property
     def count(self):
         return Photo.objects.filter(album=self).count()
-
-
 
     @models.permalink
     def get_absolute_url(self):

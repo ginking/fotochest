@@ -1,4 +1,5 @@
 from hadrian.contrib.locations.models import *
+
 from fotochest.conf import settings
 from fotochest.photo_manager.models import *
 
