@@ -1,4 +1,6 @@
 from environment import *
+from fotochest.conf.settings import *
+
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 DEBUG = True
@@ -140,8 +142,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'bootstrap',
     #'haystack',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+
     )
 
 # A sample logging configuration. The only tangible logging

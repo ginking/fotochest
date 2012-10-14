@@ -1,6 +1,7 @@
+from django.conf import settings
+
 from hadrian.contrib.locations.models import *
 
-from fotochest.conf import settings
 from fotochest.photo_manager.models import *
 
 def locations_albums(request):
@@ -12,4 +13,5 @@ def locations_albums(request):
 def version(request):
     context = {}
     context['version'] = settings.VERSION_NUMBER
+    context['app_name'] = settings.APP_NAME
     return context
