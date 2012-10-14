@@ -13,7 +13,7 @@ class AlbumForm(forms.ModelForm):
             Field('description', css_class='span4'),
             Field('parent_album', css_class='span4'),
             ButtonHolder(
-                Submit('submit', 'Submit', css_class='btn-primary')
+                Submit('submit', 'Save', css_class='btn btn-primary')
             )
         )
         
