@@ -11,6 +11,9 @@ before_script:
 
 # command to install dependencies
 install:
+  - pip install requirements.txt
 
+script:
+  - ./run_tests.sh
 # command to run tests
 
