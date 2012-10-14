@@ -5,7 +5,9 @@ FotoChest
 
 from setuptools import setup, find_packages
 
-version = 'dev2.3'
+from fotochest.conf.settings import VERSION_NUMBER
+
+version = VERSION_NUMBER
 
 install_requires = [
     'django==1.4.1',
@@ -20,18 +22,12 @@ install_requires = [
     'sphinx==1.1.3',
     'django-api-docs==1.1.1',
     'django-mail-queue==1.1.0',
-    'django-test-utils==0.3',
-    'factory_boy==1.1.3',
-    'coverage==3.5.2',
-    'selenium==2.24.0',
-    'pyflakes==0.5.0',
     'django-taggit==0.9.3',
     'django-crispy-forms==1.1.4',
     'django-debug-toolbar==0.9.4',
     'django-haystack==1.2.7',
     'whoosh==2.4.1',
     'celery==2.5.5',
-    'Werkzeug==0.8.3',
     'django-extensions==0.9',
     'django-site-notifications==0.1',
     'django-downtime==0.2',

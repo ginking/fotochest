@@ -8,6 +8,8 @@ Welcome to FotoChest
 
 FotoChest is a Photo Sharing application for showing your photos on your site.  Written in Python using Django.
 
+FotoChest is currently undergoing heavy development.  These docs may be wrong and out dated.
+
 Contents:
 
 .. toctree::
