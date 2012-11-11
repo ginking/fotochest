@@ -1,7 +1,10 @@
+import os
+
 from django.http import HttpResponse
 from django.conf import settings as app_settings
-import os
 from django.views.decorators.cache import never_cache
+
+from fotochest.utils.size import convert_bytes
 
 @never_cache
 def get_cache_size(request):
@@ -21,20 +24,3 @@ def get_size(start_path = '%s/images' % app_settings.MEDIA_ROOT):
             total_size += os.path.getsize(fp)
     return total_size
 
-def convert_bytes(bytes):
-    bytes = float(bytes)
-    if bytes >= 1099511627776:
-        terabytes = bytes / 1099511627776
-        size = '%.2fT' % terabytes
-    elif bytes >= 1073741824:
-        gigabytes = bytes / 1073741824
-        size = '%.2fG' % gigabytes
-    elif bytes >= 1048576:
-        megabytes = bytes / 1048576
-        size = '%.2fM' % megabytes
-    elif bytes >= 1024:
-        kilobytes = bytes / 1024
-        size = '%.2fK' % kilobytes
-    else:
-        size = '%.2fb' % bytes
-    return size

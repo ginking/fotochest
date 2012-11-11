@@ -11,7 +11,7 @@ from sorl.thumbnail import get_thumbnail
 from PIL import Image
 from PIL.ExifTags import TAGS
 
-from fotochest.photo_manager.managers import *
+from fotochest.photo_manager.managers import PhotoManager
 
 class Album(models.Model):
     title = models.CharField(max_length=250)
@@ -159,7 +159,6 @@ class Photo(models.Model):
     #@todo - point to new class ivew.
     @models.permalink
     def get_absolute_url(self):
-
         return ('photo_manager.views.photo', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
     
     @models.permalink

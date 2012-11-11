@@ -1,4 +1,3 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
@@ -157,43 +156,7 @@ def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=
     photo.make_thumbnails()
     return redirect(photo.get_absolute_url())
 
-@login_required
-@never_cache
-def build_thumbnails(request):
-    from conf import defaults
-    ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
-    from fotochest.photo_manager.tasks import ThumbnailTask
-    for photo in Photo.objects.all():
-        photo.thumbs_created = False
-        photo.save()
-        if ENABLE_CELERY:
-            ThumbnailTask.delay(photo.id)
-    messages.add_message(request, messages.SUCCESS, "Job queued.")
-    return redirect('admin_utilities')
 
-
-@login_required
-def delete_thumbnails(request):
-    from fotochest.administrator.tasks import ThumbnailCleanupTask
-    for photo in Photo.objects.all():
-        ThumbnailCleanupTask.delay(photo.id)
-    messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
-    return redirect('admin_utilities')
-
-
-@login_required
-def clear_thumbnails(request):
-    from django.core import management
-    management.call_command('thumbnail', 'clear')
-    messages.add_message(request, messages.SUCCESS, "Key Value Store Cleared")
-    return redirect('admin_utilities')
-
-@login_required
-def rebuild_search(request):
-    from django.core import management
-    management.call_command('update_index')
-    messages.add_message(request, messages.SUCCESS, "Search index updated.")
-    return redirect('admin_utilities')
 
 class CommentListView(ListView):
     model = Comment

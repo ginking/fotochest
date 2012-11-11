@@ -56,7 +56,6 @@ class HomepageListView(ListView):
     queryset = Photo.objects.active()
     paginate_by = 12
 
-
 class PhotoDetailView(DetailView):
     queryset = Photo.objects.filter(deleted=False)
     pk_url_kwarg = "photo_id"
@@ -70,7 +69,6 @@ class PhotoDetailView(DetailView):
         context['other_photos'] = Photo.objects.active().filter(album=photo.album, id__lt=photo.id)[:9]
         context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
         return context
-
 
 def photo_download(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)

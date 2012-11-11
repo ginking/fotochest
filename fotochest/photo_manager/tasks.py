@@ -1,7 +1,7 @@
 from celery.task import Task
 from celery.registry import tasks
-from fotochest.photo_manager.models import Photo
 
+from fotochest.photo_manager.models import Photo
 
 class ThumbnailTask(Task):
     def run(self, photo_id, **kwargs):
@@ -9,6 +9,5 @@ class ThumbnailTask(Task):
         photo.make_thumbnails()
         photo.thumbs_created = True
         photo.save()
-        
-        
+
 tasks.register(ThumbnailTask)

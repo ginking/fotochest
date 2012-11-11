@@ -1,9 +1,11 @@
 from tastypie.resources import ModelResource
-from fotochest.photo_manager.models import Photo, Album
-from hadrian.contrib.locations.models import Location
 from tastypie import fields
+
 from sorl.thumbnail import get_thumbnail
 
+from hadrian.contrib.locations.models import Location
+
+from fotochest.photo_manager.models import Photo, Album
 
 class AlbumResource(ModelResource):
     class Meta:

@@ -1,6 +1,8 @@
-from PIL import Image
-from fotochest.photo_manager.models import Photo
 from django.conf import settings
+
+from PIL import Image
+
+from fotochest.photo_manager.models import Photo
 from fotochest.administrator.tasks import ThumbnailCleanupTask, ThumbnailTask
 
 def rotate_right(photo_id):
