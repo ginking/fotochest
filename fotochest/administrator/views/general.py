@@ -18,6 +18,7 @@ from braces.views import LoginRequiredMixin
 from fotochest.photo_manager.forms import *
 from fotochest.photo_manager.models import Photo, Album
 from fotochest.photo_manager.forms import AlbumForm
+from fotochest.administrator.views import edit
 
 __authors__ = "Derek Stegelman"
 __date__ = "August 2012"
@@ -156,8 +157,6 @@ def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=
     photo.make_thumbnails()
     return redirect(photo.get_absolute_url())
 
-
-
 class CommentListView(ListView):
     model = Comment
     template_name = "administrator/comment_list_view.html"
@@ -173,16 +172,9 @@ def delete_comment(request, comment_id):
     messages.add_message(request, messages.SUCCESS, "Comment deleted.")
     return redirect('comment_list_view')
 
-@login_required()
+@login_required
 @never_cache
-def rotate_right(request, photo_id):
-    from fotochest.administrator.edit import rotate_right
-    rotate_right(photo_id)
-    return redirect("admin_dashboard")
-
-@login_required()
-@never_cache
-def rotate_left(request, photo_id):
-    from fotochest.administrator.edit import rotate_left
-    rotate_left(photo_id)
-    return redirect("admin_dashboard")
+def rotate(request, photo_id, right=True):
+    photo = Photo.objects.get(pk=photo_id)
+    photo.rotate(right)
+    return redirect('admin_dashboard')

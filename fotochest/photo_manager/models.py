@@ -2,6 +2,7 @@ import os
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 from hadrian.utils.slugs import unique_slugify
 from hadrian.contrib.locations.models import *
@@ -12,6 +13,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 
 from fotochest.photo_manager.managers import PhotoManager
+from fotochest.administrator.tasks import ThumbnailCleanupTask, ThumbnailTask
 
 class Album(models.Model):
     title = models.CharField(max_length=250)
@@ -146,6 +148,16 @@ class Photo(models.Model):
         get_thumbnail(self.image, '240x161', crop="center", quality=75)
         get_thumbnail(self.image, '300x220')
         get_thumbnail(self.image, '300x300')
+
+    def rotate(self, right=True):
+        path = "%s/%s" % (settings.MEDIA_ROOT, self.image)
+        im = Image.open(path)
+        if right:
+            im.rotate(270).save(path)
+        else:
+            im.rotate(90).save(path)
+        ThumbnailCleanupTask.delay(self.id)
+        ThumbnailTask.delay(self.id)
         
     def get_exif_data(self):
         exif_data = {}
@@ -165,8 +177,7 @@ class Photo(models.Model):
     def get_fullscreen(self):
         # update with enable multi user
         return ('photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
-        
-        
+
     class Meta:
         ordering = ['-id']
         

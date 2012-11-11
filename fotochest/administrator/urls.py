@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, include, url
 from fotochest.administrator.views.general import Dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
-    delete_photo, rotate_photo, CommentListView,\
-    delete_comment, rotate_right, rotate_left
-from fotochest.administrator.views.edit import rotate
+    delete_photo, CommentListView,\
+    delete_comment, rotate
 from fotochest.administrator.views.utils import build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
 from fotochest.administrator.views.upload import upload_photo, upload_delete
 from fotochest.administrator.views.ajax import get_disk_size, get_cache_size
@@ -30,7 +29,6 @@ urlpatterns = patterns('',
     url(r'^add/$', add_photos, name="admin_add_photos"),
     url(r'^foto/(?P<photo_id>\d+)/edit/$', edit_photo, name="admin_edit_photo"),
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/delete/$', delete_photo),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/rotate/(?P<rotate_direction>[-\w]+)/$', rotate_photo),
     url(r'^upload/(?P<album_slug>[-\w]+)/(?P<location_slug>[-\w]+)/(?P<user_id>\d+)/$', upload_photo, name="file_uploader"),
     url(r'^upload/delete/(?P<pk>\d+)$', upload_delete, name='upload_delete'),
 
