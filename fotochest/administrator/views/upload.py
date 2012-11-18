@@ -14,7 +14,7 @@ from sorl.thumbnail import get_thumbnail
 from hadrian.contrib.locations.models import Location
 
 from fotochest.administrator.tasks import thumbnail_task
-from fotochest.conf import defaults
+from fotochest import defaults
 from fotochest.photo_manager.models import Album, Photo
 
 def upload_photo(request, location_slug, album_slug, user_id):

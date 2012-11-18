@@ -98,7 +98,6 @@ class Photo(models.Model):
     thumbs_created = models.BooleanField(default=False, editable=False)
     deleted = models.BooleanField(default=False, editable=False)
     
-    
     objects = PhotoManager()
     
     def __unicode__(self):
@@ -180,8 +179,7 @@ class Photo(models.Model):
 
     class Meta:
         ordering = ['-id']
-        
-        
+
 def photos_by_location(location):
     return Photo.objects.filter(deleted=False, location=location).count()
          
