@@ -13,7 +13,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 
 from fotochest.photo_manager.managers import PhotoManager
-from fotochest.administrator.tasks import ThumbnailCleanupTask, ThumbnailTask
+from fotochest.administrator.tasks import thumbnail_cleanup_task, thumbnail_task
 
 class Album(models.Model):
     title = models.CharField(max_length=250)
@@ -156,8 +156,8 @@ class Photo(models.Model):
             im.rotate(270).save(path)
         else:
             im.rotate(90).save(path)
-        ThumbnailCleanupTask.delay(self.id)
-        ThumbnailTask.delay(self.id)
+        thumbnail_cleanup_task.delay(self)
+        thumbnail_task.delay(self)
         
     def get_exif_data(self):
         exif_data = {}

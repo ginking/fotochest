@@ -5,7 +5,7 @@ FotoChest
 
 from setuptools import setup, find_packages
 
-from fotochest.conf.settings import VERSION_NUMBER
+from fotochest.defaults import VERSION_NUMBER
 
 version = VERSION_NUMBER
 

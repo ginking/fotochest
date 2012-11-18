@@ -7,8 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from fotochest.photo_manager.models import Photo
 from fotochest.conf import defaults
-from fotochest.administrator.tasks import ThumbnailCleanupTask
-from fotochest.photo_manager.tasks import ThumbnailTask
+from fotochest.administrator.tasks import thumbnail_cleanup_task, thumbnail_task
 
 __author__ = 'Derek Stegelman'
 __date__ = '9/22/12'
@@ -21,14 +20,14 @@ def build_thumbnails(request):
         photo.thumbs_created = False
         photo.save()
         if ENABLE_CELERY:
-            ThumbnailTask.delay(photo.id)
+            thumbnail_task.delay(photo)
     messages.add_message(request, messages.SUCCESS, "Job queued.")
     return redirect('admin_utilities')
 
 @login_required
 def delete_thumbnails(request):
     for photo in Photo.objects.all():
-        ThumbnailCleanupTask.delay(photo.id)
+        thumbnail_cleanup_task.delay(photo)
     messages.add_message(request, messages.SUCCESS, "Thumbs deleted.")
     return redirect('admin_utilities')
 

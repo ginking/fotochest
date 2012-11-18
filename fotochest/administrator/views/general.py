@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
@@ -18,7 +19,6 @@ from braces.views import LoginRequiredMixin
 from fotochest.photo_manager.forms import *
 from fotochest.photo_manager.models import Photo, Album
 from fotochest.photo_manager.forms import AlbumForm
-from fotochest.administrator.views import edit
 
 __authors__ = "Derek Stegelman"
 __date__ = "August 2012"
@@ -178,3 +178,8 @@ def rotate(request, photo_id, right=True):
     photo = Photo.objects.get(pk=photo_id)
     photo.rotate(right)
     return redirect('admin_dashboard')
+
+class UserList(ListView):
+    model = User
+    context_object_name = 'users'
+    template_name = 'administrator/users.html'

@@ -13,7 +13,7 @@ from sorl.thumbnail import get_thumbnail
 
 from hadrian.contrib.locations.models import Location
 
-from fotochest.photo_manager.tasks import ThumbnailTask
+from fotochest.administrator.tasks import thumbnail_task
 from fotochest.conf import defaults
 from fotochest.photo_manager.models import Album, Photo
 
@@ -53,7 +53,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
         
         ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
         if ENABLE_CELERY:
-            ThumbnailTask.delay(photo_new.id)
+            thumbnail_task.delay(photo_new)
             
         # JQuery upload requires that you respond with JSON
         # Somethign like this..
