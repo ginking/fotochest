@@ -1,5 +1,5 @@
 dev.db
-uploads
+upload
 .coverage
 reports/coverage_html
 whoosh/

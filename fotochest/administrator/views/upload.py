@@ -41,8 +41,8 @@ def upload_photo(request, location_slug, album_slug, user_id):
         user = get_object_or_404(User, pk=user_id)
         photo_new.user = user
         photo_new.save()
-            
-        destination_path = app_settings.PHOTO_DIRECTORY + '/%s' % (filename)   
+
+        destination_path = app_settings.MEDIA_ROOT + '/images/%s' % (filename)
         destination = open(destination_path, 'wb+')
         for chunk in uploaded_file.chunks():
             destination.write(chunk)

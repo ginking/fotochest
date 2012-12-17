@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^', include('fotochest.urls')),
-    url(r'^django_admin/', include(admin.site.urls)),
+    url(r'^support/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:

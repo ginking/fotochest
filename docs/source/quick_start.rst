@@ -61,12 +61,6 @@ Add URL-patterns::
     
 Add custom settings parameters::
 
-PHOTO_DIRECTORY = os.path.join(SITE_ROOT, 'uploads/images')
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Image upload location
-
-    
 DOMAIN_STATIC = 'http://localhost:8000/static/'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
