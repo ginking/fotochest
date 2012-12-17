@@ -10,38 +10,38 @@ from fotochest.photo_manager.models import Photo, Album
 __authors__ = "Derek Stegelman"
 __date__ = "August 2012"
 
-def album(request, album_id, album_slug):
-    context = {}
-    context['album_slug'] = album_slug
-    context['album_view'] = True
-    # If it has child albums, show those, if not, show pictures.
-    album = get_object_or_404(Album, pk=album_id)
-    context['album'] = album
-    if album.has_child_albums == True:
-        # Show child albums
-        albums = Album.objects.filter(parent_album=album)
-        paginator = Paginator(albums, 6)
-        page = request.GET.get('page', 1)
-        try:
-            context['child_albums'] = paginator.page(page)
-        except PageNotAnInteger:
-            context['child_albums'] = paginator.page(1)
-        except EmptyPage:
-            context['child_albums'] = paginator.page(paginator.num_pages)
-        
-        context['paginator'] = paginator
-    
-    photos = Photo.objects.active().filter(album__slug=album_slug)
-    photo_paginator = Paginator(photos, 12)
-    photo_page = request.GET.get('page', 1)
-    try:
-        context['photos'] = photo_paginator.page(photo_page)
-    except PageNotAnInteger:
-        context['photos'] = photo_paginator.page(1)
-    except EmptyPage:
-        context['photos'] = photo_paginator.page(photo_paginator.num_pages)
-            
-    return render(request, "photo_manager/albums.html", context)
+
+class AlbumDetailView(ListView):
+    """
+
+    """
+    model = Album
+    paginate_by = 12
+    template_name = 'photo_manager/albums.html'
+
+    def get_album(self):
+        return Album.objects.get(pk=self.kwargs.get('album_id'))
+
+    def get_child_albums(self):
+        return Album.objects.filter(parent_album=self.get_album())
+
+    def get(self, *args, **kwargs):
+        if self.get_album().has_child_albums:
+            self.queryset = self.get_child_albums()
+            self.paginate_by = 6
+            self.context_object_name = 'child_albums'
+        else:
+            self.queryset = Photo.objects.active().filter(album__slug=self.get_album().slug)
+            self.paginate_by = 12
+            self.context_object_name = 'photos'
+
+        return super(AlbumDetailView, self).get(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(AlbumDetailView, self).get_context_data(**kwargs)
+        context['album_view'] = True
+        context['album'] = self.get_album()
+        return context
 
 
 class AlbumListView(ListView):

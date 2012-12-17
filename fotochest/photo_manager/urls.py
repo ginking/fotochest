@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
 
-from fotochest.photo_manager.views import HomepageListView, LocationsListView, album, photo_download, AlbumListView, PhotoLocationsListView, PhotoFullScreen, PhotoDetailView
+from fotochest.photo_manager.views import HomepageListView, LocationsListView, album, photo_download, AlbumDetailView, AlbumListView, \
+    PhotoLocationsListView, PhotoFullScreen, PhotoDetailView
 from fotochest.photo_manager.feeds import StreamFeed, AlbumStream
-from fotochest.photo_manager.api import PhotoResource, AlbumResource, LocationResource
+from fotochest.photo_manager.api.endpoint import PhotoResource, AlbumResource, LocationResource
 
 from tastypie.api import Api
 
@@ -37,7 +38,7 @@ urlpatterns = patterns('',
     
     # Albums
     url(r'^albums/$', AlbumListView.as_view(), name="albums"),
-    url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album, name='album_detail'),
+    url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', AlbumDetailView.as_view(), name='album_detail'),
 
 )
 

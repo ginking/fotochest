@@ -30,7 +30,7 @@
 
 <ul class="thumbnails">
 
-{% for photo in photos.object_list %}
+{% for photo in photos %}
     
     {% if album.has_child_albums %}
     {% include "photo_manager/snippets/smaller_item.html" %}
