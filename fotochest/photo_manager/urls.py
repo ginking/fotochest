@@ -37,7 +37,7 @@ urlpatterns = patterns('',
     
     # Albums
     url(r'^albums/$', AlbumListView.as_view(), name="albums"),
-    url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album),
+    url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', album, name='album_detail'),
 
 )
 

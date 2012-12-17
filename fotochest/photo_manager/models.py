@@ -78,7 +78,7 @@ class Album(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('photo_manager.views.album', (), {'album_id': self.id, 'album_slug': self.slug})
+        return ('album_detail', (), {'album_id': self.id, 'album_slug': self.slug})
         
 
     @models.permalink
@@ -170,7 +170,7 @@ class Photo(models.Model):
     #@todo - point to new class ivew.
     @models.permalink
     def get_absolute_url(self):
-        return ('photo_manager.views.photo', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
+        return ('regular_photo_url', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
     
     @models.permalink
     def get_fullscreen(self):
