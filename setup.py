@@ -10,9 +10,9 @@ from fotochest.defaults import VERSION_NUMBER
 version = VERSION_NUMBER
 
 install_requires = [
-    'django==1.4.2',
+    'django==1.4.3',
     'south==0.7.6',
-    'hadrian==1.1.4',
+    'hadrian==1.1.5',
     'PIL==1.1.7',
     'sorl-thumbnail==11.12',
     'django-celery==2.5.5',
