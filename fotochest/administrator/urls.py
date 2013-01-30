@@ -1,5 +1,8 @@
 from django.conf.urls import patterns, include, url
-from fotochest.administrator.views.general import Dashboard, album_list, locations, album_detail, add_photos, add_location, choose, edit_photo,\
+
+from django.contrib.auth.decorators import login_required
+
+from fotochest.administrator.views.general import Dashboard, album_list, locations, album_detail, add_location, choose, edit_photo,\
     delete_photo, CommentListView,\
     delete_comment, rotate, UserList
 from fotochest.administrator.views.utils import build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
@@ -28,7 +31,7 @@ urlpatterns = patterns('',
 
     url(r'^users/$', UserList.as_view(), name='admin_user_list'),
 
-    url(r'^add/$', add_photos, name="admin_add_photos"),
+    url(r'^add/$', login_required(TemplateView.as_view(template_name="administrator/add_photos.html")), name="admin_add_photos"),
     url(r'^foto/(?P<photo_id>\d+)/edit/$', edit_photo, name="admin_edit_photo"),
     url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/delete/$', delete_photo),
     url(r'^upload/(?P<album_slug>[-\w]+)/(?P<location_slug>[-\w]+)/(?P<user_id>\d+)/$', upload_photo, name="file_uploader"),
