@@ -23,12 +23,6 @@ from fotochest.photo_manager.forms import AlbumForm
 __authors__ = "Derek Stegelman"
 __date__ = "August 2012"
 
-@login_required
-def add_photos(request):
-    context = {}
-    return render(request, "administrator/add_photos.html", context)
-
-
 class Dashboard(LoginRequiredMixin, ListView):
     queryset = Photo.objects.active()
     paginate_by = 16
@@ -119,17 +113,12 @@ def edit_photo(request, photo_id):
         form = PhotoForm(request.POST, instance=photo)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, "Photo %s saved" % photo.title)
-
+            messages.success(request, "Photo %s saved" % photo.title)
             return redirect('administrator.views.dashboard')
-        else:
-            print form.errors
-            print("poop")
+
     else:
-        messages.add_message(request, messages.ERROR, "ERROR")
-
+        messages.error(request, "ERROR")
         return redirect('administrator.views.dashboard')
-
 
 @login_required
 @never_cache
@@ -138,7 +127,7 @@ def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=N
     photo.deleted = True
     photo.save()
     #@todo - This needs to point somewhere else after deletion..
-    messages.add_message(request, messages.SUCCESS, "Photo %s deleted" % photo.title)
+    messages.success(request, "Photo %s deleted" % photo.title)
     return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
 
 @login_required
@@ -169,7 +158,7 @@ def delete_comment(request, comment_id):
     from django.contrib.comments.models import Comment
     comment = get_object_or_404(Comment, pk=comment_id)
     comment.delete()
-    messages.add_message(request, messages.SUCCESS, "Comment deleted.")
+    messages.success(request, "Comment deleted.")
     return redirect('comment_list_view')
 
 @login_required
