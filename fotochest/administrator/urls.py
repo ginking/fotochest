@@ -2,12 +2,12 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib.auth.decorators import login_required
 
-from fotochest.administrator.views.general import Dashboard, album_list, locations, album_detail, add_location, choose, edit_photo,\
+from .views.general import Dashboard, album_list, locations, album_detail, add_location, choose, edit_photo,\
     delete_photo, CommentListView,\
     delete_comment, rotate, UserList
-from fotochest.administrator.views.utils import build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
-from fotochest.administrator.views.upload import upload_photo, upload_delete
-from fotochest.administrator.views.ajax import get_disk_size, get_cache_size
+from .views.utils import build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
+from .views.upload import upload_photo, upload_delete
+from .views.ajax import get_disk_size, get_cache_size
 # This maps static files dirs to URLS.
 from django.views.generic import TemplateView
 urlpatterns = patterns('',
