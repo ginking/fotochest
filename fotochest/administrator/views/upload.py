@@ -13,11 +13,16 @@ from sorl.thumbnail import get_thumbnail
 
 from hadrian.contrib.locations.models import Location
 
-from fotochest.administrator.tasks import thumbnail_task
+from .administrator.tasks import thumbnail_task
+
 from fotochest import defaults
 from fotochest.photo_manager.models import Album, Photo
 
+
 def upload_photo(request, location_slug, album_slug, user_id):
+    """ Upload the photos!
+    """
+
     context = {}
     if request.method == 'POST':
         #
@@ -80,6 +85,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
         context['location_slug'] = location_slug
     
         return render(request,'administrator/add_photos.html', context)
+
 
 def upload_delete(request, pk):
     return render(request, "example.html")
