@@ -33,6 +33,7 @@ install_requires = [
     'django-downtime==0.2',
     'django-bootstrap-static==2.0.2',
     'django-braces==0.1.7',
+    'django-constance[database]==0.6',
 ]
 
 setup(name='fotochest',

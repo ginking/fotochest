@@ -23,11 +23,14 @@ from fotochest.photo_manager.forms import AlbumForm
 __authors__ = "Derek Stegelman"
 __date__ = "August 2012"
 
+
 class Dashboard(LoginRequiredMixin, ListView):
-    queryset = Photo.objects.active()
     paginate_by = 16
     template_name = "administrator/dashboard.html"
     context_object_name = 'photos'
+
+    def get_queryset(self):
+        return Photo.objects.active()
 
     # Should not cache this.
     def get_context_data(self, **kwargs):
@@ -167,6 +170,7 @@ def rotate(request, photo_id, right=True):
     photo = Photo.objects.get(pk=photo_id)
     photo.rotate(right)
     return redirect('admin_dashboard')
+
 
 class UserList(ListView):
     model = User
