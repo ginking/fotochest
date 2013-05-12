@@ -25,5 +25,5 @@ Werkzeug==0.8.3
 django-extensions==0.9
 django-bootstrap-static==2.0.2
 django-braces==0.1.7
-django-constance
+django-constance[database]==0.6
 django-chosen

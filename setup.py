@@ -30,7 +30,7 @@ install_requires = [
     'django-site-notifications==0.1',
     'django-bootstrap-static==2.0.2',
     'django-braces==0.1.7',
-    'django-constance[database]'
+    'django-constance[database]',
 ]
 
 setup(name='fotochest',

@@ -49,11 +49,15 @@ class AlbumListView(ListView):
     queryset = Album.objects.filter(parent_album=None)
     paginate_by = 12
 
+
 class HomepageListView(ListView):
     context_object_name = "photos"
     template_name = "photo_manager/index.html"
-    queryset = Photo.objects.active()
     paginate_by = 12
+
+    def get_queryset(self):
+        return Photo.objects.active()
+
 
 class PhotoDetailView(DetailView):
     queryset = Photo.objects.filter(deleted=False)
@@ -69,6 +73,7 @@ class PhotoDetailView(DetailView):
         context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
         return context
 
+
 def photo_download(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id)
     file = photo.image
@@ -76,6 +81,7 @@ def photo_download(request, photo_id):
     response = HttpResponse(file.read(), mimetype=mimetype)
     response["Content-Disposition"]= "attachment; filename=%s" % photo.filename
     return response
+
 
 class PhotoFullScreen(DetailView):
     context_object_name = 'photo'

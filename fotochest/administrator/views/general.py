@@ -25,10 +25,12 @@ __date__ = "August 2012"
 
 
 class Dashboard(LoginRequiredMixin, ListView):
-    queryset = Photo.objects.active()
     paginate_by = 16
     template_name = "administrator/dashboard.html"
     context_object_name = 'photos'
+
+    def get_queryset(self):
+        return Photo.objects.active()
 
     # Should not cache this.
     def get_context_data(self, **kwargs):
