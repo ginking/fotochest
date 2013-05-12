@@ -13,7 +13,7 @@ from sorl.thumbnail import get_thumbnail
 
 from hadrian.contrib.locations.models import Location
 
-from .administrator.tasks import thumbnail_task
+from fotochest.administrator.tasks import thumbnail_task
 
 from fotochest import defaults
 from fotochest.photo_manager.models import Album, Photo
