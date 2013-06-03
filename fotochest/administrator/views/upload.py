@@ -1,6 +1,3 @@
-import os
-import random
-
 from django.core.files.uploadedfile import UploadedFile
 from django.utils import simplejson
 from django.conf import settings as app_settings
@@ -14,6 +11,7 @@ from sorl.thumbnail import get_thumbnail
 from hadrian.contrib.locations.models import Location
 
 from fotochest.administrator.tasks import thumbnail_task
+from fotochest.administrator.utils import get_randomized_file_name
 
 from fotochest import defaults
 from fotochest.photo_manager.models import Album, Photo
@@ -27,13 +25,9 @@ def upload_photo(request, location_slug, album_slug, user_id):
     if request.method == 'POST':
         #
         uploaded_file = request.FILES[u'file']
-        
-        # write the file into /tmp
-        num1 = str(random.randint(0, 1000000))
-        num2 = str(random.randint(1001, 9000000))
-        
-        ext = os.path.splitext(uploaded_file.name)[1]
-        filename = str(num1 + num2) + ext
+
+        filename = get_randomized_file_name(uploaded_file.name)
+
         wrapped_file = UploadedFile(uploaded_file)
         file_size = wrapped_file.file.size
         
