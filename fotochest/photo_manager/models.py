@@ -7,13 +7,15 @@ from django.conf import settings
 from hadrian.utils.slugs import unique_slugify
 from hadrian.contrib.locations.models import *
 
-from sorl.thumbnail import get_thumbnail
+from sorl.thumbnail import get_thumbnail, delete
 
 from PIL import Image
 from PIL.ExifTags import TAGS
 
 from fotochest.photo_manager.managers import PhotoManager
-from fotochest.administrator.tasks import thumbnail_cleanup_task, thumbnail_task
+from fotochest.photo_manager.tasks import clear_thumbnails, build_thumbnails
+from fotochest.utils.celery import is_using_celery
+
 
 class Album(models.Model):
     title = models.CharField(max_length=250)
@@ -133,20 +135,58 @@ class Photo(models.Model):
         im = get_thumbnail(self.image, "150x150")
         return '<img src="%s" width="150"/>'  % im.url
     image_preview.allow_tags = True
-    
-    
+
+    def _clear_thumbnails(self):
+        """ Actual code to clear the thumbnails.  Private.
+        """
+
+        delete(self.image, delete_file=False)
+        self.thumbs_created = False
+        self.save()
+
+    def clear_thumbnails(self):
+        """ Remove any and all thumbnails for this photo
+        from the disk and DB.  Useful when making photo changes
+        or when something funky happens to the thumbnails.
+
+        Public API.
+
+        """
+
+        if is_using_celery():
+            clear_thumbnails.delay(self)
+        else:
+            self._clear_thumbnails()
+
+    def generate_thumbnails(self, force=False):
+        """ Model method to generate thumbnails for
+        images used on the site.  Determines if the site
+        will use Celery to Queue it up or not.  If the user does not
+        have Celery enabled we will only make thumbnails on the template
+        when they are desired.
+
+        Public API.
+
+        """
+
+        if is_using_celery():
+            build_thumbnails.delay(self)
+        elif not is_using_celery() and force:
+            # Really dangerous because this could timeout.
+            self.make_thumbnails()
+        else:
+            # pass because we don't want to time out the request.
+            return
+
     def make_thumbnails(self):
-        # Current Thumb list
-        # 240x165 (streams)
-        # 75x75 for map (Other location photos)
-        # 1024x768 for photo.html
-        
         get_thumbnail(self.image, '75x75', crop="center", quality=50)
         get_thumbnail(self.image, '1024x650', quality=100)
         get_thumbnail(self.image, '240x165')
         get_thumbnail(self.image, '240x161', crop="center", quality=75)
         get_thumbnail(self.image, '300x220')
         get_thumbnail(self.image, '300x300')
+        self.thumbs_created = True
+        self.save()
 
     def rotate(self, right=True):
         path = "%s/%s" % (settings.MEDIA_ROOT, self.image)
@@ -155,8 +195,8 @@ class Photo(models.Model):
             im.rotate(270).save(path)
         else:
             im.rotate(90).save(path)
-        thumbnail_cleanup_task.delay(self)
-        thumbnail_task.delay(self)
+        self.clear_thumbnails()
+        self.generate_thumbnails()
         
     def get_exif_data(self):
         exif_data = {}
@@ -176,6 +216,7 @@ class Photo(models.Model):
     def get_fullscreen(self):
         # update with enable multi user
         return ('photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
+
 
     class Meta:
         ordering = ['-id']

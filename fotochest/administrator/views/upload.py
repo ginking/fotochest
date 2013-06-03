@@ -2,7 +2,7 @@ from django.core.files.uploadedfile import UploadedFile
 from django.utils import simplejson
 from django.conf import settings as app_settings
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 
@@ -17,29 +17,40 @@ from fotochest import defaults
 from fotochest.photo_manager.models import Album, Photo
 
 
+def create_photo(album_slug, filename, location_slug, user_id):
+    try:
+        album = Album.objects.get(slug=album_slug)
+    except Album.DoesNotExist:
+        raise Exception("Album does not exist.")
+
+    try:
+        location = Location.objects.get(slug=location_slug)
+    except Location.DoesNotExist:
+        raise Exception("Location does not exist.")
+    try:
+        user = User.objects.get(pk=user_id)
+    except User.DoesNotExist:
+        raise Exception("User does not exist.")
+
+    photo = Photo(title=filename, album=album,
+                  file_name=filename, image='images/%s' % filename,
+                  location=location, user=user)
+    photo.save()
+    return photo
+
+
 def upload_photo(request, location_slug, album_slug, user_id):
     """ Upload the photos!
     """
-
     context = {}
     if request.method == 'POST':
-        #
         uploaded_file = request.FILES[u'file']
 
         filename = get_randomized_file_name(uploaded_file.name)
 
         wrapped_file = UploadedFile(uploaded_file)
         file_size = wrapped_file.file.size
-        
-        album_used = get_object_or_404(Album, slug=album_slug)
-        photo_new = Photo(title=filename, album=album_used)
-        photo_new.file_name = filename
-        photo_new.image = 'images/' + filename
-        # Set location to default location
-        photo_new.location = get_object_or_404(Location, slug=location_slug)
-        user = get_object_or_404(User, pk=user_id)
-        photo_new.user = user
-        photo_new.save()
+        photo_new = create_photo(album_slug, filename, location_slug, user_id)
 
         destination_path = app_settings.MEDIA_ROOT + '/images/%s' % (filename)
         destination = open(destination_path, 'wb+')
@@ -78,7 +89,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
         context['album_slug'] = album_slug
         context['location_slug'] = location_slug
     
-        return render(request,'administrator/add_photos.html', context)
+        return render(request, 'administrator/add_photos.html', context)
 
 
 def upload_delete(request, pk):

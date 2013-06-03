@@ -2,12 +2,10 @@ from django.core import management
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
-from django.conf import settings as app_settings
 from django.contrib.auth.decorators import login_required
 
 from fotochest.photo_manager.models import Photo
-from fotochest import defaults
-from fotochest.administrator.tasks import thumbnail_cleanup_task, thumbnail_task
+from fotochest.utils.celery import is_using_celery
 
 __author__ = 'Derek Stegelman'
 __date__ = '9/22/12'
@@ -15,19 +13,19 @@ __date__ = '9/22/12'
 @login_required
 @never_cache
 def build_thumbnails(request):
-    ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
-    for photo in Photo.objects.all():
-        photo.thumbs_created = False
-        photo.save()
-        if ENABLE_CELERY:
-            thumbnail_task.delay(photo)
-    messages.success(request, "Job queued.")
+    if is_using_celery():
+        for photo in Photo.objects.all():
+            photo.clear_thumbnails()
+            photo.generate_thumbnails()
+        messages.success(request, 'Job Queued.')
+    else:
+        messages.error(request, 'You MUST enable celery to perform this Job.')
     return redirect('admin_utilities')
 
 @login_required
 def delete_thumbnails(request):
     for photo in Photo.objects.all():
-        thumbnail_cleanup_task.delay(photo)
+        photo.clear_thumbnails()
     messages.success(request, "Thumbs deleted.")
     return redirect('admin_utilities')
 
