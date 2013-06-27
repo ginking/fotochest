@@ -51,7 +51,7 @@ def album_list(request):
             album = form.save(commit=False)
             album.user = request.user
             album.save()
-            messages.add_message(request, messages.SUCCESS, "New Album Saved.")
+            messages.add_message(request, messages.SUCCESS, "Album %s created" % album.title)
             return redirect("admin_albums")
     else:
         form = AlbumForm()

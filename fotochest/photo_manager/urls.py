@@ -20,8 +20,8 @@ urlpatterns = patterns('',
                        
     # Public URLS
     url(r'^$', HomepageListView.as_view(), name="homepage"),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/$', PhotoDetailView.as_view(), name="regular_photo_url"),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/fullscreen/$', PhotoFullScreen.as_view(), name="photo_fullscreen"),
+    url(r'^foto/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/$', PhotoDetailView.as_view(), name="regular_photo_url"),
+    url(r'^foto/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/fullscreen/$', PhotoFullScreen.as_view(), name="photo_fullscreen"),
     
     # ShortURL
     url(r'^f/(?P<photo_id>\d+)/$', PhotoDetailView.as_view(), name="short_photo_url"),
@@ -39,7 +39,7 @@ urlpatterns = patterns('',
     
     # Albums
     url(r'^albums/$', AlbumListView.as_view(), name="albums"),
-    url(r'^album/(?P<album_id>\d+)/(?P<album_slug>[-\w]+)/$', AlbumDetailView.as_view(), name='album_detail'),
+    url(r'^album/(?P<album_slug>[-\w]+)/$', AlbumDetailView.as_view(), name='album_detail'),
 
 )
 

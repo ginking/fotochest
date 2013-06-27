@@ -120,7 +120,7 @@ class Photo(models.Model):
             photo = next_photo[0]
         except:
             return None
-        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug})
+        return ('regular_photo_url', (), {'photo_slug': photo.slug, 'album_slug': photo.album.slug})
     
     @models.permalink
     def get_previous(self):
@@ -129,7 +129,7 @@ class Photo(models.Model):
             photo = prev_photo[0]
         except:
             return None
-        return ('photo_manager.views.photo', (), {'photo_id': photo.id, 'photo_slug': photo.slug, 'album_slug': photo.album.slug})
+        return ('regular_photo_url', (), {'photo_slug': photo.slug, 'album_slug': photo.album.slug})
         
     def image_preview(self):
         im = get_thumbnail(self.image, "150x150")
@@ -210,12 +210,12 @@ class Photo(models.Model):
     #@todo - point to new class ivew.
     @models.permalink
     def get_absolute_url(self):
-        return ('regular_photo_url', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
+        return ('regular_photo_url', (), {'photo_slug': self.slug, 'album_slug': self.album.slug})
     
     @models.permalink
     def get_fullscreen(self):
         # update with enable multi user
-        return ('photo_fullscreen', (), {'photo_id': self.id, 'photo_slug': self.slug, 'album_slug': self.album.slug})
+        return ('photo_fullscreen', (), {'photo_slug': self.slug, 'album_slug': self.album.slug})
 
 
     class Meta:

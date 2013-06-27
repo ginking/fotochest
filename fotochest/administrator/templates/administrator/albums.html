@@ -24,7 +24,7 @@
     </div>
     <div class="modal-footer">
       <a data-dismiss="modal" class="btn" href="#">Close</a>
-      <input type="submit" value="Add Album" class="btn btn-primary">
+      <input type="submit" value="Add Album" class="btn btn-success">
       
     </div>
     </form>
@@ -87,7 +87,14 @@
     {% thumbnail album.get_album_cover.image "240x165" as im %}
         <tr title="{{ album }}" data-content="<img src='{{ im.url }}'>" class="pop">
     {% endthumbnail %}
-            <td>{{ album }}</td>
+            <td>
+                <a href="#" class="thumbnail">
+                    {% load thumbnail %}
+                    {% thumbnail album.get_album_cover.image "240x161" crop="center" quality=75 as im %}
+                    <img src='{{ im.url }}'>
+                    {% endthumbnail %}
+                </a>
+                </td>
             <td>{% if album.parent_album %}<span class="label label-success">Yes</span>{% else %}<span class="label label-important">No</span>{% endif %} </td>
             <td>{{ album.count }}</td>
             <td>
@@ -127,7 +134,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="{% url admin_album_detail album_id=album.id %}">Edit</a></li>
-                        <li><a href="#">View Photos</a></li>
+                        <li><a href="{{ album.get_absolute_url }}">View Photos</a></li>
                         <li><a href="#addPhotosToAlbum_{{ album.id }}" data-toggle="modal">Add Photos</a></li>
                         <!-- dropdown menu links -->
                         <li class="divider"></li>

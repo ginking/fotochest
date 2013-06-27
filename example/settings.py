@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'bootstrap',
     'djcelery',
+    'djkombu',
     #'haystack',
 
     )
@@ -179,10 +180,17 @@ LOGGING = {
 
 # Settings to Add
 
-APP_NAME = "Dereks Photos"
+APP_NAME = "Derek's Photos"
 ENABLE_DOWNLOAD = True
 
 
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_WHOOSH_PATH = os.path.join("whoosh")
+
+import djcelery
+djcelery.setup_loader()
+BROKER_TRANSPORT = 'django'
+
+ENABLE_CELERY = True
+FOTOCHEST_ENABLE_CELERY = True

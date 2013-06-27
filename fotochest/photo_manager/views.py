@@ -19,7 +19,7 @@ class AlbumDetailView(ListView):
     template_name = 'photo_manager/albums.html'
 
     def get_album(self):
-        return Album.objects.get(pk=self.kwargs.get('album_id'))
+        return Album.objects.get(slug=self.kwargs.get('album_slug'))
 
     def get_child_albums(self):
         return Album.objects.filter(parent_album=self.get_album())
@@ -61,14 +61,14 @@ class HomepageListView(ListView):
 
 class PhotoDetailView(DetailView):
     queryset = Photo.objects.filter(deleted=False)
-    pk_url_kwarg = "photo_id"
+    slug_url_kwarg = 'photo_slug'
     context_object_name = "photo"
     template_name = "photo_manager/photo.html"
 
     def get_context_data(self, **kwargs):
         context = super(PhotoDetailView, self).get_context_data(**kwargs)
-        context['photo_id'] = self.kwargs['photo_id']
-        photo = Photo.objects.get(pk=self.kwargs['photo_id'])
+        photo = Photo.objects.get(slug=self.kwargs['photo_slug'])
+        context['photo_id'] = photo.id
         context['other_photos'] = Photo.objects.active().filter(album=photo.album, id__lt=photo.id)[:9]
         context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
         return context
@@ -86,7 +86,7 @@ def photo_download(request, photo_id):
 class PhotoFullScreen(DetailView):
     context_object_name = 'photo'
     queryset = Photo.objects.filter(deleted=False)
-    pk_url_kwarg = "photo_id"
+    slug_url_kwarg = 'photo_slug'
     template_name = "photo_manager/fullscreen.html"
 
     

@@ -1,4 +1,4 @@
-dev.db
+*.db
 upload
 .coverage
 reports/coverage_html
