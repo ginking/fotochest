@@ -1,3 +1,5 @@
+import sorl
+
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -6,8 +8,6 @@ from django.views.generic import ListView, DetailView
 from django.contrib.comments.models import Comment
 from django.conf import settings as app_settings
 from django.contrib.auth.decorators import login_required
-
-import sorl
 
 from PIL import Image
 
