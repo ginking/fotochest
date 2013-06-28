@@ -67,6 +67,8 @@ def album_detail(request, album_id):
         form = AlbumForm(request.POST, instance=album)
         if form.is_valid():
             album = form.save()
+            messages.success(request, "Album %s saved." % album.title)
+            return redirect("admin_albums")
     else:
         form = AlbumForm(instance=album)
 
