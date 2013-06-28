@@ -10,7 +10,11 @@ before_script:
   - sleep 3 # give Web server some time to bind to sockets, etc
 
 # command to install dependencies
-install: pip install -r conf/requirements.txt --use-mirrors
+install:
+  - pip install -r requirements.txt
+
 # command to run tests
+
 script:
-  - python manage.py test photo_manager --settings=settings.local
+  - run_tests.sh
+

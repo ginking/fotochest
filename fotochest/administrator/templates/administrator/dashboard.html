@@ -1,0 +1,163 @@
+{% extends "administrator/base.html" %}
+{% block extra_foot %}
+<script>
+$(document).ready(function () {
+    $.ajax({
+        url: "/admin/ajax/disk/size/",
+        //dataType: 'jsonp',
+        success: function(data){
+        $("#disk_size").replaceWith("<dd>" + data + "</dd>");
+        }
+    });
+    
+    $.ajax({
+        url: "/admin/ajax/cache/size/",
+        //dataType: 'jsonp',
+        success: function(data){
+        $("#cache_size").replaceWith("<dd>" + data + "</dd>");
+        }
+    });
+
+    $('.location_link').popover();
+}); 
+</script>
+{% endblock %}
+{% block main_content %}
+
+
+<div class="page-header">
+<h2>Recent Uploads</h2>
+</div>
+
+{% for photo in photos %}
+{% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}
+<ul class="thumbnails row">
+{% endif %}
+    <div class="modal hide fade" id="deletePhoto_{{ photo.id }}">
+        <div class="modal-header">
+          <a data-dismiss="modal" class="close">×</a>
+          <h3>Delete {{ photo.title }}?</h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+          <div class="span3">
+          <h4>Are you sure you want to delete this photo?</h4>
+          </div>
+          <div class="span2">
+              <div class="thumbnail">
+                  {% load thumbnail %}
+                  {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
+                  <img src="{{ im.url }}">
+                  {% endthumbnail %}
+              </div>
+          </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a data-dismiss="modal" class="btn" href="#">Close</a>
+          <a class="btn btn-danger" href="#">Confirm Delete</a>
+        </div>
+        </form>
+      </div>
+
+
+    <li class="span2 thumb">
+    <a class="thumbnail" href="#">
+
+
+        {% load thumbnail %}
+    {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
+        <img src="{{ im.url }}">
+                
+        <a class="btn edit-photo"><i class="icon-pencil"></i> Edit</a>
+    {% endthumbnail %}
+    </a>
+    <div class="caption">
+        <div class="controls">
+            <a href="{% url admin_rotate_right photo_id=photo.id %}" class="btn">Rotate Right</a>
+            <a href="{% url admin_rotate_left photo_id=photo.id %}" class="btn">Rotate Left</a>
+            <form method="POST" action="{% url admin_edit_photo photo_id=photo.id %}">
+            {% csrf_token %}
+
+            <input type="text" name="title" value="{{ photo.title }}" class="span2">
+            <textarea class="span2" name="description">{{ photo.description }}</textarea>
+            <label>Album</label>
+            <select name="album" class="span2">
+            {% for album in form_albums %}
+                <option {% if photo.album == album %} selected="selected"{% endif %} value="{{ album.id }}">{{ album }}</option>
+            {% endfor %}
+            </select>
+            <label>Location</label>
+            <select name="location" class="span2">
+                {% for location in form_locations %}
+                <option {% if photo.location == location %} selected="selected"{% endif %} value="{{ location.id }}">{{ location }}</option>
+                
+                {% endfor %}
+            </select>
+            <a href="#deletePhoto_{{ photo.id }}" data-toggle="modal" class="btn btn-danger">Delete <i class="icon-trash icon-white"></i></a>
+
+                <input type="submit" value="Save" class="btn btn-success">
+            </form>
+        </div>
+      <h5>{{ photo.title }}</h5>
+      {% if photo.description %}
+      <p>{{ photo.description }}</p>
+      {% endif %}
+      <span class="label {% if photo.thumbs_created %}label-success{% else %}label-important{% endif %}">{% if photo.thumbs_created %}Thumbnails Created{% else %}Thumnails Failed{% endif %}</span>
+      <br/>
+      <a href="#" class="location_link" title="{{ photo.location }}" data-content="<img src='http://maps.googleapis.com/maps/api/staticmap?center={{ photo.location }}&zoom=7&size=300x200&maptype=roadmap&sensor=false'>"><i class="icon-map-marker"></i>  {{ photo.location }}</a>
+      
+    </div>
+    </li>
+    {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 or forloop.counter == 16 %}
+    </ul>
+    {% endif %}
+{% endfor %}
+{% if paginated %}
+<div class="pagination">
+    <ul>
+        {% if photos.has_previous %}
+        <li><a href="?page={{ photos.previous_page_number }}">Prev</a></li>
+        {% endif %}
+        {% if photos.previous_page_number %}
+        <li><a href="?page={{ photos.previous_page_number }}">{{ photos.previous_page_number }}</a></li>
+        {% endif %}
+        <li class="active">
+            <a href="#">{{ photos.number }}</a>
+        </li>
+        {% if photos.next_page_number %}
+        <li><a href="?page={{ photos.next_page_number }}">{{ photos.next_page_number }}</a></li>
+        {% endif %}
+        {% if photos.has_next %}
+        <li><a href="?page={{ photos.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock main_content %}
+
+{% block sidebar %}
+<div class="well">
+    <h4>Quick Stats</h4>
+    <dl class="dl-horizontal">
+        <dt>Photos</dt>
+        <dd>{{ total_photos }}</dd>
+        <dt>Albums</dt>
+        <dd>{{ total_albums }}</dd>
+        <dt>Locations</dt>
+        <dd>{{ total_locations }}</dd>
+        <dt>Size on Disk</dt>
+        <dd id="disk_size"><span class="label label-info">Loading..</span></dd>
+        <dt>Cache Size</dt>
+        <dd id="cache_size"><span class="label label-info">Loading..</span></dd>
+        <dt>Thumbs Building</dt>
+        <dd>{{ thumbnails_building }}</dd>
+    </dl>
+</div>
+
+{% endblock sidebar%}
+
+{% block navigation %}
+{% include "administrator/nav.html" with nav=1 %}
+{% endblock navigation %}
