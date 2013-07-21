@@ -1,5 +1,7 @@
 import sorl
 
+from PIL import Image
+
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -8,8 +10,6 @@ from django.views.generic import ListView, DetailView
 from django.contrib.comments.models import Comment
 from django.conf import settings as app_settings
 from django.contrib.auth.decorators import login_required
-
-from PIL import Image
 
 from hadrian.contrib.locations.models import *
 from hadrian.contrib.locations.forms import *
@@ -135,21 +135,6 @@ def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=N
     messages.success(request, "Photo %s deleted" % photo.title)
     return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
 
-@login_required
-@never_cache
-def rotate_photo(request, photo_id, rotate_direction, album_slug=None, username=None, photo_slug=None):
-    photo = get_object_or_404(Photo, pk=photo_id)
-    if request.user != photo.user:
-        return render(request, 'not_authorized.html')
-    im = Image.open(photo.image)
-    if rotate_direction == "counter":
-        rotate_image = im.rotate(90)
-    else:
-        rotate_image = im.rotate(270)
-    rotate_image.save(photo.image.file.name, overwrite=True)
-    sorl.thumbnail.delete(photo.image, delete_file=False)
-    photo.make_thumbnails()
-    return redirect(photo.get_absolute_url())
 
 class CommentListView(ListView):
     model = Comment
@@ -157,7 +142,7 @@ class CommentListView(ListView):
     context_object_name = "comments"
     paginate_by = 40
 
-@login_required()
+@login_required
 @never_cache
 def delete_comment(request, comment_id):
     from django.contrib.comments.models import Comment

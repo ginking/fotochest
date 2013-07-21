@@ -10,8 +10,6 @@ from fotochest.defaults import VERSION_NUMBER
 version = VERSION_NUMBER
 
 install_requires = [
-    'django==1.4.3',
-    'south==0.7.6',
     'hadrian==1.1.5',
     'PIL==1.1.7',
     'sorl-thumbnail==11.12',
@@ -26,8 +24,6 @@ install_requires = [
     'django-haystack==1.2.7',
     'whoosh==2.4.1',
     'celery==2.5.5',
-    'django-extensions==0.9',
-    'django-site-notifications==0.1',
     'django-bootstrap-static==2.0.2',
     'django-braces==0.1.7',
     'django-constance[database]',

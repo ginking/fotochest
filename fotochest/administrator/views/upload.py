@@ -1,3 +1,5 @@
+from sorl.thumbnail import get_thumbnail
+
 from django.core.files.uploadedfile import UploadedFile
 from django.utils import simplejson
 from django.conf import settings as app_settings
@@ -6,16 +8,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 
-from sorl.thumbnail import get_thumbnail
-
 from hadrian.contrib.locations.models import Location
 
 from fotochest.administrator.tasks import thumbnail_task
 from fotochest.administrator.utils import get_randomized_file_name
-
 from fotochest import defaults
 from fotochest.photo_manager.models import Album, Photo
-
 
 def create_photo(album_slug, filename, location_slug, user_id):
     try:
