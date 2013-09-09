@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     # Admin URLS.
-    url(r'^admin/', include("fotochest.administrator.urls")),
+    url(r'^admin/', include("administrator.urls")),
     #url(r'^search/', include('haystack.urls')),
 
     # Auth Views
@@ -19,6 +19,6 @@ urlpatterns = patterns('',
     url(r'^docs/', include('api_docs.urls')),
 
     # Send all remaming URLS to the App.
-    url(r'^', include('fotochest.photo_manager.urls')),
+    url(r'^', include('photo_manager.urls')),
 )
 

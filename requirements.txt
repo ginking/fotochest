@@ -26,4 +26,4 @@ django-extensions==0.9
 django-bootstrap-static==2.0.2
 django-braces==0.1.7
 django-constance[database]==0.6
-django-chosen
+django-chosen==0.1
