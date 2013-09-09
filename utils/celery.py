@@ -1,7 +1,7 @@
 from django.conf import settings
 
 
-from fotochest import defaults
+import defaults
 
 
 def is_using_celery():

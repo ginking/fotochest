@@ -16,9 +16,9 @@ from hadrian.contrib.locations.forms import *
 
 from braces.views import LoginRequiredMixin
 
-from fotochest.photo_manager.forms import *
-from fotochest.photo_manager.models import Photo, Album
-from fotochest.photo_manager.forms import AlbumForm
+from photo_manager.forms import *
+from photo_manager.models import Photo, Album
+from photo_manager.forms import AlbumForm
 
 __authors__ = "Derek Stegelman"
 __date__ = "August 2012"

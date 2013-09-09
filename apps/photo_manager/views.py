@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 from hadrian.contrib.locations.models import *
 
-from fotochest.photo_manager.models import Photo, Album
+from .models import Photo, Album
 
 __authors__ = "Derek Stegelman"
 __date__ = "August 2012"

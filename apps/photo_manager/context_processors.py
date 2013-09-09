@@ -2,8 +2,8 @@ from django.conf import settings
 
 from hadrian.contrib.locations.models import *
 
-from fotochest.photo_manager.models import *
-from fotochest.defaults import VERSION_NUMBER
+from .models import *
+from defaults import VERSION_NUMBER
 
 def locations_albums(request):
     context ={}

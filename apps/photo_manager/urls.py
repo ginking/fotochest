@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, include, url
 
-from fotochest.photo_manager.views import HomepageListView, LocationsListView, \
+from .views import HomepageListView, LocationsListView, \
      photo_download, AlbumDetailView, AlbumListView, \
     PhotoLocationsListView, PhotoFullScreen, PhotoDetailView
-from fotochest.photo_manager.feeds import StreamFeed, AlbumStream
-from fotochest.photo_manager.api.endpoint import PhotoResource, AlbumResource, LocationResource
+from .feeds import StreamFeed, AlbumStream
+from .api.endpoint import PhotoResource, AlbumResource, LocationResource
 
 from tastypie.api import Api
 

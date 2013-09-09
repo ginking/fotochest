@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 
-from fotochest.photo_manager.models import Photo
-from fotochest.utils.celery import is_using_celery
+from photo_manager.models import Photo
+from utils.celery import is_using_celery
 
 __author__ = 'Derek Stegelman'
 __date__ = '9/22/12'

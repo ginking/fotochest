@@ -1,4 +1,4 @@
-from fotochest.photo_manager.models import Photo
+from photo_manager.models import Photo
 
 def settings(request):
     context = {}

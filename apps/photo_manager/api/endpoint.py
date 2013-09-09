@@ -5,7 +5,7 @@ from sorl.thumbnail import get_thumbnail
 
 from hadrian.contrib.locations.models import Location
 
-from fotochest.photo_manager.models import Photo, Album
+from photo_manager.models import Photo, Album
 
 __author__ = 'Derek Stegelman'
 __date__ = '12/16/12'

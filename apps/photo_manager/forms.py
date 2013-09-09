@@ -3,7 +3,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
 
-from fotochest.photo_manager.models import Album, Photo
+from .models import Album, Photo
 
 class AlbumForm(forms.ModelForm):
 

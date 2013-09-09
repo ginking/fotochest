@@ -12,9 +12,9 @@ from sorl.thumbnail import get_thumbnail, delete
 from PIL import Image
 from PIL.ExifTags import TAGS
 
-from fotochest.photo_manager.managers import PhotoManager
-from fotochest.photo_manager.tasks import clear_thumbnails, build_thumbnails
-from fotochest.utils.celery import is_using_celery
+from .managers import PhotoManager
+from .tasks import clear_thumbnails, build_thumbnails
+from utils.celery import is_using_celery
 
 
 class Album(models.Model):

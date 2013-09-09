@@ -10,10 +10,10 @@ from django.core.urlresolvers import reverse
 
 from hadrian.contrib.locations.models import Location
 
-from fotochest.administrator.tasks import thumbnail_task
-from fotochest.administrator.utils import get_randomized_file_name
-from fotochest import defaults
-from fotochest.photo_manager.models import Album, Photo
+from administrator.tasks import thumbnail_task
+from administrator.utils import get_randomized_file_name
+import defaults
+from photo_manager.models import Album, Photo
 
 def create_photo(album_slug, filename, location_slug, user_id):
     try:
