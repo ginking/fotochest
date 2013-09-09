@@ -16,5 +16,5 @@ install:
 # command to run tests
 
 script:
-  - run_tests.sh
+  - python manage.py test photo_manager --settings=settings.local
 
