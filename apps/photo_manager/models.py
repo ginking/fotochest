@@ -33,16 +33,19 @@ class Album(models.Model):
         unique_slugify(self, self.title)
         super(Album, self).save(*args, **kwargs)
         
-    def get_preview_photos(self):
-        """ @todo - Add Comments
+    def _get_preview_photos(self):
+        """ Private method to return the first five photos
+        in this album
         """
-        # Test Func
-        photos = Photo.objects.filter(album=self)[:5]
-        return photos
+
+        return Photo.objects.filter(album=self)[:5]
         
     def get_album_cover(self):
-        """ @todo - Add Comments
+        """ Fetch the photo to be used for the album cover
+        for this album.  Attempt to loop through the children
+        of the album to find an acceptable candidate photo.
         """
+
         this_photo = ""
         try:
             photos = Photo.objects.filter(album=self)[:1]
@@ -65,24 +68,27 @@ class Album(models.Model):
                     photos = Photo.objects.filter(album=use_album)[:1]
                     return photos[0]
                 except:
-                    
                     pass
                     this_photo = ""
         return this_photo
-    
+
+    @property
+    def preview_photos(self):
+        """ Returns first 5 photos from the album
+        to be used in preview for album.
+        """
+
+        return self._get_preview_photos()
+
     @property
     def has_child_albums(self):
-        """ @todo - Add Comments
+        """ Returns true if this album has child albums.
         """
-        album_count = Album.objects.filter(parent_album=self).count()
-        if album_count == 0:
-            return False
-        else:
-            return True
+        return Album.objects.filter(parent_album=self).count()
 
     @property
     def count(self):
-        """ @todo - Add Comments
+        """ Return the count of photos in this album.
         """
         return Photo.objects.filter(album=self).count()
 
