@@ -1,9 +1,11 @@
 from django.db.models.query import QuerySet
 from django.db.models import Manager
 
+
 class PhotoQuerySet(QuerySet):
     def active(self):
         return self.filter(deleted=False)
+
 
 class PhotoManager(Manager):
 
@@ -12,4 +14,3 @@ class PhotoManager(Manager):
 
     def active(self):
         return self.get_query_set().active()
-        

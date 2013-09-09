@@ -6,6 +6,8 @@ __author__ = 'Derek Stegelman'
 __date__ = '11/10/12'
 
 def convert_bytes(bytes):
+    """ @todo - Add Comments
+        """
     bytes = float(bytes)
     if bytes >= 1099511627776:
         terabytes = bytes / 1099511627776
@@ -24,6 +26,8 @@ def convert_bytes(bytes):
     return size
 
 def get_size(start_path = '%s/images' % settings.MEDIA_ROOT):
+    """ @todo - Add Comments
+        """
     total_size = 0
     for dirpath, dirnames, filenames in os.walk(start_path):
         for f in filenames:

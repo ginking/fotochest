@@ -34,11 +34,15 @@ class Album(models.Model):
         super(Album, self).save(*args, **kwargs)
         
     def get_preview_photos(self):
+        """ @todo - Add Comments
+        """
         # Test Func
         photos = Photo.objects.filter(album=self)[:5]
         return photos
         
     def get_album_cover(self):
+        """ @todo - Add Comments
+        """
         this_photo = ""
         try:
             photos = Photo.objects.filter(album=self)[:1]
@@ -68,6 +72,8 @@ class Album(models.Model):
     
     @property
     def has_child_albums(self):
+        """ @todo - Add Comments
+        """
         album_count = Album.objects.filter(parent_album=self).count()
         if album_count == 0:
             return False
@@ -76,16 +82,23 @@ class Album(models.Model):
 
     @property
     def count(self):
+        """ @todo - Add Comments
+        """
         return Photo.objects.filter(album=self).count()
 
     @models.permalink
     def get_absolute_url(self):
+        """ @todo - Add Comments
+        """
         return ('album_detail', (), {'album_id': self.id, 'album_slug': self.slug})
         
 
     @models.permalink
     def get_admin_url(self):
+        """ @todo - Add Comments
+        """
         return ('administrator.views.album_detail', (), {'album_id':self.id})
+
 
 class Photo(models.Model):
     title = models.CharField(max_length=250)
@@ -111,10 +124,14 @@ class Photo(models.Model):
     
     @property    
     def filename(self):
+        """ @todo - Add Comments
+        """
         return os.path.basename(self.image.name)
     
     @models.permalink
     def get_next(self):
+        """ @todo - Add Comments
+        """
         try:
             next_photo = Photo.objects.filter(id__lt=self.id, user=self.user)[:1]
             photo = next_photo[0]
@@ -124,6 +141,8 @@ class Photo(models.Model):
     
     @models.permalink
     def get_previous(self):
+        """ @todo - Add Comments
+        """
         try:
             prev_photo = Photo.objects.filter(id__gt=self.id, user=self.user).order_by('id')[:1]
             photo = prev_photo[0]
@@ -132,6 +151,8 @@ class Photo(models.Model):
         return ('regular_photo_url', (), {'photo_slug': photo.slug, 'album_slug': photo.album.slug})
         
     def image_preview(self):
+        """ @todo - Add Comments
+        """
         im = get_thumbnail(self.image, "150x150")
         return '<img src="%s" width="150"/>'  % im.url
     image_preview.allow_tags = True
@@ -179,6 +200,8 @@ class Photo(models.Model):
             return
 
     def make_thumbnails(self):
+        """ @todo - Add Comments
+        """
         get_thumbnail(self.image, '75x75', crop="center", quality=50)
         get_thumbnail(self.image, '1024x650', quality=100)
         get_thumbnail(self.image, '240x165')
@@ -189,6 +212,8 @@ class Photo(models.Model):
         self.save()
 
     def rotate(self, right=True):
+        """ @todo - Add Comments
+        """
         path = "%s/%s" % (settings.MEDIA_ROOT, self.image)
         im = Image.open(path)
         if right:
@@ -197,8 +222,10 @@ class Photo(models.Model):
             im.rotate(90).save(path)
         self.clear_thumbnails()
         self.generate_thumbnails()
-        
+
     def get_exif_data(self):
+        """ @todo - Add Comments
+        """
         exif_data = {}
         i = Image.open(self.image)
         info = i._getexif()
@@ -210,10 +237,14 @@ class Photo(models.Model):
     #@todo - point to new class ivew.
     @models.permalink
     def get_absolute_url(self):
+        """ @todo - Add Comments
+        """
         return ('regular_photo_url', (), {'photo_slug': self.slug, 'album_slug': self.album.slug})
     
     @models.permalink
     def get_fullscreen(self):
+        """ @todo - Add Comments
+        """
         # update with enable multi user
         return ('photo_fullscreen', (), {'photo_slug': self.slug, 'album_slug': self.album.slug})
 
@@ -222,5 +253,7 @@ class Photo(models.Model):
         ordering = ['-id']
 
 def photos_by_location(location):
+    """ @todo - Add Comments
+        """
     return Photo.objects.filter(deleted=False, location=location).count()
          
