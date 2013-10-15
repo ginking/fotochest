@@ -29,7 +29,7 @@ postgresql-server-dev-9.1:
 
 postgres-db:
   postgres_database.present:
-    - name: ligonier
+    - name: fotochest
     - encoding: UTF8
     - lc_ctype: en_US.UTF8
     - lc_collate: en_US.UTF8
