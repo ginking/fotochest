@@ -2,7 +2,7 @@ include:
 - python
 - users
 
-/home/vagrant/.virtualenvs/ligonier:
+/home/vagrant/.virtualenvs/fotochest:
     virtualenv.managed:
         - no_site_packages: True
         - runas: vagrant

@@ -3,7 +3,7 @@
 # for examples
 
 
-alias activate='source /home/vagrant/.virtualenvs/ligonier/bin/activate && cd ~/ligonier'
+alias activate='source /home/vagrant/.virtualenvs/fotochest/bin/activate && cd ~/fotochest'
 alias run='python manage.py runserver 0.0.0.0:8081'
 
 
