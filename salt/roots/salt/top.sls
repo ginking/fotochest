@@ -4,8 +4,11 @@ base:
     - core
     - vcs
     - users
+    - django
     - images
-    - postgresql
     - memcached
+    - postgresql
+    - rabbitmq
+    - supervisor
 
 

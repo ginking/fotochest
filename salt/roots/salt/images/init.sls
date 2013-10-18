@@ -16,3 +16,14 @@ image-packages:
       - libjpeg-turbo8-dev
       - libpng-dev
       - libevent-dev
+
+image-symlinks:
+  cmd.run:
+    - name: sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib
+    - user: vagrant
+  cmd.run:
+    - name: sudo ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
+    - user: vagrant
+  cmd.run:
+    - name: sudo ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
+    - user: vagrant
