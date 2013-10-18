@@ -55,23 +55,18 @@ def upload_photo(request, location_slug, album_slug, user_id):
         for chunk in uploaded_file.chunks():
             destination.write(chunk)
         destination.close()
-        
-        im = get_thumbnail(photo_new.image, "80x80", quality=50)
-        thumb_url = im.url
-        
-        ENABLE_CELERY = getattr(app_settings, 'ENABLE_CELERY', defaults.ENABLE_CELERY)
-        if ENABLE_CELERY:
-            thumbnail_task.delay(photo_new)
+
+        thumbnail_task.delay(photo_new)
             
         # JQuery upload requires that you respond with JSON
         # Somethign like this..
         result = []
-        result.append({"name":filename, 
-                       "size":file_size, 
+        result.append({"name": filename,
+                       "size": file_size,
                        "url": "%s%s" % (app_settings.MEDIA_URL, photo_new.image), 
-                       "thumbnail_url":thumb_url,
-                       "delete_url":reverse('upload_delete', args=[photo_new.pk]), 
-                       "delete_type":"POST",})
+
+                       "delete_url": reverse('upload_delete', args=[photo_new.pk]),
+                       "delete_type": "POST"})
         response_data = simplejson.dumps(result)
         
         #checking for json data type

@@ -58,7 +58,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-    "photo_manager.context_processors.theme_files",
     "photo_manager.context_processors.locations_albums",
     "photo_manager.context_processors.version",
     "administrator.context_processors.settings",

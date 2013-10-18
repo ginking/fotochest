@@ -14,7 +14,6 @@ from PIL.ExifTags import TAGS
 
 from .managers import PhotoManager
 from .tasks import clear_thumbnails, build_thumbnails
-from utils.celery import is_using_celery
 
 
 class Album(models.Model):
@@ -96,7 +95,7 @@ class Album(models.Model):
     def get_absolute_url(self):
         """ @todo - Add Comments
         """
-        return ('album_detail', (), {'album_id': self.id, 'album_slug': self.slug})
+        return ('album_detail', (), {'album_slug': self.slug})
         
 
     @models.permalink
@@ -180,10 +179,7 @@ class Photo(models.Model):
 
         """
 
-        if is_using_celery():
-            clear_thumbnails.delay(self)
-        else:
-            self._clear_thumbnails()
+        clear_thumbnails.delay(self)
 
     def generate_thumbnails(self, force=False):
         """ Model method to generate thumbnails for
@@ -196,14 +192,8 @@ class Photo(models.Model):
 
         """
 
-        if is_using_celery():
-            build_thumbnails.delay(self)
-        elif not is_using_celery() and force:
-            # Really dangerous because this could timeout.
-            self.make_thumbnails()
-        else:
-            # pass because we don't want to time out the request.
-            return
+        build_thumbnails.delay(self)
+
 
     def make_thumbnails(self):
         """ @todo - Add Comments
@@ -262,4 +252,3 @@ def photos_by_location(location):
     """ @todo - Add Comments
         """
     return Photo.objects.filter(deleted=False, location=location).count()
-         

@@ -1,7 +1,7 @@
-django==1.4.6
+django==1.4.8
 south==0.7.6
 hadrian==1.1.5
-PIL==1.1.7
+Pillow==2.2.1
 sorl-thumbnail==11.12
 django-celery==2.5.5
 django-kombu==0.9.4
@@ -29,3 +29,4 @@ django-bootstrap-static==2.0.2
 django-braces==0.1.7
 django-constance[database]==0.6
 django-chosen==0.1
+psycopg2==2.5.1
