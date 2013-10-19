@@ -5,7 +5,6 @@ from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 
 from photo_manager.models import Photo
-from utils.celery import is_using_celery
 
 __author__ = 'Derek Stegelman'
 __date__ = '9/22/12'
@@ -13,13 +12,12 @@ __date__ = '9/22/12'
 @login_required
 @never_cache
 def build_thumbnails(request):
-    if is_using_celery():
-        for photo in Photo.objects.all():
-            photo.clear_thumbnails()
-            photo.generate_thumbnails()
-        messages.success(request, 'Job Queued.')
-    else:
-        messages.error(request, 'You MUST enable celery to perform this Job.')
+
+    for photo in Photo.objects.all():
+        photo.clear_thumbnails()
+        photo.generate_thumbnails()
+    messages.success(request, 'Job Queued.')
+
     return redirect('admin_utilities')
 
 @login_required

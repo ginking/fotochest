@@ -9,6 +9,20 @@ design goals are:
 - Simplicity.  Shrink the codebase
 - Easy to use.
 
+## Developing
+
+Development is done using Salt and Vagrant so you'll need vagrant, salty-vagrant, and virtualbox to get started.
+
+To get the development environment up and running simply:
+
+```
+vagrant up
+```
+
+This will take a while so go grab some coffee.
+
+
+
 Installation isn't easy yet, but we're getting there.
 
 ```

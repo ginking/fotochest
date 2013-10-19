@@ -1,4 +1,4 @@
-emcached:
+memcached:
     pkg.installed:
         - name: memcached
     file.managed:
