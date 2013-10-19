@@ -130,6 +130,16 @@ class Photo(models.Model):
     def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
         super(Photo, self).save()
+
+    @property
+    def author(self):
+        """ Return a text string of the author
+        of this photo.  If a user has a first and last use that,
+        otherwise use the username.
+        """
+        if self.user.first_name and self.user.last_name:
+            return "%s %s" % (self.user.first_name, self.user.last_name)
+        return self.user.username
     
     @property    
     def filename(self):
