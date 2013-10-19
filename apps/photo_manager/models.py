@@ -39,7 +39,7 @@ class Album(models.Model):
 
         return Photo.objects.filter(album=self)[:5]
         
-    def get_album_cover(self):
+    def _get_album_cover(self):
         """ Fetch the photo to be used for the album cover
         for this album.  Attempt to loop through the children
         of the album to find an acceptable candidate photo.
@@ -72,6 +72,10 @@ class Album(models.Model):
         return this_photo
 
     @property
+    def album_cover(self):
+        return self._get_album_cover()
+
+    @property
     def preview_photos(self):
         """ Returns first 5 photos from the album
         to be used in preview for album.
@@ -96,7 +100,6 @@ class Album(models.Model):
         """ @todo - Add Comments
         """
         return ('album_detail', (), {'album_slug': self.slug})
-        
 
     @models.permalink
     def get_admin_url(self):
@@ -116,6 +119,7 @@ class Photo(models.Model):
     user = models.ForeignKey(User, blank=True, null=True)
     location = models.ForeignKey(Location, blank=True, null=True)
     thumbs_created = models.BooleanField(default=False, editable=False)
+    #private = models.BooleanField()
     deleted = models.BooleanField(default=False, editable=False)
     
     objects = PhotoManager()
@@ -194,9 +198,10 @@ class Photo(models.Model):
 
         build_thumbnails.delay(self)
 
-
     def make_thumbnails(self):
-        """ @todo - Add Comments
+        """ Generate thumbnail sizes that
+        are used throughout the site.  When a new size is used
+        add it here so that it can be generated on upload.
         """
         get_thumbnail(self.image, '75x75', crop="center", quality=50)
         get_thumbnail(self.image, '1024x650', quality=100)
@@ -204,6 +209,7 @@ class Photo(models.Model):
         get_thumbnail(self.image, '240x161', crop="center", quality=75)
         get_thumbnail(self.image, '300x220')
         get_thumbnail(self.image, '300x300')
+
         self.thumbs_created = True
         self.save()
 
@@ -244,9 +250,9 @@ class Photo(models.Model):
         # update with enable multi user
         return ('photo_fullscreen', (), {'photo_slug': self.slug, 'album_slug': self.album.slug})
 
-
     class Meta:
         ordering = ['-id']
+
 
 def photos_by_location(location):
     """ @todo - Add Comments
