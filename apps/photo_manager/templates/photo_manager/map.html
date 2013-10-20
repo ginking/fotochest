@@ -57,7 +57,7 @@ rules: [
       var content{{ location.id }} = '<div id="content">'+
           
           
-          '<p><a style="color:#2d2d2d;" href="{% url photo_location location_slug=location.slug %}">{{ location }} ({% location_photo_count location.slug %})</a></p>' +
+          '<p><a style="color:#2d2d2d;" href="{% url 'photo_location' location_slug=location.slug %}">{{ location }} ({% location_photo_count location.slug %})</a></p>' +
           
           '</div>';
       var infowindow{{ location.id }} = new google.maps.InfoWindow({

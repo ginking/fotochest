@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="login-form">
                     <h2>Login to FotoChest</h2>
-                    <form method="POST" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
+                    <form method="POST" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
                         <fieldset>
                         {% if form.errors %}
                         <div class="alert alert-error">
@@ -69,7 +69,7 @@
                             <div class="clearfix">
                                 <input type="password" placeholder="Password" name="password">
                             </div>
-                            <input type="hidden" name="next" value="{% url admin_dashboard %}">
+                            <input type="hidden" name="next" value="{% url 'admin_dashboard' %}">
                             <button class="btn btn-primary" type="submit">Sign in</button>
                         </fieldset>
                     </form>

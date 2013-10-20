@@ -8,7 +8,7 @@
 {% if album_view %}
 <ul class="breadcrumb">
   <li>
-    <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
+    <a href="{% url 'homepage' %}">Home</a> <span class="divider">/</span>
   </li>
   {% if album.parent_album %}
   <li>
@@ -21,7 +21,7 @@
 {% else %}
 <ul class="breadcrumb">
   <li class="active">
-    <a href="{% url homepage %}">Home</a>
+    <a href="{% url 'homepage' %}">Home</a>
   </li>
   
 </ul>
@@ -44,7 +44,7 @@
 		            {% else %}
 		                {% if album.get_album_cover %}
 		                    {% load thumbnail %}
-		            {% thumbnail album.get_album_cover.image "300x220" as im %}
+		            {% thumbnail album.album_cover.image "300x220" as im %}
 		        <img src="{{ im.url }}">
 		            {% endthumbnail %}
 		                {% else %}

@@ -27,7 +27,7 @@ class AlbumModelTest(TestCase):
         self.assertEqual(self.album.__unicode__(), "Roma")
             
     def test_get_album_cover(self):
-        cover = self.album.get_album_cover()
+        cover = self.album.album_cover
         self.assertEqual(cover.title, u'Vatican')
         
 class PhotoModelTest(TestCase):

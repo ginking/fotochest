@@ -119,7 +119,6 @@ class Photo(models.Model):
     user = models.ForeignKey(User, blank=True, null=True)
     location = models.ForeignKey(Location, blank=True, null=True)
     thumbs_created = models.BooleanField(default=False, editable=False)
-    #private = models.BooleanField()
     deleted = models.BooleanField(default=False, editable=False)
     
     objects = PhotoManager()

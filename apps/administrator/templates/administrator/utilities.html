@@ -19,7 +19,7 @@
     </div>
     <div class="modal-footer">
       <a data-dismiss="modal" class="btn" href="#">Close</a>
-      <a href="{% url delete_thumbnails %}" class="btn btn-danger">Yes, Delete Thumbnails</a>
+      <a href="{% url 'delete_thumbnails' %}" class="btn btn-danger">Yes, Delete Thumbnails</a>
       
     </div>
     
@@ -32,7 +32,7 @@
 
 <div class="row">
     <div class="span3">
-<a href="{% url build_thumbnails %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Re-Build Thumbnails</a>
+<a href="{% url 'build_thumbnails' %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Re-Build Thumbnails</a>
 </div>
 <div class="span5">
 <p class="help-block">Running this will queue up all photos to have their thumbnails rebuilt.  This can be helpful if some thumbnails failed, or if you've upgraded to a newer version and some new thumbnails are required.</p>
@@ -42,7 +42,7 @@
 
 <div class="row">
 <div class="span3">
-<a href="{% url clear_thumbnails %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Clear Key Values Cache</a>
+<a href="{% url 'clear_thumbnails' %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Clear Key Values Cache</a>
 </div>
 <div class="span5">
 <p class="help-block">Removes all key values in the thumbnail cache.  This is a safe command to run, if you have some thumbnails not showing up.  References will be removed, but the files themeselves will not be touched.</p>
@@ -60,7 +60,7 @@
 
 <div class="row">
     <div class="span3">
-        <a href="{% url rebuild_search %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Rebuild Search Index</a>
+        <a href="{% url 'rebuild_search' %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Rebuild Search Index</a>
     </div>
     <div class="span5">
         <p class="help-block">This reques the search index.  This needs rebuidling before searches can be performed.</p>
