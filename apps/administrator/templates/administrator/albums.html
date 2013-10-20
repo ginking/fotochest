@@ -84,13 +84,13 @@
     <tbody>
     {% for album in albums %}
     {% load thumbnail %}
-    {% thumbnail album.get_album_cover.image "240x165" as im %}
+    {% thumbnail album.album_cover.image "240x165" as im %}
         <tr title="{{ album }}" data-content="<img src='{{ im.url }}'>" class="pop">
     {% endthumbnail %}
             <td>
                 <a href="#" class="thumbnail">
                     {% load thumbnail %}
-                    {% thumbnail album.get_album_cover.image "240x161" crop="center" quality=75 as im %}
+                    {% thumbnail album.album_cover.image "240x161" crop="center" quality=75 as im %}
                     <img src='{{ im.url }}'>
                     {% endthumbnail %}
                 </a>
