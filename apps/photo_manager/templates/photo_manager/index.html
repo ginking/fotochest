@@ -44,7 +44,7 @@
 		            {% else %}
 		                {% if album.get_album_cover %}
 		                    {% load thumbnail %}
-		            {% thumbnail album.get_album_cover.image "300x220" as im %}
+		            {% thumbnail album.album_cover.image "300x220" as im %}
 		        <img src="{{ im.url }}">
 		            {% endthumbnail %}
 		                {% else %}
