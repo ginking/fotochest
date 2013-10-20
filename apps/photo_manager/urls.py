@@ -14,8 +14,7 @@ v1_api.register(AlbumResource())
 v1_api.register(LocationResource())
 
 urlpatterns = patterns('',
-        
-    url(r'^api/docs/', include('api_docs.urls')),
+
     url(r'^api/', include(v1_api.urls)),
                        
     # Public URLS
