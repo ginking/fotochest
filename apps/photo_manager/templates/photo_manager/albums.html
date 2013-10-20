@@ -51,9 +51,9 @@
                     {% endthumbnail %}
                     
                 {% else %}
-                    {% if album.get_album_cover %}
+                    {% if album.album_cover %}
                         {% load thumbnail %}
-                {% thumbnail album.get_album_cover.image "300x220" as im %}
+                {% thumbnail album.album_cover.image "300x220" as im %}
             <img src="{{ im.url }}">
                 {% endthumbnail %}
                     {% else %}
@@ -114,7 +114,7 @@
 		{% for album in child_albums.object_list %}
         		
 		{% load thumbnail %}
-		{% thumbnail album.get_album_cover.image "240x161" crop="center" as im %}
+		{% thumbnail album.album_cover.image "240x161" crop="center" as im %}
 		<li class="span2">
 			<a href="{{ album.get_absolute_url }}" class="thumbnail">
 		<img src="{{ im.url }}" alt="">
