@@ -128,7 +128,6 @@ INSTALLED_APPS = (
     'hadrian.contrib.locations',
     'hadrian.contrib.pomona',
     'tastypie',
-    'api_docs',
     'taggit',
     # Everyone should be using south.  Seriously.
     'south',
