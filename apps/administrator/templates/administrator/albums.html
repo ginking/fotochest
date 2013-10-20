@@ -38,7 +38,7 @@
     <div class="modal-body">
       <h4>Select Album and Location</h4>
       <p>Select the album and location that you want to associate you uploaded photos with.</p>
-      <form method="GET" action="{% url choose %}">
+      <form method="GET" action="{% url 'choose' %}">
       <label>Album Name:</label>
           <select name="album">
               {% for album in form_albums %}
@@ -107,7 +107,7 @@
                     <div class="modal-body">
                         <h4>Select Location for photos in {{ album }}</h4>
                         <p>Select the location that you want to associate you uploaded photos with.</p>
-                        <form method="GET" action="{% url choose %}">
+                        <form method="GET" action="{% url 'choose' %}">
 
                             <input type='hidden' name='album' value='{{ album.slug }}'>
                             <input type="hidden" name="user_id" value="{{ request.user.id }}">
@@ -133,7 +133,7 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url admin_album_detail album_id=album.id %}">Edit</a></li>
+                        <li><a href="{% url 'admin_album_detail' album_id=album.id %}">Edit</a></li>
                         <li><a href="{{ album.get_absolute_url }}">View Photos</a></li>
                         <li><a href="#addPhotosToAlbum_{{ album.id }}" data-toggle="modal">Add Photos</a></li>
                         <!-- dropdown menu links -->

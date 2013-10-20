@@ -7,7 +7,7 @@
 <div class="{% if album.has_child_albums %}span9{% else %}span12{% endif %}">
 <ul class="breadcrumb">
   <li>
-    <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
+    <a href="{% url 'homepage' %}">Home</a> <span class="divider">/</span>
   </li>
   {% if albums %}
   <li class="active">
@@ -15,7 +15,7 @@
   </li>
   {% else %}
   <li>
-    <a href="{% url albums %}">Albums</a> <span class="divider">/</span>
+    <a href="{% url 'albums' %}">Albums</a> <span class="divider">/</span>
   </li>
   
   <li class="active">

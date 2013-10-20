@@ -55,7 +55,7 @@ rules: [
           
           
 
-          '<p><a style="color:#2d2d2d;" href="{% if current_user %}{% url photo_location location_slug=location.slug %}{% else %}{% url photo_location location_slug=location.slug %}{% endif %}">{{ location }} ({{ location.get_photo_count }})</a></p>' +
+          '<p><a style="color:#2d2d2d;" href="{% if current_user %}{% url 'photo_location' location_slug=location.slug %}{% else %}{% url 'photo_location' location_slug=location.slug %}{% endif %}">{{ location }} ({{ location.get_photo_count }})</a></p>' +
 
           
           '</div>';
