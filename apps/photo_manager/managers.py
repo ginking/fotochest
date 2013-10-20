@@ -6,6 +6,12 @@ class PhotoQuerySet(QuerySet):
     def active(self):
         return self.filter(deleted=False)
 
+    def public(self):
+        return self.filter(private=False, deleted=False)
+
+    def private(self):
+        return self.filter(private=True, deleted=False)
+
 
 class PhotoManager(Manager):
 
@@ -14,3 +20,9 @@ class PhotoManager(Manager):
 
     def active(self):
         return self.get_query_set().active()
+
+    def public(self):
+        return self.get_query_set().public()
+
+    def private(self):
+        return self.get_query_set().private()

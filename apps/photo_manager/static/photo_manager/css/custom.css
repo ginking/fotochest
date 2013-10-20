@@ -40,6 +40,10 @@ body
     margin-top: -20px;
 }
 
+#photo-detail .thumbnail {
+    clear: both;
+}
+
 .clear-photo
 {
     clear: both;

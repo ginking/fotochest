@@ -80,7 +80,7 @@ rules: [
 {% block main_content %}
 {% load comments %}
 
-			<div class="span8">
+			<div class="span8" id="photo-detail">
 			    <ul class="breadcrumb pull-right">
 			        <li>
 			            <a href="{% url homepage %}">Home</a> <span class="divider">/</span>
@@ -91,7 +91,7 @@ rules: [
 			        <li class="active">{{ photo.title }}</li>
 			    </ul>
 
-			<div class="btn-group photo-nav">
+			<div class="btn-group photo-nav pull-left">
 			    {% if photo.get_previous %}
 				<a href="{{ photo.get_previous }}" class="btn"><i class="icon-arrow-left"></i> Previous</a>
 				{% endif %}
@@ -115,7 +115,7 @@ rules: [
 				<div class="well">
 					<h3>{{ photo.title }}</h3>
 					<div id="small_map"></div>
-					<h6>By {{ photo.user.first_name }} {{ photo.user.last_name }}</h6>
+					<h6>By {{ photo.author }}</h6>
 					<a href="{{ photo.album.get_absolute_url }}">From {{ photo.album }}</a>
 					<p>This photo was uploaded on {{ photo.date_uploaded|date:"F j Y" }}, and taken in <a href="{% url photo_location location_slug=photo.location.slug %}">{{ photo.location.city }}, {{ photo.location.get_country_display }}</a>.</p>
 					<h4>Other photos from <a href="{% url photo_location location_slug=photo.location.slug %}">{{ photo.location }}</a></h4>
