@@ -1,7 +1,7 @@
 *.db
 upload
 .coverage
-reports/coverage_html
+reports
 whoosh/
 
 
