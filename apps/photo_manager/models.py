@@ -108,6 +108,7 @@ class Album(models.Model):
         return ('administrator.views.album_detail', (), {'album_id':self.id})
 
 
+
 class Photo(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(editable=False, blank=True)
