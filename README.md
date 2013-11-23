@@ -1,13 +1,12 @@
 #FotoChest
 
-[![Build Status](https://secure.travis-ci.org/fotochest/fotochest.png?branch=develop)](http://travis-ci.org/fotochest/fotochest)
+[![Build Status](https://secure.travis-ci.org/fotochest/fotochest.png?branch=master)](http://travis-ci.org/fotochest/fotochest)
 
-FotoChest is a Python/Django based photo sharing application that you can host yourself!  It's
-design goals are:
 
-- Data in, data out;  Easily accessible APIs let you use ``your`` data everywhere you want to.
-- Simplicity.  Shrink the codebase
-- Easy to use.
+FotoChest is a open source photo sharing/gallery solution that you can host yourself.  One of the primary goals
+in developing FotoChest is to always provide easy access to your photos and data through APIs.
+
+
 
 ## Developing
 
@@ -20,15 +19,6 @@ vagrant up
 ```
 
 This will take a while so go grab some coffee.
-
-
-
-Installation isn't easy yet, but we're getting there.
-
-```
-pip install fotochest
-```
-
 
 
 For more detailed documentation:
