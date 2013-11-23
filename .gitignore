@@ -1,7 +1,7 @@
-dev.db
-uploads
+*.db
+upload
 .coverage
-reports/coverage_html
+reports
 whoosh/
 
 
@@ -33,3 +33,6 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 .idea
+
+.vagrant
+celerybeat-schedule

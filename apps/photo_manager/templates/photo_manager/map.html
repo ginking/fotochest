@@ -1,0 +1,109 @@
+{% extends "photo_manager/base.html" %}
+{% block extra_html %}style="height: 100%"{% endblock %}
+{% block title %}Map{% endblock %}
+
+{% block nav %}
+{% include "photo_manager/nav.html" with current=3 %}
+{% endblock nav %}
+{% block extra_head %}
+{% load location_tags %}
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+  function initialize() {
+    var blackStyles = [
+{
+featureType: 'all',
+rules: [
+{visibility: 'off'}
+]
+},
+{
+featureType: 'water',
+rules: [
+{visibility: 'on'},
+{lightness: -100 }
+]
+}
+];
+    var blackMapType = new google.maps.StyledMapType(blackStyles,
+    {name: "Black Map"});
+
+  
+  
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      //zoom: 2,
+      //center: latlng,
+      
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+       styles: blackStyles,    
+    };
+    var map = new google.maps.Map(document.getElementById("map"),
+        myOptions);
+
+      var bounds = new google.maps.LatLngBounds();
+
+
+      {% for location in locations %}
+      {% if location.photo_set.all %}
+      
+      var latlng{{ location.id }} = new google.maps.LatLng({{ location.latitude }}, {{ location.longitude }});
+      var marker{{ location.id }} = new google.maps.Marker({
+         position: latlng{{ location.id }},
+         map: map,
+         title: ""
+      });
+
+      var content{{ location.id }} = '<div id="content">'+
+          
+          
+          '<p><a style="color:#2d2d2d;" href="{% url 'photo_location' location_slug=location.slug %}">{{ location }} ({% location_photo_count location.slug %})</a></p>' +
+          
+          '</div>';
+      var infowindow{{ location.id }} = new google.maps.InfoWindow({
+          content: content{{ location.id }}
+      });
+      google.maps.event.addListener(marker{{ location.id }}, 'click', function() {
+         infowindow{{ location.id }}.open(map, marker{{ location.id }});
+      });
+
+      bounds.extend(latlng{{ location.id }})
+      {% endif %}
+      {% endfor %}
+
+      map.fitBounds(bounds);    
+      map.mapTypes.set('black_map', blackMapType);
+      map.setMapTypeId('black_map');
+
+  }
+</script>
+
+{% endblock %}
+{% block header %}
+    {% if user_page == '1' %}
+        {{ block.super }}
+    {% else %}
+        
+    {% endif %}
+{% endblock %}
+{% block extra_nav %}
+    <li><a href="#" class="osx">Add Location</a></li>
+{% endblock %}
+
+{% block extra_body %}onLoad="initialize()" style="height:100%"{% endblock %}
+{% block main_class %}map_page{% endblock %}
+{% block main_content %}
+<style>
+.container,
+.row
+{
+   width: 100%;
+   height: 100%; 
+   margin-left: 0;
+}
+</style>
+<div id="map">
+        
+        </div>
+
+{% endblock %}

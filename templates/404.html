@@ -1,0 +1,14 @@
+{% extends "photo_manager/base.html" %}
+{% block nav %}
+{% include "photo_manager/nav.html" with current=1 %}
+{% endblock nav %}
+{% block main_content %}
+
+<div class="span12">
+    <div class="hero-unit">
+            <h1>404 Not Found</h1>
+            <p>Sorry, couldn't find the image or page you were looking for.</p>
+            <p><a href="{% url 'homepage' %}" class="btn btn-primary btn-large">Return to Home</a></p>
+          </div>
+</div>
+{% endblock main_content %}
