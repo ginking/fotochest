@@ -193,7 +193,7 @@ class Photo(models.Model):
 
         """
 
-        clear_thumbnails.delay(self)
+        clear_thumbnails.apply_async(args=[self], countdown=10)
 
     def generate_thumbnails(self, force=False):
         """ Model method to generate thumbnails for
@@ -206,7 +206,7 @@ class Photo(models.Model):
 
         """
 
-        build_thumbnails.delay(self)
+        build_thumbnails.apply_async(args=[self], countdown=10)
 
     def make_thumbnails(self):
         """ Generate thumbnail sizes that

@@ -17,6 +17,7 @@ image-packages:
       - libpng-dev
       - libevent-dev
 
+
 image-symlinks:
   cmd.run:
     - name: sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib
