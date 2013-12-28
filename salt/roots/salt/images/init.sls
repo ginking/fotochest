@@ -22,9 +22,13 @@ image-symlinks:
   cmd.run:
     - name: sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib
     - user: vagrant
+
+image-symlinks2:
   cmd.run:
     - name: sudo ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
     - user: vagrant
+
+image-symlinks3:
   cmd.run:
     - name: sudo ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
     - user: vagrant

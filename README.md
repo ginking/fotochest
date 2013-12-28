@@ -31,15 +31,6 @@ http://readthedocs.org/docs/fotochest/en/latest/
 
 http://photos.stegelman.com/
 
-
-
-##Installation
-
-    pip install -r conf/requirements.txt
-    ./run_all_tests.sh
-    fab run_local_celery
-    fab run_local
-
 ##Road Map
 
 https://github.com/fotochest/fotochest/wiki/Roadmap
