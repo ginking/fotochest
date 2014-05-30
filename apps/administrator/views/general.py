@@ -11,8 +11,8 @@ from django.contrib.comments.models import Comment
 from django.conf import settings as app_settings
 from django.contrib.auth.decorators import login_required
 
-from hadrian.contrib.locations.models import *
-from hadrian.contrib.locations.forms import *
+from locations.models import *
+from locations.forms import *
 
 from braces.views import LoginRequiredMixin
 

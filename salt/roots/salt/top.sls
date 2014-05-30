@@ -7,7 +7,10 @@ base:
     - django
     - images
     - memcached
-    - postgresql
+    - mysql.database
+    - mysql.server
+    - mysql.client
+    - mysql.user
     - rabbitmq
     - supervisor
 

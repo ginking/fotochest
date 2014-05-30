@@ -1,9 +1,9 @@
 from django.conf import settings
 
-from hadrian.contrib.locations.models import *
+from locations.models import Location
 
 from .models import *
-from defaults import VERSION_NUMBER
+
 
 def locations_albums(request):
     context ={}
@@ -13,6 +13,6 @@ def locations_albums(request):
     
 def version(request):
     context = {}
-    context['version'] = VERSION_NUMBER
+    context['version'] = 'Change Me'
     context['app_name'] = settings.APP_NAME
     return context

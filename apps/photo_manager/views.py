@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 from django.http import HttpResponse
 
-from hadrian.contrib.locations.models import *
+from locations.models import *
 
 from .models import Photo, Album
 

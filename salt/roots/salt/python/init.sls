@@ -12,3 +12,4 @@ python-pkgs:
       - libpq5
       - python-pip
       - libevent-dev
+      - libmysqlclient-dev

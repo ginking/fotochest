@@ -4,19 +4,9 @@ from .views import HomepageListView, LocationsListView, \
      photo_download, AlbumDetailView, AlbumListView, \
     PhotoLocationsListView, PhotoFullScreen, PhotoDetailView
 from .feeds import StreamFeed, AlbumStream
-from .api.endpoint import PhotoResource, AlbumResource, LocationResource
 
-from tastypie.api import Api
-
-v1_api = Api(api_name='v1')
-v1_api.register(PhotoResource())
-v1_api.register(AlbumResource())
-v1_api.register(LocationResource())
 
 urlpatterns = patterns('',
-
-    url(r'^api/', include(v1_api.urls)),
-                       
     # Public URLS
     url(r'^$', HomepageListView.as_view(), name="homepage"),
     url(r'^foto/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/$', PhotoDetailView.as_view(), name="regular_photo_url"),

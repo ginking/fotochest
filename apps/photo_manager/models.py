@@ -4,8 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
-from hadrian.utils.slugs import unique_slugify
-from hadrian.contrib.locations.models import *
+from utils.slugs import unique_slugify
+from locations.models import *
 
 from sorl.thumbnail import get_thumbnail, delete
 
@@ -106,7 +106,6 @@ class Album(models.Model):
         """ @todo - Add Comments
         """
         return ('administrator.views.album_detail', (), {'album_id':self.id})
-
 
 
 class Photo(models.Model):

@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
     # Admin URLS.
     url(r'^admin/', include("administrator.urls")),
+    url(r'^django_admin/', include(admin.site.urls)),
     #url(r'^search/', include('haystack.urls')),
 
     # Auth Views
