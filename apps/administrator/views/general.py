@@ -7,7 +7,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView, DetailView
-from django.contrib.comments.models import Comment
 from django.conf import settings as app_settings
 from django.contrib.auth.decorators import login_required
 
@@ -134,22 +133,7 @@ def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=N
     #@todo - This needs to point somewhere else after deletion..
     messages.success(request, "Photo %s deleted" % photo.title)
     return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
-
-
-class CommentListView(ListView):
-    model = Comment
-    template_name = "administrator/comment_list_view.html"
-    context_object_name = "comments"
-    paginate_by = 40
-
-@login_required
-@never_cache
-def delete_comment(request, comment_id):
-    from django.contrib.comments.models import Comment
-    comment = get_object_or_404(Comment, pk=comment_id)
-    comment.delete()
-    messages.success(request, "Comment deleted.")
-    return redirect('comment_list_view')
+    
 
 @login_required
 @never_cache

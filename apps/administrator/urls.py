@@ -3,8 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 
 from .views.general import Dashboard, album_list, locations, album_detail, add_location, choose, edit_photo,\
-    delete_photo, CommentListView,\
-    delete_comment, rotate, UserList
+    delete_photo, rotate, UserList
 from administrator.views.utils import build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
 from administrator.views.upload import upload_photo, upload_delete
 from administrator.views.ajax import get_disk_size, get_cache_size
@@ -16,8 +15,6 @@ urlpatterns = patterns('',
     # Send all remaming URLS to the App.
     url(r'^$', Dashboard.as_view(), name="admin_dashboard"),
     url(r'^choose/', choose, name="choose"),
-    url(r'^comments/$', CommentListView.as_view(), name="comment_list_view"),
-    url(r'^comments/delete/(?P<comment_id>\d+)/$', delete_comment, name="comment_delete_view"),
     url(r'^albums/$', album_list, name="admin_albums"),
     url(r'^album/(?P<album_id>\d+)/$', album_detail, name="admin_album_detail"),
     url(r'^locations/$', locations, name="admin_locations"),

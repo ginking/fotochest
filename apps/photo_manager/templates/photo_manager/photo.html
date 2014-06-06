@@ -78,7 +78,6 @@ rules: [
 {% endblock extra_head %}
 {% block extra_body %}onLoad="initialize()"{% endblock %}
 {% block main_content %}
-{% load comments %}
 
 			<div class="span8" id="photo-detail">
 			    <ul class="breadcrumb pull-right">
@@ -151,46 +150,5 @@ rules: [
 					</ul>
 					</div>
 				</div>
-				<div class="span12 comments">
-					<h3>Comments</h3>
-					{% get_comment_list for photo as comment_list %}
-					{% for comment in comment_list %}
-					<div class="well {% if forloop.counter|divisibleby:2 %}odd{% endif %}">
-					    <span class="author">{{ comment.user_name }}</span>
-					    {% if comment.user %}
-					    <span class="label label-info">Photographer</span>
-					    {% endif %}
-					    <p class="comment">
-					        {{ comment.comment }}
-					    </p>
-					</div>
-					{% endfor %}
-					
-				
-			</div>
-			<div class="span12">
 			
-			{% get_comment_form for photo as form %}
-			  <form class="well" action="{% comment_form_target %}" method="post">
-			    {% csrf_token %}
-			    {{ form.content_type }}
-			    {{ form.object_pk }}
-			    
-			    {{ form.timestamp }}
-			    {{ form.security_hash }}
-			    <label>Name:</label>
-			    {{ form.name }}
-			    <label>Email:</label>
-			    {{ form.email }}
-			    <label>URL:</label>
-			    {{ form.url }}
-			    <label>Comment</label>
-			    <textarea name="comment" class="span11"></textarea>
-			    <input type="hidden" value="{{ photo.get_absolute_url }}" name="next">
-			    <div class="form-actions">
-			        <input type="submit" name="submit" value="Post" class="btn btn-primary">
-			        <input type="submit" name="preview" class="btn"	value="Preview">			  </form>
-			    </div>
-			</form>
-			</div>
 {% endblock main_content %}
