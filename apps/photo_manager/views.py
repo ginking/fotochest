@@ -96,7 +96,8 @@ class LocationsListView(ListView):
     context_object_name = "locations"
     template_name = "photo_manager/map.html"
     queryset = Location.objects.all()
-    
+
+
 class PhotoLocationsListView(ListView):
     paginate_by = 12
     template_name = "photo_manager/location.html"

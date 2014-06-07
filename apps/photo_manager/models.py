@@ -48,25 +48,21 @@ class Album(models.Model):
         this_photo = ""
         try:
             photos = Photo.objects.filter(album=self)[:1].get()
-            print(photos)
             return photos
         except:
             # Try for first Child.
             try:
-                albums = Album.objects.filter(parent_album=self)[:1]
-                album = albums[0]
-                photos = Photo.objects.filter(album=album)[:1]
-                return photos[0]
+                album = Album.objects.filter(parent_album=self)[:1].get()
+                photos = Photo.objects.filter(album=album)[:1].get()
+                return photos
                     
             except:
                 # one final layer down
                 try:
-                    albums = Album.objects.filter(parent_album=self)[:1]
-                    album = albums[0]
-                    new_album = Album.objects.filter(parent_album=album)
-                    use_album = new_album[0]
-                    photos = Photo.objects.filter(album=use_album)[:1]
-                    return photos[0]
+                    album = Album.objects.filter(parent_album=self)[:1].get()
+                    use_album = Album.objects.filter(parent_album=album)[:1].get()
+                    photos = Photo.objects.filter(album=use_album)[:1].get()
+                    return photos
                 except:
                     pass
                     this_photo = ""

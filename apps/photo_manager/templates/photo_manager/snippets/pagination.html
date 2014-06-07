@@ -1,15 +1,15 @@
 <div class="pagination">
 <ul>
-    {% if photos.has_previous %}
-    <li><a href="?page={{ photos.previous_page_number }}">Prev</a></li>
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
     {% endif %}
-    {% if photos.number %}
+    {% if page_obj.number %}
     <li class="active">
-        <a href="?page={{ photos.number }}">{{ photos.number }}</a>
+        <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
     </li>
     {% endif %}
-    {% if photos.has_next %}
-    <li><a href="?page={{ photos.next_page_number }}">Next</a></li>
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
     {% endif %}
 </ul>
 </div>
