@@ -46,19 +46,12 @@
         <a href="{{ album.get_absolute_url }}" class="thumbnail polaroid">
             {% if album.album_cover %}
                     {% load thumbnail %}
-                    {% thumbnail album.album_cover "300x220" as im %}
+                    {% thumbnail album.album_cover.image "300x200" crop='center' as im %}
                     <img src="{{ im.url }}">
                     {% endthumbnail %}
                     
                 {% else %}
-                    {% if album.album_cover %}
-                        {% load thumbnail %}
-                {% thumbnail album.album_cover.image "300x220" as im %}
-            <img src="{{ im.url }}">
-                {% endthumbnail %}
-                    {% else %}
                     <img src="http://dummyimage.com/260x180">
-                    {% endif %}
             {% endif %}
         <span>{{ album.title }}</span>
         </a>

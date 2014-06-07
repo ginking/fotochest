@@ -47,8 +47,9 @@ class Album(models.Model):
 
         this_photo = ""
         try:
-            photos = Photo.objects.filter(album=self)[:1]
-            return photos[0]
+            photos = Photo.objects.filter(album=self)[:1].get()
+            print(photos)
+            return photos
         except:
             # Try for first Child.
             try:
