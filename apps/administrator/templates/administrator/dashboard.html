@@ -70,26 +70,29 @@ $(document).ready(function () {
             <img src="{{ im.url }}">
             {% endthumbnail %}
             <label for="title">Title</label>
-            <input type="text" class='span4' name="title">
+            <input type="text" class='span4' name="title" id="title" value="{{ photo.title }}">
             <label for="album">Album</label>
-            <select name="album" class="span4">
+            <select name="album" class="span4" id="album">
                 {% for album in form_albums %}
                 <option {% if photo.album == album %} selected="selected"{% endif %} value="{{ album.id }}">{{ album }}</option>
                 {% endfor %}
             </select>
             <label for="location">Location</label>
-            <select name="location" class="span4">
+            <select name="location" class="span4" id="location">
                 {% for location in form_locations %}
                 <option {% if photo.location == location %} selected="selected"{% endif %} value="{{ location.id }}">{{ location }}</option>
 
                 {% endfor %}
             </select>
 
+
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">Close</a>
             <a href="#" class="btn btn-success">Save changes</a>
-            <a href="#" class="btn btn-danger">Delete</a>
+            <a href="#" class="btn btn-danger">Delete <i class="icon-trash icon-white"></i></a>
+            <a href="{% url 'admin_rotate_right' photo_id=photo.id %}" class="btn">Rotate Right</a>
+            <a href="{% url 'admin_rotate_left' photo_id=photo.id %}" class="btn">Rotate Left</a>
         </div>
     </div>
 
@@ -105,34 +108,6 @@ $(document).ready(function () {
     {% endthumbnail %}
     </a>
     <div class="caption">
-
-        <div class="controls">
-            <a href="{% url 'admin_rotate_right' photo_id=photo.id %}" class="btn">Rotate Right</a>
-            <a href="{% url 'admin_rotate_left' photo_id=photo.id %}" class="btn">Rotate Left</a>
-            <form method="POST" action="{% url 'admin_edit_photo' photo_id=photo.id %}">
-            {% csrf_token %}
-
-            <input type="text" name="title" value="{{ photo.title }}" class="span2">
-            <textarea class="span2" name="description">{{ photo.description }}</textarea>
-            <label>Album</label>
-            <select name="album" class="span2">
-            {% for album in form_albums %}
-                <option {% if photo.album == album %} selected="selected"{% endif %} value="{{ album.id }}">{{ album }}</option>
-            {% endfor %}
-            </select>
-            <label>Location</label>
-            <select name="location" class="span2">
-                {% for location in form_locations %}
-                <option {% if photo.location == location %} selected="selected"{% endif %} value="{{ location.id }}">{{ location }}</option>
-                
-                {% endfor %}
-            </select>
-            <a href="#deletePhoto_{{ photo.id }}" data-toggle="modal" class="btn btn-danger">Delete <i class="icon-trash icon-white"></i></a>
-
-                <input type="submit" value="Save" class="btn btn-success">
-            </form>
-        </div>
-
       <h5>{{ photo.title }}</h5>
       {% if photo.description %}
       <p>{{ photo.description }}</p>
