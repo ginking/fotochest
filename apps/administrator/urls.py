@@ -30,12 +30,12 @@ urlpatterns = patterns('',
 
     url(r'^add/$', login_required(TemplateView.as_view(template_name="administrator/add_photos.html")), name="admin_add_photos"),
     url(r'^foto/(?P<photo_id>\d+)/edit/$', edit_photo, name="admin_edit_photo"),
-    url(r'^foto/(?P<photo_id>\d+)/(?P<album_slug>[-\w]+)/(?P<photo_slug>[-\w]+)/delete/$', delete_photo),
+    url(r'^foto/(?P<photo_id>\d+)/delete/$', delete_photo, name='admin_photo_delete'),
     url(r'^upload/(?P<album_slug>[-\w]+)/(?P<location_slug>[-\w]+)/(?P<user_id>\d+)/$', upload_photo, name="file_uploader"),
     url(r'^upload/delete/(?P<pk>\d+)$', upload_delete, name='upload_delete'),
 
     url(r'^edit/(?P<photo_id>\d+)/rotate/right/$', rotate, name="admin_rotate_right"),
-    url(r'^edit/(?P<photo_id>\d+)/rotate/left/$', rotate, {'right': True }, name="admin_rotate_left"),
+    url(r'^edit/(?P<photo_id>\d+)/rotate/left/$', rotate, {'right': True}, name="admin_rotate_left"),
 
     #ajaxy
     

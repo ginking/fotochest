@@ -64,7 +64,10 @@ $(document).ready(function () {
             <button type="button" class="close" data-dismiss="modal">×</button>
             <h3>Edit Photo</h3>
         </div>
+        <form method="POST" action="{% url 'admin_edit_photo' photo_id=photo.id %}">
+            {% csrf_token %}
         <div class="modal-body">
+
             {% load thumbnail %}
             {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
             <img src="{{ im.url }}">
@@ -84,16 +87,15 @@ $(document).ready(function () {
 
                 {% endfor %}
             </select>
-
-
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">Close</a>
-            <a href="#" class="btn btn-success">Save changes</a>
-            <a href="#" class="btn btn-danger">Delete <i class="icon-trash icon-white"></i></a>
+            <button type="submit" class="btn btn-success">Save</button>
+            <a href="{% url 'admin_photo_delete' photo_id=photo.id %}" class="btn btn-danger">Delete <i class="icon-trash icon-white"></i></a>
             <a href="{% url 'admin_rotate_right' photo_id=photo.id %}" class="btn">Rotate Right</a>
             <a href="{% url 'admin_rotate_left' photo_id=photo.id %}" class="btn">Rotate Left</a>
         </div>
+        </form>
     </div>
 
     <li class="span2 thumb">

@@ -91,7 +91,7 @@ def add_location(request):
 
 @login_required
 @never_cache
-def locations(request, username=None):
+def locations(request):
     context = {}
     context['locations'] = Location.objects.all()
     if request.method == "POST":
@@ -103,6 +103,7 @@ def locations(request, username=None):
         form = LocationForm()
     context['form'] = form
     return render(request, "administrator/locations.html", context)
+
 
 def choose(request):
     return redirect('file_uploader', location_slug=request.GET.get('location'), album_slug=request.GET.get("album"), user_id=request.GET.get('user_id'))
@@ -118,21 +119,21 @@ def edit_photo(request, photo_id):
         if form.is_valid():
             form.save()
             messages.success(request, "Photo %s saved" % photo.title)
-            return redirect('administrator.views.dashboard')
+            return redirect('admin_dashboard')
 
     else:
         messages.error(request, "ERROR")
-        return redirect('administrator.views.dashboard')
+        return redirect('admin_dashboard')
 
 @login_required
 @never_cache
-def delete_photo(request, photo_id, album_slug=None, username=None, photo_slug=None):
+def delete_photo(request, photo_id):
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
     photo.deleted = True
     photo.save()
     #@todo - This needs to point somewhere else after deletion..
     messages.success(request, "Photo %s deleted" % photo.title)
-    return render(request, 'administrator/dashboard.html' % app_settings.ACTIVE_THEME)
+    return redirect('admin_dashboard')
     
 
 @login_required
