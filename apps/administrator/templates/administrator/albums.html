@@ -76,19 +76,20 @@
     <thead>
         <tr>
             <th>Album Name</th>
-            <th>Parent Album</th>
+            <th>Album Cover</th>
+            <th>Child Album</th>
             <th>Photo Count</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
     {% for album in albums %}
-    {% load thumbnail %}
-    {% thumbnail album.album_cover.image "240x165" as im %}
-        <tr title="{{ album }}" data-content="<img src='{{ im.url }}'>" class="pop">
-    {% endthumbnail %}
+            <td>
+                {{ album.title }}
+            </td>
             <td>
                 <a href="#" class="thumbnail">
+
                     {% load thumbnail %}
                     {% thumbnail album.album_cover.image "240x161" crop="center" quality=75 as im %}
                     <img src='{{ im.url }}'>
@@ -99,6 +100,30 @@
             <td>{{ album.count }}</td>
             <td>
                 <!-- Add child album -->
+                <div class="modal hide fade" id="addChildAlbum_{{ album.id }}">
+                    <div class="modal-header">
+                        <a data-dismiss="modal" class="close">×</a>
+                        <h3>Add a Child Album</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Add a child album to {{ album }}</h4>
+
+                        <form method="POST" action="{% url 'admin_albums' %}">
+                          {% csrf_token %}
+                          <label>Title</label>
+                          <input type="text" name="title" class="span5">
+                          <label>Description</label>
+                          <textarea class="span5" name="description"></textarea>
+                          <input type="hidden" name="parent_album" value="{{ album.id }}">
+                        </div>
+                        <div class="modal-footer">
+                          <a data-dismiss="modal" class="btn" href="#">Close</a>
+                          <input type="submit" value="Add Album" class="btn btn-success">
+
+                        </div>
+                        </form>
+
+                </div>
                 <div class="modal hide fade" id="addPhotosToAlbum_{{ album.id }}">
                     <div class="modal-header">
                         <a data-dismiss="modal" class="close">×</a>
@@ -155,14 +180,3 @@
 {% block navigation %}
 {% include "administrator/nav.html" with nav=2 %}
 {% endblock %}
-{% block extra_foot %}
-<script>
-    $(document).ready(function(){
-        $('.pop').popover({
-            placement: 'left',
-            delay: {'show': 1000, hide: 200}
-        })
-
-    });
-</script>
-{% endblock extra_foot %}

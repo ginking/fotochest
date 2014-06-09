@@ -13,17 +13,16 @@ from django.contrib.auth.decorators import login_required
 from locations.models import *
 from locations.forms import *
 
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
 from photo_manager.forms import *
 from photo_manager.models import Photo, Album
 from photo_manager.forms import AlbumForm
 
-__authors__ = "Derek Stegelman"
-__date__ = "August 2012"
 
-
-class Dashboard(LoginRequiredMixin, ListView):
+class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
+    """ Main dashboard view for the admin page.
+    """
     paginate_by = 16
     template_name = "administrator/dashboard.html"
     context_object_name = 'photos'
@@ -31,7 +30,6 @@ class Dashboard(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Photo.objects.active()
 
-    # Should not cache this.
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
         context['albums'] = Album.objects.filter(parent_album=None)
