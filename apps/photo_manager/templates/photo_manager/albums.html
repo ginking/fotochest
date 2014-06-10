@@ -4,7 +4,7 @@
 {% endblock nav %}
 {% block main_content %}
 
-<div class="{% if album.has_child_albums %}span9{% else %}span12{% endif %}">
+<div class="span12">
 <ul class="breadcrumb">
   <li>
     <a href="{% url 'homepage' %}">Home</a> <span class="divider">/</span>
@@ -31,35 +31,35 @@
 <ul class="thumbnails">
 
 {% for photo in photos %}
-    
-    {% if album.has_child_albums %}
-    {% include "photo_manager/snippets/smaller_item.html" %}
-    {% else %}
     {% include "photo_manager/snippets/item.html" %}
-    {% endif %}
 {% endfor %}
 
-
-
 {% for album in albums %}
-    <li class="span3">
-        <a href="{{ album.get_absolute_url }}" class="thumbnail polaroid">
+    <li class="span3 album">
+        <a href="{{ album.get_absolute_url }}" class="thumbnail polaroid album-main">
             {% if album.album_cover %}
                     {% load thumbnail %}
-                    {% thumbnail album.album_cover.image "300x200" crop='center' as im %}
+                    {% thumbnail album.album_cover.image "250x150" crop='center' as im %}
                     <img src="{{ im.url }}">
-                    {% endthumbnail %}
-                    
+                    {% endthumbnail %}    
                 {% else %}
                     <img src="http://dummyimage.com/260x180">
             {% endif %}
         <span>{{ album.title }}</span>
         </a>
+        {% for image in album.preview_photos %}
+         {% load thumbnail %}
+         {% thumbnail image.image "250x150" crop="center" as im %}
+         <a href="{{ album.get_absolute_url }}" class="thumbnail polaroid album-secondary" id="album-secondary-{{ forloop.counter }}">
+         <img src="{{ im.url }}">
+        {% endthumbnail %}
+        	</a>
+        	{% endfor %}
         
     </li>
-
 {% endfor %}
 </ul>
+<div class='clear'></div>
 <div class="pagination">
 <ul>
     {% if photos.has_previous %}
@@ -99,29 +99,6 @@
 
 
 </div>
-{% if album.has_child_albums %}
-<div class="span3">
-	<div class="well">
-		<h3>Sub Albums for {{ album }}</h3>
-		<ul class="thumbnails">
-		{% for album in child_albums.object_list %}
-        		
-		{% load thumbnail %}
-		{% thumbnail album.album_cover.image "240x161" crop="center" as im %}
-		<li class="span2">
-			<a href="{{ album.get_absolute_url }}" class="thumbnail">
-		<img src="{{ im.url }}" alt="">
-		{{ album }}
-		</a>
-		</li>
-		{% endthumbnail %}
-		
-		{% endfor %}
-		
-		</ul>
-	</div>
-</div>
-{% endif %}
 
 
 {% endblock %}
@@ -148,11 +125,6 @@ $(function () {
             .addClass('icon-pause');
         modal.modal(options);
     });
-
-
-
-    
-
     
 });
 </script>

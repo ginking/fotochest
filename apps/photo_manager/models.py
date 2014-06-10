@@ -37,7 +37,7 @@ class Album(models.Model):
         in this album
         """
 
-        return Photo.objects.filter(album=self)[:5]
+        return Photo.objects.filter(album=self).order_by('?')[:2]
         
     def _get_album_cover(self):
         """ Fetch the photo to be used for the album cover
@@ -74,7 +74,7 @@ class Album(models.Model):
 
     @property
     def preview_photos(self):
-        """ Returns first 5 photos from the album
+        """ Returns 2 random photos from the album
         to be used in preview for album.
         """
 
