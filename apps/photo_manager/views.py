@@ -27,8 +27,8 @@ class AlbumDetailView(ListView):
     def get(self, *args, **kwargs):
         if self.get_album().has_child_albums:
             self.queryset = self.get_child_albums()
-            self.paginate_by = 6
-            self.context_object_name = 'child_albums'
+            self.paginate_by = 8
+            self.context_object_name = 'albums'
         else:
             self.queryset = Photo.objects.active().filter(album__slug=self.get_album().slug)
             self.paginate_by = 12
