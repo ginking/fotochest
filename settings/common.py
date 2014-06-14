@@ -27,7 +27,6 @@ USE_I18N = True
 
 USE_L10N = True
 
-
 ENABLE_CELERY = True
 ACTIVE_THEME = "default"
 
