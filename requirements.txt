@@ -24,3 +24,4 @@ django-chosen==0.1
 mysql-python
 pip-tools
 django-picklefield
+gunicorn==18.0
