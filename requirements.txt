@@ -1,6 +1,6 @@
 django==1.5.7
 south==0.8.4
-git+ssh://git@github.com/dstegelman/django-locations.git@feature/upgrades#egg=locations
+https://github.com/dstegelman/django-locations/tarball/feature/upgrades
 Pillow==2.4.0
 sorl-thumbnail==11.12
 django-celery==3.1.10
@@ -9,7 +9,6 @@ python-memcached==1.53
 sphinx==1.2.2
 factory_boy==2.3.1
 coverage==3.7.1
-selenium==2.42.1
 django-crispy-forms==1.4.0
 django-debug-toolbar==0.9.4
 django-haystack==2.1.0
