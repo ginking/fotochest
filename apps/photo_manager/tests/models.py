@@ -4,8 +4,8 @@ from photo_manager.models import *
 from photo_manager.tests.factories import AlbumFactory, PhotoFactory
 from django.contrib.auth.models import User
 
-class AlbumModelTest(TestCase):
 
+class AlbumModelTest(TestCase):
     
     def setUp(self):
         self.client = Client()
@@ -21,14 +21,11 @@ class AlbumModelTest(TestCase):
         self.assertEqual(self.album.slug, "roma")
         
     def test_child_albums(self):
-        self.assertTrue(self.album.has_child_albums)
+        self.assertEqual(self.album.child_albums[0].title, 'Saint Peters')
     
     def test_unicode(self):
         self.assertEqual(self.album.__unicode__(), "Roma")
-            
-    def test_get_album_cover(self):
-        cover = self.album.album_cover
-        self.assertEqual(cover.title, u'Vatican')
+
         
 class PhotoModelTest(TestCase):
     
