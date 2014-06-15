@@ -41,7 +41,7 @@ class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
 @login_required
 @never_cache
 def album_list(request):
-    albums = Album.objects.all()
+    albums = Album.objects.parent_albums()
     if request.method == "POST":
         form = AlbumForm(request.POST)
         if form.is_valid:
