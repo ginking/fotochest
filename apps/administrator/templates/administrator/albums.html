@@ -7,6 +7,7 @@
 {% endblock sidebar %}
 
 {% block main_content %}
+
 <div class="modal hide fade" id="addAlbum">
     <div class="modal-header">
       <a data-dismiss="modal" class="close">×</a>
@@ -71,35 +72,28 @@
 <div class="page-header">
 <h2>Albums</h2>
 </div>
-<table class="table table-striped">
+<ul class="thumbnails">
 
-    <thead>
-        <tr>
-            <th>Album Name</th>
-            <th>Album Cover</th>
-            <th>Child Album</th>
-            <th>Photo Count</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for album in albums %}
-            <td>
-                {{ album.title }}
-            </td>
-            <td>
-                <a href="#" class="thumbnail">
+{% for photo in photos %}
+    {% include "photo_manager/snippets/item.html" %}
+{% endfor %}
 
+{% for album in albums %}
+    <li class="span3 album">
+        <a href="{% url 'admin_album_detail' album_id=album.id %}" class="thumbnail">
+            {% if album.album_cover %}
                     {% load thumbnail %}
-                    {% thumbnail album.album_cover.image "240x161" crop="center" quality=75 as im %}
-                    <img src='{{ im.url }}'>
+                    {% thumbnail album.album_cover.image "250x150" crop='center' as im %}
+                    <img src="{{ im.url }}">
                     {% endthumbnail %}
-                </a>
-                </td>
-            <td>{% if album.parent_album %}<span class="label label-success">Yes</span>{% else %}<span class="label label-important">No</span>{% endif %} </td>
-            <td>{{ album.count }}</td>
-            <td>
-                <!-- Add child album -->
+                {% else %}
+                    <img src="http://dummyimage.com/260x180">
+            {% endif %}
+        <span>{{ album.title }}</span>
+        </a>
+
+
+        <!-- Add child album -->
                 <div class="modal hide fade" id="addChildAlbum_{{ album.id }}">
                     <div class="modal-header">
                         <a data-dismiss="modal" class="close">×</a>
@@ -166,15 +160,10 @@
                         <li><a href="#addChildAlbum_{{ album.id }}" data-toggle="modal">Add Child Album</a></li>
                     </ul>
                 </div>
-            </td>
-        </tr>
 
-    {% endfor %}
-
-    </tbody>
-
-</table>
-
+    </li>
+{% endfor %}
+</ul>
 {% endblock main_content %}
 
 {% block navigation %}

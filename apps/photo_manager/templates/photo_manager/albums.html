@@ -35,7 +35,7 @@
 {% endfor %}
 
 {% for album in albums %}
-    <li class="span3 album">
+    <li class="span4 album">
         <a href="{{ album.get_absolute_url }}" class="thumbnail polaroid album-main">
             {% if album.album_cover %}
                     {% load thumbnail %}

@@ -28,7 +28,7 @@
 {% endif %}
 
 {% if album_view %}
-	{% if album.has_child_albums %}
+	{% if album.child_albums %}
 		<h2>Sub Albums of {{ album.title }}</h2>
 	{% endif %}
 	<ul class="thumbnails">
