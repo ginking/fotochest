@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     # Auth Views
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'administrator/login.html'}, name='login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
     # Send all remaming URLS to the App.
     url(r'^', include('photo_manager.urls')),
 )

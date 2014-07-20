@@ -26,3 +26,4 @@ pip-tools
 django-picklefield
 gunicorn==18.0
 djangorestframework
+markdown
