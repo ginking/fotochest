@@ -21,9 +21,20 @@ class AlbumModelTestCase(TestCase):
     def test_has_child_albums(self):
         user = User.objects.create()
         album = Album.objects.create(user=user, title='Test')
-        child_album = Album.objects.create(user=user, title='child', parent_album=album)
+        Album.objects.create(user=user, title='child', parent_album=album)
 
         self.assertTrue(album.has_child_albums)
+
+    def test_photo_count(self):
+        user = User.objects.create()
+        album = Album.objects.create(user=user, title='Test')
+        Photo.objects.create(album=album, title='He')
+
+        self.assertEqual(album.count, 1)
+
+
+    def test_album_cover(self):
+        self.fail("Fix Me")
 
 
 
