@@ -23,5 +23,3 @@ class TesPhotoViews(BaseLiveTest):
         self.assertTrue(self.browser.is_text_present('Hello World'))
 
 
-
-s
