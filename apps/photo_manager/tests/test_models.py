@@ -32,7 +32,6 @@ class AlbumModelTestCase(TestCase):
 
         self.assertEqual(album.count, 1)
 
-
     def test_album_cover(self):
         self.fail("Fix Me")
 
