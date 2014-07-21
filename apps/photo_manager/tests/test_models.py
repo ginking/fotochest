@@ -1,50 +1,36 @@
-from django.test import TestCase
 
-from django.contrib.auth.models import User
+import unittest
+
 from photo_manager.models import Photo, Album
 
-class AlbumModelTestCase(TestCase):
+from .base import BasePhotoTestClass
+
+
+class AlbumModelTestCase(BasePhotoTestClass):
     def test_preview_photos(self):
-        user = User.objects.create()
-        album = Album.objects.create(user=user, title='Test')
-        p = Photo.objects.create(album=album, title='Hello World')
-        p2 = Photo.objects.create(album=album, title='Hellow World Again')
-        self.assertIn(p, album.preview_photos)
-        self.assertIn(p2, album.preview_photos)
+        p2 = Photo.objects.create(album=self.album, title='Hellow World Again')
+        self.assertIn(self.photo, self.album.preview_photos)
+        self.assertIn(p2, self.album.preview_photos)
 
     def test_has_no_child_albums(self):
-        user = User.objects.create()
-        album = Album.objects.create(user=user, title='Test')
-
-        self.assertFalse(album.has_child_albums)
+        self.assertFalse(self.album.has_child_albums)
 
     def test_has_child_albums(self):
-        user = User.objects.create()
-        album = Album.objects.create(user=user, title='Test')
-        Album.objects.create(user=user, title='child', parent_album=album)
+        Album.objects.create(user=self.user, title='child', parent_album=self.album)
 
-        self.assertTrue(album.has_child_albums)
+        self.assertTrue(self.album.has_child_albums)
 
     def test_photo_count(self):
-        user = User.objects.create()
-        album = Album.objects.create(user=user, title='Test')
-        Photo.objects.create(album=album, title='He')
+        self.assertEqual(self.album.count, 1)
 
-        self.assertEqual(album.count, 1)
-
+    @unittest.skip("Skippiing until this test exists")
     def test_album_cover(self):
         self.fail("Fix Me")
 
 
-
-
-class PhotoModelTestCase(TestCase):
+class PhotoModelTestCase(BasePhotoTestClass):
 
     def test_photo_absolute_url(self):
-        user = User.objects.create()
-        album = Album.objects.create(user=user)
-        p = Photo.objects.create(album=album, title='Hello World')
-
-        self.assertEqual(p.get_absolute_url(), '/photos/%s/%s/' % (album.slug, p.slug))
+        self.assertEqual(self.photo.get_absolute_url(), '/photos/%s/%s/' % (self.album.slug, self.photo.slug))
 
 
