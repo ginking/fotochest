@@ -1,10 +1,9 @@
-import unittest
-
 from photo_manager.models import Photo, Album
 from django.contrib.auth.models import User
 
 
 from .base import BasePhotoTestClass
+
 
 class PhotoViewTestCase(BasePhotoTestClass):
 
@@ -13,8 +12,6 @@ class PhotoViewTestCase(BasePhotoTestClass):
 
         self.assertIn('Hello World', response.content)
 
-
-    @unittest.skip("Skipping For now")
     def test_single_photo_view(self):
         user = User.objects.create()
         album = Album.objects.create(user=user)
@@ -23,7 +20,6 @@ class PhotoViewTestCase(BasePhotoTestClass):
 
         self.assertIn('Hello World', response.content)
 
-    @unittest.skip('skipping')
     def test_short_single_photo_view(self):
         user = User.objects.create()
         album = Album.objects.create(user=user)
@@ -34,7 +30,6 @@ class PhotoViewTestCase(BasePhotoTestClass):
 
     def test_fullscreen_view(self):
         response = self.client.get(self.photo.get_absolute_url() + 'fullscreen/')
-
         self.assertTrue(response.status_code, 200)
 
 

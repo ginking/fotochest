@@ -1,6 +1,3 @@
-
-import unittest
-
 from photo_manager.models import Photo, Album
 
 from .base import BasePhotoTestClass
@@ -23,7 +20,6 @@ class AlbumModelTestCase(BasePhotoTestClass):
     def test_photo_count(self):
         self.assertEqual(self.album.count, 1)
 
-    @unittest.skip("Skippiing until this test exists")
     def test_album_cover(self):
         self.fail("Fix Me")
 
