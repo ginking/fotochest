@@ -8,5 +8,5 @@ class BasePhotoTestClass(TestCase):
 
     def setUp(self):
         self.user = User.objects.create()
-        self.album = Album.objects.create(user=self.user, title='Album Name')
+        self.album = Album.objects.create(user=self.user, title='New Album')
         self.photo = Photo.objects.create(album=self.album, title='Hello World')
