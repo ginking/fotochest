@@ -7,7 +7,7 @@ django-celery==3.1.10
 django-kombu==0.9.4
 python-memcached==1.53
 sphinx==1.2.2
-factory_boy==2.3.1
+factory_boy==2.4.1
 coverage==3.7.1
 django-crispy-forms==1.4.0
 django-debug-toolbar==0.9.4
@@ -23,4 +23,3 @@ django-chosen==0.1
 pip-tools
 django-picklefield
 gunicorn==18.0
-splinter[django]
