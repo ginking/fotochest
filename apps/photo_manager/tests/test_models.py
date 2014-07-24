@@ -1,11 +1,11 @@
-from photo_manager.models import Photo, Album
+from photo_manager.models import Album
 
 from .base import BasePhotoTestClass
 
 
 class AlbumModelTestCase(BasePhotoTestClass):
     def test_preview_photos(self):
-        self.assertIn(self.photo_2 or self.photo_3, self.album.preview_photos)
+        self.assertTrue([photo for photo in [self.photo, self.photo_2, self.photo_3] if photo in self.album.preview_photos])
 
     def test_has_no_child_albums(self):
         self.assertFalse(self.album.has_child_albums)
@@ -17,6 +17,9 @@ class AlbumModelTestCase(BasePhotoTestClass):
 
     def test_photo_count(self):
         self.assertEqual(self.album.count, 3)
+
+    def test_album_cover(self):
+        self.assertEqual(self.album.album_cover, self.photo_3)
 
 
 class PhotoModelTestCase(BasePhotoTestClass):
