@@ -6,7 +6,7 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'fotochest',                      # Or path to database file if using sqlite3.
+        'NAME': 'fotochest.db',                      # Or path to database file if using sqlite3.
         'USER': 'dstegelman',                      # Not used with sqlite3.
         'PASSWORD': '1234',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.

@@ -20,9 +20,6 @@ class AlbumModelTestCase(BasePhotoTestClass):
     def test_photo_count(self):
         self.assertEqual(self.album.count, 1)
 
-    def test_album_cover(self):
-        self.fail("Fix Me")
-
 
 class PhotoModelTestCase(BasePhotoTestClass):
 
