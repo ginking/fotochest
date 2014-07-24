@@ -21,12 +21,9 @@ class AlbumDetailView(ListView):
     def get_album(self):
         return Album.objects.get(slug=self.kwargs.get('album_slug'))
 
-    def get_child_albums(self):
-        return Album.objects.filter(parent_album=self.get_album())
-
     def get(self, *args, **kwargs):
-        if self.get_album().has_child_albums:
-            self.queryset = self.get_child_albums()
+        if self.get_album().child_albums:
+            self.queryset = self.get_album().child_albums
             self.paginate_by = 8
             self.context_object_name = 'albums'
         else:
@@ -46,7 +43,7 @@ class AlbumDetailView(ListView):
 class AlbumListView(ListView):
     context_object_name = "albums"
     template_name = "photo_manager/albums.html"
-    queryset = Album.objects.filter(parent_album=None)
+    queryset = Album.objects.parent_albums()
     paginate_by = 12
 
 

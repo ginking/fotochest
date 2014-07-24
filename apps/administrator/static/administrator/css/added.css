@@ -74,3 +74,32 @@ li.thumb:hover a.btn.edit-photo
 {
     display: block;
 }
+
+/* Album page */
+
+.thumbnails li.album {
+	position: relative;
+	height:  250px;
+}
+
+.album-main {
+	z-index: 2;
+	position: absolute;
+	top: 0;
+	background-color: rgba(255, 255, 255, 0.96);
+}
+
+.album-secondary {
+	position: absolute;
+	top: 0;
+	z-index: 1;
+}
+
+#album-secondary-1 {
+	transform: rotate(16deg);
+
+}
+
+#album-secondary-2 {
+	transform: rotate(-16deg);
+}

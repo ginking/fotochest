@@ -10,7 +10,7 @@ from sorl.thumbnail import get_thumbnail, delete
 from PIL import Image
 from PIL.ExifTags import TAGS
 
-from .managers import PhotoManager
+from .managers import PhotoManager, AlbumManager
 from .tasks import clear_thumbnails, build_thumbnails
 
 
@@ -22,6 +22,8 @@ class Album(models.Model):
     parent_album = models.ForeignKey('self', blank=True, null=True)
     album_cover = models.ImageField(upload_to="cover_art/", max_length=400, blank=True, null=True)
     user = models.ForeignKey(User)
+
+    objects = AlbumManager()
     
     def __unicode__(self):
         return self.title
@@ -79,10 +81,8 @@ class Album(models.Model):
         return self._get_preview_photos()
 
     @property
-    def has_child_albums(self):
-        """ Returns true if this album has child albums.
-        """
-        return Album.objects.filter(parent_album=self).count()
+    def child_albums(self):
+        return Album.objects.filter(parent_album=self)
 
     @property
     def count(self):

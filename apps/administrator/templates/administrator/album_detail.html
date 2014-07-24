@@ -8,24 +8,46 @@
 
 {% block main_content %}
 <div class="page-header">
-    <h2>Edit Album</h2>
+    <h2>Edit Album - {{ album.title }}</h2>
 </div>
   
-    <ul class="thumbnails">
-            <li class="span4">
-              {% if album.album_cover.image %}
-              <a class="thumbnail" href="#">
-              {% load thumbnail %}
-              {% thumbnail album.album_cover.image "360x268" crop="center" as im %}
-                  <img src="{{ im.url }}">
-              {% endthumbnail %}
-              {% endif %}
-              </a>
-            </li>
-           
-          </ul>
-{% load crispy_forms_tags %}
-{% crispy album_form %}
-        
-    
+<ul class="thumbnails row">
+    <li class="span4">
+
+      {% if album.album_cover.image %}
+      <a class="thumbnail" href="#">
+      {% load thumbnail %}
+      {% thumbnail album.album_cover.image "360x268" crop="center" as im %}
+          <img src="{{ im.url }}">
+      {% endthumbnail %}
+      {% endif %}
+      </a>
+      <div class="clearfix"></div>
+      {% if album.child_albums %}
+        <h3>Child Albums</h3>
+        <ul class="thumbnails row">
+            {% for album in album.child_albums %}
+            <li class="span1">
+            <a class="thumbnail" href="{% url 'admin_album_detail' album_id=album.id %}">
+          {% load thumbnail %}
+          {% thumbnail album.album_cover.image "100x100" crop="center" as im %}
+              <img src="{{ im.url }}">
+          {% endthumbnail %}
+
+          </a>
+          </li>
+            {% endfor %}
+        </ul>
+
+      {% endif %}
+    </li>
+    <li class="span4">
+        {% load crispy_forms_tags %}
+        {% crispy album_form %}
+        <a href="#" class="btn">View Photos</a>
+        <a href="#" class="btn">Add Photos</a>
+        <a href="#" class="btn">Add Child Album</a>
+    </li>
+
+  </ul>
 {% endblock main_content %}
