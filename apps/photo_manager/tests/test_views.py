@@ -1,7 +1,3 @@
-from photo_manager.models import Photo, Album
-from django.contrib.auth.models import User
-
-
 from .base import BasePhotoTestClass
 
 
@@ -13,18 +9,12 @@ class PhotoViewTestCase(BasePhotoTestClass):
         self.assertIn('Hello World', response.content)
 
     def test_single_photo_view(self):
-        user = User.objects.create()
-        album = Album.objects.create(user=user)
-        p = Photo.objects.create(album=album, title='Hello World')
-        response = self.client.get(p.get_absolute_url())
+        response = self.client.get(self.photo.get_absolute_url())
 
         self.assertIn('Hello World', response.content)
 
     def test_short_single_photo_view(self):
-        user = User.objects.create()
-        album = Album.objects.create(user=user)
-        p = Photo.objects.create(album=album, title='Hello World')
-        response = self.client.get('/f/%s/' % p.id)
+        response = self.client.get('/f/%s/' % self.photo.id)
 
         self.assertIn('Hello World', response.content)
 
