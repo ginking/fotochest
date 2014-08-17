@@ -1,6 +1,6 @@
 django==1.5.7
 south==0.8.4
-https://github.com/dstegelman/django-locations/tarball/feature/upgrades
+https://github.com/dstegelman/django-locations/tarball/master
 Pillow==2.4.0
 sorl-thumbnail==11.12
 django-celery==3.1.10
