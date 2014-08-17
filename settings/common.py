@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'administrator',
     'constance',
     'constance.backends.database',
+
     )
 
 
