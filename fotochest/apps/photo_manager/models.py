@@ -1,10 +1,8 @@
 import os
 
-from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
-from utils.slugs import unique_slugify
 from locations.models import *
 
 from sorl.thumbnail import get_thumbnail, delete
