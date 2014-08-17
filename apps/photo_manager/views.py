@@ -59,12 +59,13 @@ class HomepageListView(ListView):
 class PhotoDetailView(DetailView):
     queryset = Photo.objects.filter(deleted=False)
     slug_url_kwarg = 'photo_slug'
+    pk_url_kwarg = 'photo_id'
     context_object_name = "photo"
     template_name = "photo_manager/photo.html"
 
     def get_context_data(self, **kwargs):
         context = super(PhotoDetailView, self).get_context_data(**kwargs)
-        photo = Photo.objects.get(slug=self.kwargs['photo_slug'])
+        photo = self.get_object()
         context['photo_id'] = photo.id
         context['other_photos'] = Photo.objects.active().filter(album=photo.album, id__lt=photo.id)[:9]
         context['photos_from_this_location'] = Photo.objects.active().filter(location=photo.location)[:6]
