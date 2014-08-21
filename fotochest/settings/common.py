@@ -1,5 +1,5 @@
 # Django settings for your project.
-import conf.environment
+import fotochest.conf.environment
 import os
 
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
