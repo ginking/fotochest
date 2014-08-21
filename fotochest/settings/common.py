@@ -1,5 +1,5 @@
 # Django settings for your project.
-import fotochest.conf.environment
+
 import os
 
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -136,8 +136,8 @@ INSTALLED_APPS = (
     'haystack',
     'django_extensions',
     'bootstrap',
-    'photo_manager',
-    'administrator',
+    'fotochest.apps.photo_manager',
+    'fotochest.apps.administrator',
     'constance',
     'constance.backends.database',
 
