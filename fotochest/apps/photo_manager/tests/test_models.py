@@ -1,4 +1,4 @@
-from photo_manager.models import Album
+from fotochest.apps.photo_manager.models import Album
 
 from .base import BasePhotoTestClass
 

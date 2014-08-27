@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 
-from photo_manager.tests.factories import PhotoFactory
+from fotochest.apps.photo_manager.tests.factories import PhotoFactory
 
 
 class BasePhotoTestClass(TestCase):
