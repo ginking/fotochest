@@ -10,10 +10,10 @@ from django.core.urlresolvers import reverse
 
 from locations.models import Location
 
-from administrator.tasks import thumbnail_task
-from administrator.utils import get_randomized_file_name
+from fotochest.apps.administrator.tasks import thumbnail_task
+from fotochest.apps.administrator.utils import get_randomized_file_name
 
-from photo_manager.models import Album, Photo
+from fotochest.apps.photo_manager.models import Album, Photo
 
 def create_photo(album_slug, filename, location_slug, user_id):
     try:
