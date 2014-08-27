@@ -2,7 +2,7 @@
 
 import os
 
-SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),

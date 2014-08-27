@@ -4,7 +4,7 @@
 
 
 alias activate='source /home/vagrant/.virtualenvs/fotochest/bin/activate && cd ~/fotochest'
-alias run='python manage.py runserver_plus 0.0.0.0:8081 --settings=settings.local'
+alias run='python manage.py runserver_plus 0.0.0.0:8000 --settings=fotochest.settings.local'
 
 
 # If not running interactively, don't do anything
