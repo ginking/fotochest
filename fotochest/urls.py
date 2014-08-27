@@ -8,7 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     # Admin URLS.
-    url(r'^admin/', include("administrator.urls")),
+    url(r'^admin/', include("fotochest.apps.administrator.urls")),
     url(r'^django_admin/', include(admin.site.urls)),
     #url(r'^search/', include('haystack.urls')),
 
@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'administrator/login.html'}, name='login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     # Send all remaming URLS to the App.
-    url(r'^', include('photo_manager.urls')),
+    url(r'^', include('fotochest.apps.photo_manager.urls')),
 )
 
 if settings.DEBUG:

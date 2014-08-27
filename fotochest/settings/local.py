@@ -41,7 +41,5 @@ TEMPLATE_DIRS = (
 
 DOMAIN_STATIC = '/static/'
 
-
-ROOT_URLCONF = 'urls'
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 APP_NAME = 'photos.stegelman.com'
