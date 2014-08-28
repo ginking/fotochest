@@ -1,8 +1,8 @@
 # Django settings for your project.
-import conf.environment
+
 import os
 
-SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -57,9 +57,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-    "photo_manager.context_processors.locations_albums",
-    "photo_manager.context_processors.version",
-    "administrator.context_processors.settings",
+    "fotochest.apps.photo_manager.context_processors.locations_albums",
+    "fotochest.apps.photo_manager.context_processors.version",
+    "fotochest.apps.administrator.context_processors.settings",
 ) 
 
 MIDDLEWARE_CLASSES = (
@@ -71,7 +71,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'fotochest.urls'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -136,8 +136,8 @@ INSTALLED_APPS = (
     'haystack',
     'django_extensions',
     'bootstrap',
-    'photo_manager',
-    'administrator',
+    'fotochest.apps.photo_manager',
+    'fotochest.apps.administrator',
     'constance',
     'constance.backends.database',
 

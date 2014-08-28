@@ -1,0 +1,18 @@
+include AUTHORS.txt
+include HISTORY.rst
+include README.md
+
+recursive-include fotochest/templates *
+recursive-include fotochest/static *
+
+recursive-include fotochest/apps/administrator/static *
+recursive-include fotochest/apps/administrator/templates *
+
+recursive-include fotochest/apps/photo_manager/static *
+recursive-include fotochest/apps/photo_manager/templates *
+
+recursive-include tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+recursive-include docs *.rst conf.py Makefile

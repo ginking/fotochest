@@ -1,7 +1,7 @@
 import factory
 
 from django.contrib.auth.models import User
-from photo_manager.models import Album, Photo
+from fotochest.apps.photo_manager.models import Album, Photo
 
 from locations.models import Location
 

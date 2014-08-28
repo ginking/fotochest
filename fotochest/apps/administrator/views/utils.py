@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 
-from photo_manager.models import Photo
+from fotochest.apps.photo_manager.models import Photo
 
 __author__ = 'Derek Stegelman'
 __date__ = '9/22/12'

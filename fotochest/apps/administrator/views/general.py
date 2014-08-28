@@ -15,9 +15,9 @@ from locations.forms import *
 
 from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
 
-from photo_manager.forms import *
-from photo_manager.models import Photo, Album
-from photo_manager.forms import AlbumForm
+from fotochest.apps.photo_manager.forms import *
+from fotochest.apps.photo_manager.models import Photo, Album
+from fotochest.apps.photo_manager.forms import AlbumForm
 
 
 class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, ListView):

@@ -1,4 +1,4 @@
-from photo_manager.models import Album
+from fotochest.apps.photo_manager.models import Album
 
 from .base import BasePhotoTestClass
 
@@ -8,12 +8,12 @@ class AlbumModelTestCase(BasePhotoTestClass):
         self.assertTrue([photo for photo in [self.photo, self.photo_2, self.photo_3] if photo in self.album.preview_photos])
 
     def test_has_no_child_albums(self):
-        self.assertFalse(self.album.has_child_albums)
+        self.assertFalse(self.album.child_albums)
 
     def test_has_child_albums(self):
         Album.objects.create(user=self.user, title='child', parent_album=self.album)
 
-        self.assertTrue(self.album.has_child_albums)
+        self.assertTrue(self.album.child_albums)
 
     def test_photo_count(self):
         self.assertEqual(self.album.count, 3)

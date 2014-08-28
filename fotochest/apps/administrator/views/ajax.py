@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.views.decorators.cache import never_cache
 
-from administrator.utils import convert_bytes, get_size
+from fotochest.apps.administrator.utils import convert_bytes, get_size
 
 @never_cache
 def get_cache_size(request):

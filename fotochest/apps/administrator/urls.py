@@ -4,9 +4,9 @@ from django.contrib.auth.decorators import login_required
 
 from .views.general import Dashboard, album_list, locations, album_detail, add_location, choose, edit_photo,\
     delete_photo, rotate, UserList
-from administrator.views.utils import build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
-from administrator.views.upload import upload_photo, upload_delete
-from administrator.views.ajax import get_disk_size, get_cache_size
+from fotochest.apps.administrator.views.utils import build_thumbnails, delete_thumbnails, clear_thumbnails, rebuild_search
+from fotochest.apps.administrator.views.upload import upload_photo, upload_delete
+from fotochest.apps.administrator.views.ajax import get_disk_size, get_cache_size
 # This maps static files dirs to URLS.
 from django.views.generic import TemplateView
 urlpatterns = patterns('',
