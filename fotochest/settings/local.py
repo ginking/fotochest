@@ -43,3 +43,7 @@ DOMAIN_STATIC = '/static/'
 
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 APP_NAME = 'photos.stegelman.com'
+
+INSTALLED_APPS = INSTALLED_APPS + (
+    'django_extensions',
+)

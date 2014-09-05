@@ -134,7 +134,6 @@ INSTALLED_APPS = (
     'djcelery',
     'djkombu',
     'haystack',
-    'django_extensions',
     'bootstrap',
     'fotochest.apps.photo_manager',
     'fotochest.apps.administrator',
