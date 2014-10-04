@@ -1,0 +1,10 @@
+---
+
+- name: Install Memcache and Dependencies
+  apt: pkg={{ item }} state=installed
+  with_items:
+      - memcached
+      - python-memcache
+      - libmemcached-dev
+  notify:
+      - Restart Memcached

@@ -1,0 +1,11 @@
+---
+# file: developer.yml
+
+- hosts: developer
+  remote_user: vagrant
+  sudo: yes
+  roles:
+    - roles/python
+    - roles/vcs
+    - roles/database
+    - roles/web
