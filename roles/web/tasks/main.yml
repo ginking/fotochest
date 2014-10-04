@@ -1,0 +1,6 @@
+---
+
+
+- include: memcached.yml
+- include: rabbitmq.yml
+- include: supervisor.yml
