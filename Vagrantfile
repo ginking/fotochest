@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/home/vagrant/fotochest"
 
-  config.vm.network "forwarded_port", guest: 8000, host: 9000
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.ssh.forward_agent = true
 
   config.vm.host_name = 'fotochest-dev'
