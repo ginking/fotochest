@@ -10,5 +10,4 @@ install:
 # command to run tests
 
 script:
-  - python manage.py test --settings=fotochest.settings.local
-
+  - py.test apps

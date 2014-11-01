@@ -28,3 +28,5 @@ django-devserver
 pip-tools
 Werkzeug==0.9.6
 django-debug-toolbar==0.9.4
+pytest
+pytest-django
