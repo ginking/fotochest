@@ -5,6 +5,7 @@
   remote_user: vagrant
   sudo: yes
   roles:
+    - roles/bootstrap
     - roles/python
     - roles/vcs
     - roles/database

@@ -57,18 +57,18 @@ def upload_photo(request, location_slug, album_slug, user_id):
         destination.close()
 
         thumbnail_task.delay(photo_new)
-            
+
         # JQuery upload requires that you respond with JSON
         # Somethign like this..
         result = []
         result.append({"name": filename,
                        "size": file_size,
-                       "url": "%s%s" % (app_settings.MEDIA_URL, photo_new.image), 
+                       "url": "%s%s" % (app_settings.MEDIA_URL, photo_new.image),
 
                        "delete_url": reverse('upload_delete', args=[photo_new.pk]),
                        "delete_type": "POST"})
         response_data = simplejson.dumps(result)
-        
+
         #checking for json data type
         #big thanks to Guy Shapiro
         if "application/json" in request.META['HTTP_ACCEPT_ENCODING']:
@@ -76,12 +76,12 @@ def upload_photo(request, location_slug, album_slug, user_id):
         else:
             mimetype = 'text/plain'
         return HttpResponse(response_data, mimetype=mimetype)
-        
+
     else:
-        
+
         context['album_slug'] = album_slug
         context['location_slug'] = location_slug
-    
+
         return render(request, 'administrator/add_photos.html', context)
 
 

@@ -21,6 +21,13 @@ vagrant up
 
 This will take a while so go grab some coffee.
 
+```
+vagrant ssh
+source .virtualenvs/fotochest/bin/activate
+./manage.py runserver 0.0.0.0:8000
+
+```
+
 
 For more detailed documentation:
 

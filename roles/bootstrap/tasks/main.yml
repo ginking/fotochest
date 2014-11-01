@@ -1,0 +1,12 @@
+- name: update apt cache
+  apt: update_cache=yes
+
+- name: install core packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - vim
+    - curl
+    - make
+
+- name: Setup Media Directory
+  file: path=/home/vagrant/media/images state=directory owner=vagrant group=vagrant

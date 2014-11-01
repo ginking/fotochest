@@ -2,7 +2,7 @@
 
 import os
 
-SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -60,7 +60,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "fotochest.apps.photo_manager.context_processors.locations_albums",
     "fotochest.apps.photo_manager.context_processors.version",
     "fotochest.apps.administrator.context_processors.settings",
-) 
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -141,5 +141,3 @@ INSTALLED_APPS = (
     'constance.backends.database',
 
     )
-
-

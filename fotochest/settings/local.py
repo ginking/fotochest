@@ -5,10 +5,10 @@ DEBUG = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'fotochest.db',                      # Or path to database file if using sqlite3.
-        'USER': 'dstegelman',                      # Not used with sqlite3.
-        'PASSWORD': '1234',                  # Not used with sqlite3.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'fotochest_dev',                      # Or path to database file if using sqlite3.
+        'USER': 'fotochest',                      # Not used with sqlite3.
+        'PASSWORD': '12345',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -16,7 +16,8 @@ DATABASES = {
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(SITE_ROOT, 'upload')
+MEDIA_ROOT = os.path.join('/home/vagrant/media/')
+
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -41,9 +42,12 @@ TEMPLATE_DIRS = (
 
 DOMAIN_STATIC = '/static/'
 
+BROKER_TRANSPORT = "librabbitmq"
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 APP_NAME = 'photos.stegelman.com'
 
 INSTALLED_APPS = INSTALLED_APPS + (
-    'django_extensions',
+    'devserver',
 )
+
+DEVSERVER_DEFAULT_ADDR = '0.0.0.0'

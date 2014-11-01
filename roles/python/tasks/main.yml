@@ -1,19 +1,5 @@
 ---
 
-
-- name: update apt cache
-  apt: update_cache=yes
-
-- name: Upgrade Packages
-  apt: upgrade=full
-
-- name: install core packages
-  apt: pkg={{ item }} state=installed
-  with_items:
-    - vim
-    - curl
-    - make
-
 - name: install basic python packages
   apt: pkg={{ item }} state=installed
   with_items:
@@ -38,4 +24,4 @@
   file: path=/home/vagrant/.virtualenvs state=directory owner=vagrant group=vagrant
 
 - name: Ownership of Virtualenvs
-  file: path=/home/vagrant/.virtualenvs/fotochest owner=vagrant group=vagrant
+  file: path=/home/vagrant/.virtualenvs/fotochest owner=vagrant group=vagrant recurse=True
