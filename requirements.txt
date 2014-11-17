@@ -20,7 +20,7 @@ django-chosen==0.1
 django-picklefield
 gunicorn==18.0
 mysql-python
-redis_cache==0.13.0
+django-redis_cache==0.13.0
 
 # Local App Deps
 django-devserver
