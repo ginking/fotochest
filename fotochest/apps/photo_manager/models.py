@@ -10,7 +10,7 @@ from sorl.thumbnail import get_thumbnail, delete
 from PIL import Image
 from PIL.ExifTags import TAGS
 
-from .managers import PhotoManager, AlbumManager
+from fotochest.apps.photo_manager.managers import PhotoQuerySet, AlbumQuerySet
 from .tasks import clear_thumbnails, build_thumbnails
 
 
@@ -23,7 +23,7 @@ class Album(models.Model):
     album_cover = models.ImageField(upload_to="cover_art/", max_length=400, blank=True, null=True)
     user = models.ForeignKey(User)
 
-    objects = AlbumManager()
+    objects = AlbumQuerySet.as_manager()
     
     def __unicode__(self):
         return self.title
@@ -116,7 +116,7 @@ class Photo(models.Model):
     thumbs_created = models.BooleanField(default=False, editable=False)
     deleted = models.BooleanField(default=False, editable=False)
     
-    objects = PhotoManager()
+    objects = PhotoQuerySet.as_manager()
     
     def __unicode__(self):
         return self.title
