@@ -1,5 +1,4 @@
 django>=1.7.1,<1.8
-south==0.8.4
 git+http://github.com/dstegelman/django-locations.git@master#egg=locations
 Pillow>=2.5.0,<3.0.0
 sorl-thumbnail==11.12.1b
