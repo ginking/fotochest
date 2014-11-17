@@ -11,9 +11,11 @@ ADMINS = (
 import djcelery
 djcelery.setup_loader()
 
-BROKER_TRANSPORT = "django"
+
+BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 MANAGERS = ADMINS
 
