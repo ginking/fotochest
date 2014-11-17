@@ -1,7 +1,8 @@
+import json
+
 from sorl.thumbnail import get_thumbnail
 
 from django.core.files.uploadedfile import UploadedFile
-from django.utils import simplejson
 from django.conf import settings as app_settings
 from django.contrib.auth.models import User
 from django.shortcuts import render
@@ -67,7 +68,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
 
                        "delete_url": reverse('upload_delete', args=[photo_new.pk]),
                        "delete_type": "POST"})
-        response_data = simplejson.dumps(result)
+        response_data = json.dumps(result)
 
         #checking for json data type
         #big thanks to Guy Shapiro
