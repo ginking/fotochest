@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/fotochest/fotochest.png?branch=master)](http://travis-ci.org/fotochest/fotochest)
 
+![Progress](http://progressed.io/bar/60)
 
 FotoChest is a open source photo sharing/gallery solution that you can host yourself.  One of the primary goals
 in developing FotoChest is to always provide easy access to your photos and data through APIs.
@@ -19,6 +20,13 @@ vagrant up
 ```
 
 This will take a while so go grab some coffee.
+
+```
+vagrant ssh
+source .virtualenvs/fotochest/bin/activate
+./manage.py runserver 0.0.0.0:8000
+
+```
 
 
 For more detailed documentation:

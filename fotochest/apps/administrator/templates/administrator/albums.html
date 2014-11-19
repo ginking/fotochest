@@ -1,0 +1,171 @@
+{% extends "administrator/base.html" %}
+
+{% block sidebar %}
+
+<a href="#addAlbum" data-toggle="modal" class="btn btn-success full">Add Album</a>
+
+{% endblock sidebar %}
+
+{% block main_content %}
+
+<div class="modal hide fade" id="addAlbum">
+    <div class="modal-header">
+      <a data-dismiss="modal" class="close">×</a>
+      <h3>Add Album</h3>
+    </div>
+    <div class="modal-body">
+      <form method="POST" action="">
+      {% csrf_token %}
+      <label>Title</label>
+      <input type="text" name="title" class="span5">
+      <label>Description</label>
+      <textarea class="span5" name="description"></textarea>
+      <label>Parent Album</label>
+      {{ album_form.parent_album }}
+    </div>
+    <div class="modal-footer">
+      <a data-dismiss="modal" class="btn" href="#">Close</a>
+      <input type="submit" value="Add Album" class="btn btn-success">
+      
+    </div>
+    </form>
+  </div>
+  
+<div class="modal hide fade" id="chooseLocation">
+    <div class="modal-header">
+      <a data-dismiss="modal" class="close">×</a>
+      <h3>Choose Location</h3>
+    </div>
+    <div class="modal-body">
+      <h4>Select Album and Location</h4>
+      <p>Select the album and location that you want to associate you uploaded photos with.</p>
+      <form method="GET" action="{% url 'choose' %}">
+      <label>Album Name:</label>
+          <select name="album">
+              {% for album in form_albums %}
+              <option value="{{ album.slug }}">{{ album.title }}</option>
+              
+          {% endfor %}
+          
+          </select>
+          <input type="hidden" name="user_id" value="{{ request.user.id }}">
+          
+          <label>Location</label>
+          <select name="location">
+              {% for location in form_locations %}
+              <option value="{{ location.slug }}">{{ location }}</option>
+              
+          {% endfor %}
+          
+          </select>
+
+      
+    </div>
+    <div class="modal-footer">
+      <a data-dismiss="modal" class="btn" href="#">Close</a>
+      <input type="submit" value="Proceed to Upload" class="btn btn-primary">
+      
+    </div>
+    </form>
+  </div>
+
+<div class="page-header">
+<h2>Albums</h2>
+</div>
+<ul class="thumbnails">
+
+{% for photo in photos %}
+    {% include "photo_manager/snippets/item.html" %}
+{% endfor %}
+
+{% for album in albums %}
+    <li class="span3 album">
+        <a href="{% url 'admin_album_detail' album_id=album.id %}" class="thumbnail">
+            {% if album.album_cover %}
+                    {% load thumbnail %}
+                    {% thumbnail album.album_cover.image "250x150" crop='center' as im %}
+                    <img src="{{ im.url }}">
+                    {% endthumbnail %}
+                {% else %}
+                    <img src="http://dummyimage.com/260x180">
+            {% endif %}
+        <span>{{ album.title }}</span>
+        </a>
+
+
+        <!-- Add child album -->
+                <div class="modal hide fade" id="addChildAlbum_{{ album.id }}">
+                    <div class="modal-header">
+                        <a data-dismiss="modal" class="close">×</a>
+                        <h3>Add a Child Album</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Add a child album to {{ album }}</h4>
+
+                        <form method="POST" action="{% url 'admin_albums' %}">
+                          {% csrf_token %}
+                          <label>Title</label>
+                          <input type="text" name="title" class="span5">
+                          <label>Description</label>
+                          <textarea class="span5" name="description"></textarea>
+                          <input type="hidden" name="parent_album" value="{{ album.id }}">
+                        </div>
+                        <div class="modal-footer">
+                          <a data-dismiss="modal" class="btn" href="#">Close</a>
+                          <input type="submit" value="Add Album" class="btn btn-success">
+
+                        </div>
+                        </form>
+
+                </div>
+                <div class="modal hide fade" id="addPhotosToAlbum_{{ album.id }}">
+                    <div class="modal-header">
+                        <a data-dismiss="modal" class="close">×</a>
+                        <h3>Choose Location</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Select Location for photos in {{ album }}</h4>
+                        <p>Select the location that you want to associate you uploaded photos with.</p>
+                        <form method="GET" action="{% url 'choose' %}">
+
+                            <input type='hidden' name='album' value='{{ album.slug }}'>
+                            <input type="hidden" name="user_id" value="{{ request.user.id }}">
+
+                            <label>Location</label>
+                            <select name="location">
+                                {% for location in form_locations %}
+                                <option value="{{ location.slug }}">{{ location }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                    <div class="modal-footer">
+                        <a data-dismiss="modal" class="btn" href="#">Close</a>
+                        <input type="submit" value="Proceed to Upload" class="btn btn-primary">
+
+                    </div>
+                    </form>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary">Actions</button>
+                    <button class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'admin_album_detail' album_id=album.id %}">Edit</a></li>
+                        <li><a href="{{ album.get_absolute_url }}">View Photos</a></li>
+                        <li><a href="#addPhotosToAlbum_{{ album.id }}" data-toggle="modal">Add Photos</a></li>
+                        <!-- dropdown menu links -->
+                        <li class="divider"></li>
+                        <li><a href="#addChildAlbum_{{ album.id }}" data-toggle="modal">Add Child Album</a></li>
+                    </ul>
+                </div>
+
+    </li>
+{% endfor %}
+</ul>
+{% endblock main_content %}
+
+{% block navigation %}
+{% include "administrator/nav.html" with nav=2 %}
+{% endblock %}

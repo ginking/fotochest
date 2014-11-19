@@ -1,0 +1,1 @@
+default_app_config = 'fotochest.apps.photo_manager.apps.PhotoConfig'

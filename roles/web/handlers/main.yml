@@ -1,0 +1,9 @@
+---
+
+- name: Restart Rabbit
+  sudo: yes
+  service: name=rabbitmq-server state=restarted
+
+- name: Restart Memcached
+  sudo: yes
+  service: name=memcached state=restarted

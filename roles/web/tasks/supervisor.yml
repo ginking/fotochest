@@ -1,0 +1,4 @@
+---
+
+- name: Install supervisor
+  apt: pkg=supervisor state=installed
