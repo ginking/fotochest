@@ -134,8 +134,8 @@ INSTALLED_APPS = (
     'djkombu',
     'haystack',
     'bootstrap',
-    'fotochest.apps.photo_manager.apps.PhotoConfig',
-    'fotochest.apps.administrator.apps.AdminConfig',
+    'fotochest.apps.photo_manager',
+    'fotochest.apps.administrator',
     'constance',
     'constance.backends.database',
 
