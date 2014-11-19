@@ -11,7 +11,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 
 from fotochest.apps.photo_manager.managers import PhotoQuerySet, AlbumQuerySet
-from .tasks import clear_thumbnails, build_thumbnails
+from fotochest.apps.photo_manager.tasks import clear_thumbnails, build_thumbnails
 
 
 class Album(models.Model):
@@ -140,27 +140,48 @@ class Photo(models.Model):
         """ @todo - Add Comments
         """
         return os.path.basename(self.image.name)
-    
-    @models.permalink
-    def get_next(self):
-        """ @todo - Add Comments
+
+    @property
+    def has_next(self):
+        """
+        Return true if this photo has a 'next' photo.
+        :return:
         """
         try:
-            next_photo = Photo.objects.filter(id__lt=self.id, user=self.user)[:1]
-            photo = next_photo[0]
-        except:
+            Photo.objects.filter(id__lt=self.id, user=self.user).order_by('id')[:1][0]
+        except IndexError:
             return None
+        return True
+
+    @models.permalink
+    def get_next_url(self):
+        """
+        Assumes that has_next has been evaluated.
+        """
+        photo =Photo.objects.filter(id__lt=self.id, user=self.user)[:1][0]
         return ('regular_photo_url', (), {'photo_slug': photo.slug, 'album_slug': photo.album.slug})
-    
-    @models.permalink
-    def get_previous(self):
-        """ @todo - Add Comments
+
+    @property
+    def has_previous(self):
+        """
+        Return true if this photo has a previous photo.
+
+        :return:
         """
         try:
-            prev_photo = Photo.objects.filter(id__gt=self.id, user=self.user).order_by('id')[:1]
-            photo = prev_photo[0]
-        except:
+            Photo.objects.filter(id__gt=self.id, user=self.user).order_by('id')[:1][0]
+        except IndexError:
             return None
+        return True
+
+    @models.permalink
+    def get_previous_url(self):
+        """ @todo - Add Comments
+
+        Assumes that .has_previous has been called or evaluated before it is
+        called.
+        """
+        photo = Photo.objects.filter(id__gt=self.id, user=self.user).order_by('id')[:1][0]
         return ('regular_photo_url', (), {'photo_slug': photo.slug, 'album_slug': photo.album.slug})
         
     def image_preview(self):
