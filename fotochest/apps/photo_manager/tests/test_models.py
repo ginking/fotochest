@@ -28,10 +28,10 @@ class PhotoModelTestCase(BasePhotoTestClass):
         self.assertEqual(self.photo.get_absolute_url(), '/photos/%s/%s/' % (self.album.slug, self.photo.slug))
 
     def test_get_next(self):
-        self.assertEqual(self.photo_2.get_next(), self.photo.get_absolute_url())
+        self.assertEqual(self.photo_2.get_next_url(), self.photo.get_absolute_url())
 
     def test_get_previous(self):
-        self.assertEqual(self.photo_2.get_previous(), self.photo_3.get_absolute_url())
+        self.assertEqual(self.photo_2.get_previous_url(), self.photo_3.get_absolute_url())
 
     def test_author(self):
         self.assertEqual(self.photo.author, 'John Doe')

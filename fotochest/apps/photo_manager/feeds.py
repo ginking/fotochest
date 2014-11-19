@@ -1,7 +1,8 @@
 from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
 
-from .models import *
+from fotochest.apps.photo_manager.models import Album, Photo
+
 
 class StreamFeed(Feed):
     title = "FotoChest Photo Stream"
@@ -17,6 +18,7 @@ class StreamFeed(Feed):
     def item_description(self, item):
         return item.description
     
+
 class AlbumStream(Feed):
     title = "FotoChest Album Stream"
     link = "/album"
@@ -33,5 +35,3 @@ class AlbumStream(Feed):
     
     def item_description(self, item):
         return item.description
-        
-    

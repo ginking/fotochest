@@ -128,7 +128,6 @@ INSTALLED_APPS = (
     'locations',
 
     # Everyone should be using south.  Seriously.
-    'south',
     'crispy_forms',
     'sorl.thumbnail',
     'djcelery',

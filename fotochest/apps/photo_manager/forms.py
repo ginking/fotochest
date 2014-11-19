@@ -3,7 +3,8 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
 
-from .models import Album, Photo
+from fotochest.apps.photo_manager.models import Album, Photo
+
 
 class AlbumForm(forms.ModelForm):
 
@@ -24,7 +25,9 @@ class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
         exclude = ('user', 'album_cover',)
-        
+
+
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
+        exclude = ('',)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import *
+from fotochest.apps.photo_manager.models import Album, Photo
 
 
 class PhotoAdmin(admin.ModelAdmin):
