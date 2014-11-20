@@ -156,13 +156,13 @@ class UserList(ListView):
 def get_cache_size(request):
     """ Get the size of the cache and return in ASYNC """
     size = convert_bytes(get_size(start_path='%s/cache' % app_settings.MEDIA_ROOT))
-    return HttpResponse(size, mimetype="text/plain")
+    return HttpResponse(size, content_type="text/plain")
 
 @never_cache
 def get_disk_size(request):
     """ Return the size of the photos on disk. ASYNC """
     size = convert_bytes(get_size())
-    return HttpResponse(size, mimetype="text/plain")
+    return HttpResponse(size, content_type="text/plain")
 
 
 def create_photo(album_slug, filename, location_slug, user_id):
@@ -225,7 +225,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
             mimetype = 'application/json'
         else:
             mimetype = 'text/plain'
-        return HttpResponse(response_data, mimetype=mimetype)
+        return HttpResponse(response_data, content_type=mimetype)
 
     else:
 

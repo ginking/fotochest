@@ -8,18 +8,17 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-import djcelery
-djcelery.setup_loader()
-
+THUMBNAIL_DEBUG = False
 
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
 MANAGERS = ADMINS
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Denver'
 
 LANGUAGE_CODE = 'en-us'
 
