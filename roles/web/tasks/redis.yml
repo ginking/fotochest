@@ -1,0 +1,6 @@
+---
+
+- name: Install Redis
+  apt: name=redis-server state=latest
+  notify:
+    - Restart Redis

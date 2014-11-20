@@ -8,16 +8,17 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-import djcelery
-djcelery.setup_loader()
+THUMBNAIL_DEBUG = False
 
-BROKER_TRANSPORT = "django"
+BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
 MANAGERS = ADMINS
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Denver'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -138,5 +139,22 @@ INSTALLED_APPS = (
     'fotochest.apps.administrator',
     'constance',
     'constance.backends.database',
+)
 
-    )
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': '127.0.0.1:6379',
+        'OPTIONS': {
+            'DB': 1,
+            'PASSWORD': '',
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            }
+        },
+    },
+}
