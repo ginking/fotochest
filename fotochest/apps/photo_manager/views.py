@@ -4,10 +4,7 @@ from django.http import HttpResponse
 
 from locations.models import *
 
-from .models import Photo, Album
-
-__authors__ = "Derek Stegelman"
-__date__ = "August 2012"
+from fotochest.apps.photo_manager.models import Photo, Album
 
 
 class AlbumDetailView(ListView):
@@ -57,7 +54,7 @@ class HomepageListView(ListView):
 
 
 class PhotoDetailView(DetailView):
-    queryset = Photo.objects.filter(deleted=False)
+    queryset = Photo.objects.active()
     slug_url_kwarg = 'photo_slug'
     pk_url_kwarg = 'photo_id'
     context_object_name = "photo"
