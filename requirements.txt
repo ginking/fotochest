@@ -16,16 +16,15 @@ django-braces==1.4.0
 git+http://github.com/comoga/django-constance.git@master
 django-chosen==0.1
 
-django-picklefield
+django-picklefield==0.3.1
 gunicorn==18.0
-mysql-python
+mysql-python==1.2.5
 django-redis_cache==0.13.0
-hiredis
+hiredis==0.1.5
 
 # Local App Deps
-django-devserver
-pip-tools
+pip-tools==0.3.5
 Werkzeug==0.9.6
 django-debug-toolbar==0.9.4
-pytest
-pytest-django
+pytest==2.6.4
+pytest-django==2.7.0

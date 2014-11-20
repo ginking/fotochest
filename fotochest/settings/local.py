@@ -46,8 +46,4 @@ DOMAIN_STATIC = '/static/'
 BROKER_URL = 'redis://localhost:6379/0'
 APP_NAME = 'photos.stegelman.com'
 
-INSTALLED_APPS = INSTALLED_APPS + (
-    'devserver',
-)
-
 DEVSERVER_DEFAULT_ADDR = '0.0.0.0'

@@ -139,8 +139,7 @@ INSTALLED_APPS = (
     'fotochest.apps.administrator',
     'constance',
     'constance.backends.database',
-
-    )
+)
 
 
 CACHES = {
