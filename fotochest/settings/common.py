@@ -29,7 +29,6 @@ USE_I18N = True
 USE_L10N = True
 
 ENABLE_CELERY = True
-ACTIVE_THEME = "default"
 
 #VERSION_NUMBER = version
 AUTH_PROFILE_MODULE = "profiles.Profile"
@@ -103,13 +102,6 @@ LOGGING = {
     }
 }
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(SITE_ROOT, "whoosh")
-    },
-}
-
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
@@ -133,7 +125,6 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'djcelery',
     'djkombu',
-    'haystack',
     'bootstrap',
     'fotochest.apps.photo_manager',
     'fotochest.apps.administrator',
