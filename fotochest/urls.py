@@ -10,7 +10,6 @@ urlpatterns = patterns('',
     # Admin URLS.
     url(r'^admin/', include("fotochest.apps.administrator.urls")),
     url(r'^django_admin/', include(admin.site.urls)),
-    #url(r'^search/', include('haystack.urls')),
 
     # Auth Views
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'administrator/login.html'}, name='login'),

@@ -1,15 +1,17 @@
-from celery.task import task
+from celery import shared_task
 
 
-@task(name='photo_manager.clear_thumbnails')
+@shared_task()
 def clear_thumbnails(photo):
     """ @todo - Add Comments
-        """
+    """
 
     photo._clear_thumbnails()
 
-@task(name='photo_manager.build_thumbnails')
+
+@shared_task()
 def build_thumbnails(photo):
     """ @todo - Add Comments
-        """
+    """
+
     photo.make_thumbnails()
