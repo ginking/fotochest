@@ -7,3 +7,7 @@
 - name: Restart Memcached
   sudo: yes
   service: name=memcached state=restarted
+
+- name: Restart Supervisor
+  sudo: yes
+  service: name=supervisor state=restarted
