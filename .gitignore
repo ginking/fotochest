@@ -4,7 +4,7 @@ upload
 reports
 whoosh/
 
-
+*.cache
 *.py[co]
 
 # Packages
