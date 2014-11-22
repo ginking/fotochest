@@ -6,4 +6,4 @@
 - name: Copy supervisor.conf
   notify:
   - Restart Supervisor
-  template: src=roles/web/files/supervisord.conf dest=/etc/supervisord.conf owner=root mode=644
+  template: src=roles/web/files/supervisord.conf dest=/etc/supervisor/supervisord.conf owner=root mode=644
