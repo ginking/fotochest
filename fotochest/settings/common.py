@@ -34,6 +34,8 @@ ENABLE_CELERY = True
 AUTH_PROFILE_MODULE = "profiles.Profile"
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
