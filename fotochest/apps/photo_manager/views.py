@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 from django.http import HttpResponse
 
-from locations.models import *
+from locations.models import Location
 
 from fotochest.apps.photo_manager.models import Photo, Album
 
