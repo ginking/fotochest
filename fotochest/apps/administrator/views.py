@@ -113,7 +113,6 @@ def choose(request):
 @login_required
 @never_cache
 def edit_photo(request, photo_id):
-    context = {}
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
 
     if request.method == "POST":

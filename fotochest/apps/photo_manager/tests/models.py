@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.test.client import Client
-from fotochest.apps.photo_manager.models import *
-from fotochest.apps.photo_manager.tests.factories import AlbumFactory, PhotoFactory
 from django.contrib.auth.models import User
+
+from fotochest.apps.photo_manager.tests.factories import AlbumFactory, PhotoFactory
 
 
 class AlbumModelTest(TestCase):
@@ -42,6 +42,3 @@ class PhotoModelTest(TestCase):
         
     def test_filename(self):
         self.assertEqual(self.photo_1.filename, "99209831093.jpg")
-        
-        
-    
