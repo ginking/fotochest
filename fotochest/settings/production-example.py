@@ -41,5 +41,6 @@ TEMPLATE_DIRS = (
 
 DOMAIN_STATIC = '/static/'
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+BROKER_URL = 'redis://localhost:6379/0'
+ALLOWED_HOSTS = ['example.com']
 APP_NAME = 'photos.stegelman.com'
