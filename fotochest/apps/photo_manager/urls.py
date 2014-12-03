@@ -1,3 +1,11 @@
+"""
+fotochest.apps.photo_manager.urls
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from django.conf.urls import patterns, url
 
 from fotochest.apps.photo_manager import views, feeds

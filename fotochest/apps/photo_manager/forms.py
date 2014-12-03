@@ -1,3 +1,11 @@
+"""
+fotochest.apps.photo_manager.forms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from django import forms
 
 from crispy_forms.helper import FormHelper

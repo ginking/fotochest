@@ -1,3 +1,11 @@
+"""
+fotochest.apps.administrator.views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 import json
 
 

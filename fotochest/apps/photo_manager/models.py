@@ -1,3 +1,11 @@
+"""
+fotochest.apps.photo_manager.models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 import os
 
 from django.contrib.auth.models import User
