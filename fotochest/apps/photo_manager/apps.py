@@ -1,3 +1,11 @@
+"""
+fotochest.apps.photo_manager.apps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from django.apps import AppConfig
 
 

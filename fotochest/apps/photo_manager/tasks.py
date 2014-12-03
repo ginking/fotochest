@@ -1,3 +1,11 @@
+"""
+fotochest.apps.photo_manager.tasks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from celery import shared_task
 
 

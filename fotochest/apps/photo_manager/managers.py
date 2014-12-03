@@ -1,3 +1,11 @@
+"""
+fotochest.apps.photo_manager.managers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from django.db.models.query import QuerySet
 
 

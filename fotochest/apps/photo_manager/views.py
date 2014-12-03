@@ -1,3 +1,11 @@
+"""
+fotochest.apps.photo_manager.views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 from django.http import HttpResponse
