@@ -48,8 +48,8 @@ class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
-        context['albums'] = Album.objects.filter(parent_album=None)
-        context['total_photos'] = Photo.objects.filter(deleted=False).count()
+        context['albums'] = Album.objects.parent_albums()
+        context['total_photos'] = Photo.objects.active().count()
         context['total_albums'] = Album.objects.all().count()
         context['total_locations'] = Location.objects.all().count()
         return context
