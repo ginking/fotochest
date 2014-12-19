@@ -7,6 +7,7 @@ fotochest.apps.administrator.views
 
 
 import json
+import logging
 
 
 from django.contrib.auth.models import User
@@ -30,6 +31,9 @@ from fotochest.apps.photo_manager.forms import AlbumForm, PhotoForm
 from fotochest.apps.photo_manager.models import Photo, Album
 from fotochest.apps.administrator.utils import convert_bytes, get_size, get_randomized_file_name
 from fotochest.apps.administrator.tasks import thumbnail_task
+
+
+logger = logging.getLogger(__name__)
 
 
 class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, ListView):

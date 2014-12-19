@@ -13,14 +13,14 @@ from django.http import HttpResponse
 from locations.models import Location
 
 from fotochest.apps.photo_manager.models import Photo, Album
+from fotochest.apps.photo_manager.mixins import PublicViewMixin
 
 
-class AlbumDetailView(ListView):
+class AlbumDetailView(PublicViewMixin, ListView):
     """
 
     """
     model = Album
-    paginate_by = 12
     template_name = 'photo_manager/albums.html'
 
     def get_album(self):
@@ -45,17 +45,15 @@ class AlbumDetailView(ListView):
         return context
 
 
-class AlbumListView(ListView):
+class AlbumListView(PublicViewMixin, ListView):
     context_object_name = "albums"
     template_name = "photo_manager/albums.html"
     queryset = Album.objects.parent_albums()
-    paginate_by = 12
 
 
-class HomepageListView(ListView):
+class HomepageListView(PublicViewMixin, ListView):
     context_object_name = "photos"
     template_name = "photo_manager/index.html"
-    paginate_by = 12
 
     def get_queryset(self):
         return Photo.objects.active()
@@ -88,12 +86,10 @@ def photo_download(request, photo_id):
 
 class PhotoFullScreen(DetailView):
     context_object_name = 'photo'
-    queryset = Photo.objects.filter(deleted=False)
+    queryset = Photo.objects.active()
     slug_url_kwarg = 'photo_slug'
     template_name = "photo_manager/fullscreen.html"
 
-    
-### Map/Location views
 
 class LocationsListView(ListView):
     context_object_name = "locations"
@@ -101,8 +97,7 @@ class LocationsListView(ListView):
     queryset = Location.objects.all()
 
 
-class PhotoLocationsListView(ListView):
-    paginate_by = 12
+class PhotoLocationsListView(PublicViewMixin, ListView):
     template_name = "photo_manager/location.html"
     context_object_name = "photos"
 

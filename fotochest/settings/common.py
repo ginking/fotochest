@@ -59,9 +59,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-    "fotochest.apps.photo_manager.context_processors.locations_albums",
-    "fotochest.apps.photo_manager.context_processors.version",
-    "fotochest.apps.administrator.context_processors.settings",
+    "fotochest.apps.photo_manager.context_processors.photo_context",
+    "fotochest.apps.administrator.context_processors.admin_context",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,6 +82,14 @@ ROOT_URLCONF = 'fotochest.urls'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'brief': {
+            'format': '%(levelname)s %(module)s %(message)s'
+        }
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -93,12 +100,22 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'brief'
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'console'],
             'level': 'ERROR',
+            'propagate': True,
+        },
+        'fotochest': {
+            'handlers': ['console'],
+            'level': 'INFO',
             'propagate': True,
         },
     }
