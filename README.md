@@ -8,7 +8,6 @@ FotoChest is a open source photo sharing/gallery solution that you can host your
 in developing FotoChest is to always provide easy access to your photos and data through APIs.
 
 
-
 ## Developing
 
 Development is done using Salt and Vagrant so you'll need vagrant, salty-vagrant, and virtualbox to get started.
