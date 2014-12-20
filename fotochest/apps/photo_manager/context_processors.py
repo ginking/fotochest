@@ -13,11 +13,9 @@ from locations.models import Location
 from fotochest.apps.photo_manager.models import Album
 
 
-def locations_albums(request):
+def photo_context(request):
     context = {'form_locations': Location.objects.all(), 'form_albums': Album.objects.all()}
-    return context
+    context["version"] = 'Change Me'
+    context['app_name'] = settings.APP_NAME
 
-
-def version(request):
-    context = {'version': 'Change Me', 'app_name': settings.APP_NAME}
     return context

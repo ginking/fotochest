@@ -9,7 +9,7 @@ fotochest.apps.administrator.context_processors
 from fotochest.apps.photo_manager.models import Photo
 
 
-def settings(request):
+def admin_context(request):
     context = {'thumbnails_building': Photo.objects.filter(deleted=False, thumbs_created=False).count()}
 
     return context
