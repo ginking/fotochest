@@ -6,17 +6,17 @@ class PhotoViewTestCase(BasePhotoTestClass):
     def test_home_page_photo(self):
         response = self.client.get('/')
 
-        self.assertIn('Hello World', response.content)
+        self.assertContains(response, 'Hello World')
 
     def test_single_photo_view(self):
         response = self.client.get(self.photo.get_absolute_url())
 
-        self.assertIn('Hello World', response.content)
+        self.assertContains(response, 'Hello World')
 
     def test_short_single_photo_view(self):
         response = self.client.get('/f/%s/' % self.photo.id)
 
-        self.assertIn('Hello World', response.content)
+        self.assertContains(response, 'Hello World')
 
     def test_fullscreen_view(self):
         response = self.client.get(self.photo.get_absolute_url() + 'fullscreen/')
@@ -27,24 +27,24 @@ class FeedViewTestCase(BasePhotoTestClass):
     def test_feed_view(self):
 
         response = self.client.get('/feed/')
-        self.assertIn('Hello World', response.content)
+        self.assertContains(response, 'Hello World')
 
     def test_album_feed(self):
 
         response = self.client.get('/album/%s/feed/' % self.album.slug)
-        self.assertIn('Hello World', response.content)
+        self.assertContains(response, 'Hello World')
 
 
 class AlbumViewTestCase(BasePhotoTestClass):
 
     def test_album_view(self):
         response = self.client.get('/album/%s/' % self.album.slug)
-        self.assertIn('New Album', response.content)
+        self.assertContains(response, 'New Album')
 
     def test_albums_view(self):
 
         response = self.client.get('/albums/')
-        self.assertIn('New Album', response.content)
+        self.assertContains(response, 'New Album')
 
 
 class MapsTestViewCase(BasePhotoTestClass):
