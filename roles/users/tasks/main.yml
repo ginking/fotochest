@@ -1,0 +1,5 @@
+---
+# Users Files
+
+- name: BashRC
+  template: src=roles/users/bashrc dest=/home/vagrant/.bashrc owner=vagrant mode=0644
