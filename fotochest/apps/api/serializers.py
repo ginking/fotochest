@@ -1,3 +1,10 @@
+"""
+fotochest.apps.api.serializers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
 from rest_framework import serializers
 
 

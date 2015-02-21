@@ -1,3 +1,10 @@
+"""
+fotochest.apps.api.urls
+~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
 from django.conf.urls import url, patterns
 
 from fotochest.apps.api import views
