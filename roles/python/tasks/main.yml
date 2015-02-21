@@ -3,7 +3,7 @@
 - name: install basic python packages
   apt: pkg={{ item }} state=installed
   with_items:
-    - python2.7-dev
+    - python3.4-dev
     - python-virtualenv
     - python-crypto
     - python-setuptools
@@ -18,7 +18,7 @@
 
 
 - name: Build Project Virtualenvs
-  command: virtualenv /home/vagrant/.virtualenvs/fotochest creates=/home/vagrant/.virtualenvs/fotochest
+  command: virtualenv --python=python3 /home/vagrant/.virtualenvs/fotochest creates=/home/vagrant/.virtualenvs/fotochest
 
 - name: Setup Virtualenv Dirs
   file: path=/home/vagrant/.virtualenvs state=directory owner=vagrant group=vagrant

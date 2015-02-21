@@ -143,7 +143,6 @@ INSTALLED_APPS = (
     'crispy_forms',
     'sorl.thumbnail',
     'djcelery',
-    'djkombu',
     'bootstrap',
     'fotochest.apps.photo_manager',
     'fotochest.apps.administrator',
