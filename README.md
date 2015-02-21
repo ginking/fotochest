@@ -23,8 +23,11 @@ This will take a while so go grab some coffee.
 
 ```
 vagrant ssh
-source .virtualenvs/fotochest/bin/activate
-./manage.py runserver 0.0.0.0:8000
+workon fotochest
+
+pip install -r requirements.txt
+
+run
 
 ```
 
@@ -32,9 +35,7 @@ source .virtualenvs/fotochest/bin/activate
 
 ```
 vagrant ssh
-source .virtualenvs/fotochest/bin/activate
-cd fotochest
-
+workon fotochest
 
 py.test fotochest --flakes
 ```
