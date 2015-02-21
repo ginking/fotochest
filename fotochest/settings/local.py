@@ -1,6 +1,7 @@
 from .common import *
 
 DEBUG = True
+THUMBNAIL_DEBUG = True
 ## Database Configurations
 
 DATABASES = {
@@ -42,12 +43,7 @@ TEMPLATE_DIRS = (
 
 DOMAIN_STATIC = '/static/'
 
-BROKER_TRANSPORT = "librabbitmq"
-BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+BROKER_URL = 'redis://localhost:6379/0'
 APP_NAME = 'photos.stegelman.com'
-
-INSTALLED_APPS = INSTALLED_APPS + (
-    'devserver',
-)
 
 DEVSERVER_DEFAULT_ADDR = '0.0.0.0'

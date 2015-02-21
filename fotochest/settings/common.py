@@ -8,16 +8,17 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-import djcelery
-djcelery.setup_loader()
+THUMBNAIL_DEBUG = False
 
-BROKER_TRANSPORT = "django"
+BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
 MANAGERS = ADMINS
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Denver'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -28,11 +29,12 @@ USE_I18N = True
 USE_L10N = True
 
 ENABLE_CELERY = True
-ACTIVE_THEME = "default"
 
 #VERSION_NUMBER = version
 AUTH_PROFILE_MODULE = "profiles.Profile"
 CRISPY_TEMPLATE_PACK = 'bootstrap'
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -57,9 +59,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-    "fotochest.apps.photo_manager.context_processors.locations_albums",
-    "fotochest.apps.photo_manager.context_processors.version",
-    "fotochest.apps.administrator.context_processors.settings",
+    "fotochest.apps.photo_manager.context_processors.photo_context",
+    "fotochest.apps.administrator.context_processors.admin_context",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,6 +82,14 @@ ROOT_URLCONF = 'fotochest.urls'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'brief': {
+            'format': '%(levelname)s %(module)s %(message)s'
+        }
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -91,22 +100,25 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'brief'
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'console'],
             'level': 'ERROR',
             'propagate': True,
         },
+        'fotochest': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
     }
-}
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(SITE_ROOT, "whoosh")
-    },
 }
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
@@ -143,13 +155,29 @@ INSTALLED_APPS = (
     # Everyone should be using south.  Seriously.
     'crispy_forms',
     'sorl.thumbnail',
-    'djcelery',
-    'djkombu',
-    'haystack',
     'bootstrap',
     'fotochest.apps.photo_manager',
     'fotochest.apps.administrator',
     'constance',
     'constance.backends.database',
     'rest_framework',
-    )
+
+)
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': '127.0.0.1:6379',
+        'OPTIONS': {
+            'DB': 1,
+            'PASSWORD': '',
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            }
+        },
+    },
+}

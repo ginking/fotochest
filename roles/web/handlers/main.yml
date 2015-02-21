@@ -1,9 +1,10 @@
 ---
 
-- name: Restart Rabbit
+- name: Restart Redis
   sudo: yes
-  service: name=rabbitmq-server state=restarted
+  service: name=redis-server state=restarted
 
-- name: Restart Memcached
+- name: Restart Supervisor
   sudo: yes
-  service: name=memcached state=restarted
+  service: name=supervisor state=restarted
+

@@ -3,7 +3,7 @@
 - name: install basic python packages
   apt: pkg={{ item }} state=installed
   with_items:
-    - python2.7-dev
+    - python3.4-dev
     - python-virtualenv
     - python-crypto
     - python-setuptools
@@ -16,12 +16,21 @@
 
 - include: images.yml
 
+- name: Install Virtualenvwrapper
+  pip: name=virtualenvwrapper
 
 - name: Build Project Virtualenvs
-  command: virtualenv /home/vagrant/.virtualenvs/fotochest creates=/home/vagrant/.virtualenvs/fotochest
+  command: virtualenv --python=python3 /home/vagrant/.virtualenvs/fotochest creates=/home/vagrant/.virtualenvs/fotochest
 
 - name: Setup Virtualenv Dirs
   file: path=/home/vagrant/.virtualenvs state=directory owner=vagrant group=vagrant
 
 - name: Ownership of Virtualenvs
   file: path=/home/vagrant/.virtualenvs/fotochest owner=vagrant group=vagrant recurse=True
+
+- name: Setup Virtualenv Projects
+  shell: . /usr/local/bin/virtualenvwrapper.sh && setvirtualenvproject /home/vagrant/.virtualenvs/fotochest /home/vagrant/fotochest
+  args:
+    executable: /bin/bash
+  with_items: projects
+  ignore_errors: True

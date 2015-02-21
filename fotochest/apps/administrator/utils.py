@@ -1,3 +1,11 @@
+"""
+fotochest.apps.administrator.urls
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 import os
 import random
 

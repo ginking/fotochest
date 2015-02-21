@@ -1,4 +1,13 @@
+"""
+fotochest.apps.administrator.views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 import json
+import logging
 
 
 from django.contrib.auth.models import User
@@ -24,6 +33,9 @@ from fotochest.apps.administrator.utils import convert_bytes, get_size, get_rand
 from fotochest.apps.administrator.tasks import thumbnail_task
 
 
+logger = logging.getLogger(__name__)
+
+
 class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
     """ Main dashboard view for the admin page.
     """
@@ -36,8 +48,8 @@ class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
-        context['albums'] = Album.objects.filter(parent_album=None)
-        context['total_photos'] = Photo.objects.filter(deleted=False).count()
+        context['albums'] = Album.objects.parent_albums()
+        context['total_photos'] = Photo.objects.active().count()
         context['total_albums'] = Album.objects.all().count()
         context['total_locations'] = Location.objects.all().count()
         return context
@@ -113,7 +125,6 @@ def choose(request):
 @login_required
 @never_cache
 def edit_photo(request, photo_id):
-    context = {}
     photo = get_object_or_404(Photo, pk=photo_id, deleted=False)
 
     if request.method == "POST":
@@ -156,13 +167,13 @@ class UserList(ListView):
 def get_cache_size(request):
     """ Get the size of the cache and return in ASYNC """
     size = convert_bytes(get_size(start_path='%s/cache' % app_settings.MEDIA_ROOT))
-    return HttpResponse(size, mimetype="text/plain")
+    return HttpResponse(size, content_type="text/plain")
 
 @never_cache
 def get_disk_size(request):
     """ Return the size of the photos on disk. ASYNC """
     size = convert_bytes(get_size())
-    return HttpResponse(size, mimetype="text/plain")
+    return HttpResponse(size, content_type="text/plain")
 
 
 def create_photo(album_slug, filename, location_slug, user_id):
@@ -225,7 +236,7 @@ def upload_photo(request, location_slug, album_slug, user_id):
             mimetype = 'application/json'
         else:
             mimetype = 'text/plain'
-        return HttpResponse(response_data, mimetype=mimetype)
+        return HttpResponse(response_data, content_type=mimetype)
 
     else:
 

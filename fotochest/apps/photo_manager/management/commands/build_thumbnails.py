@@ -1,6 +1,14 @@
+"""
+fotochest.apps.photo_manager.management.commands.build_thumbnails
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from django.core.management.base import BaseCommand
 
-from photo_manager.models import Photo
+from fotochest.apps.photo_manager.models import Photo
 
 
 class Command(BaseCommand):

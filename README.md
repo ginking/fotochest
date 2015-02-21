@@ -7,7 +7,7 @@
 FotoChest is a open source photo sharing/gallery solution that you can host yourself.  One of the primary goals
 in developing FotoChest is to always provide easy access to your photos and data through APIs.
 
-
+FotoChest is a Python application that runs on Python3
 
 ## Developing
 
@@ -23,9 +23,21 @@ This will take a while so go grab some coffee.
 
 ```
 vagrant ssh
-source .virtualenvs/fotochest/bin/activate
-./manage.py runserver 0.0.0.0:8000
+workon fotochest
 
+pip install -r requirements.txt
+
+run
+
+```
+
+### Run the Test Suite
+
+```
+vagrant ssh
+workon fotochest
+
+py.test fotochest --flakes
 ```
 
 

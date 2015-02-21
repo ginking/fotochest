@@ -1,3 +1,11 @@
+"""
+fotochest.apps.utils.slugs
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 import re
 from django.template.defaultfilters import slugify
 

@@ -1,6 +1,9 @@
 - name: update apt cache
   apt: update_cache=yes
 
+- name: Upgrade all Packages
+  apt: upgrade=yes
+
 - name: install core packages
   apt: pkg={{ item }} state=installed
   with_items:

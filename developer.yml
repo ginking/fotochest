@@ -10,3 +10,4 @@
     - roles/vcs
     - roles/database
     - roles/web
+    - roles/users

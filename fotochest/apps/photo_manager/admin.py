@@ -1,3 +1,11 @@
+"""
+fotochest.apps.photo_manager.admin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from django.contrib import admin
 
 from fotochest.apps.photo_manager.models import Album, Photo

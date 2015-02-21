@@ -1,15 +1,21 @@
-from celery.task import task
+"""
+fotochest.apps.administrator.tasks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-__author__ = 'Derek Stegelman'
-__date__ = '8/22/12'
+:license: MIT, see LICENSE for more details.
+"""
 
-@task()
+
+from celery import shared_task
+
+
+@shared_task()
 def thumbnail_task(photo):
     # USe new regenerate method.
     photo.make_thumbnails()
     photo.thumbs_created = True
     photo.save()
 
-@task()
+@shared_task()
 def thumbnail_cleanup_task(photo):
     photo.clear_thumbnails()

@@ -1,3 +1,11 @@
+"""
+fotochest.apps.administrator.templatetags.upload_tags
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
+
+
 from django import template
 
 register = template.Library()

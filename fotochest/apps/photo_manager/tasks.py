@@ -1,15 +1,25 @@
-from celery.task import task
+"""
+fotochest.apps.photo_manager.tasks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:license: MIT, see LICENSE for more details.
+"""
 
 
-@task(name='photo_manager.clear_thumbnails')
+from celery import shared_task
+
+
+@shared_task()
 def clear_thumbnails(photo):
     """ @todo - Add Comments
-        """
+    """
 
     photo._clear_thumbnails()
 
-@task(name='photo_manager.build_thumbnails')
+
+@shared_task()
 def build_thumbnails(photo):
     """ @todo - Add Comments
-        """
+    """
+
     photo.make_thumbnails()
