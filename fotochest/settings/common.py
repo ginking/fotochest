@@ -142,7 +142,6 @@ INSTALLED_APPS = (
     # Everyone should be using south.  Seriously.
     'crispy_forms',
     'sorl.thumbnail',
-    'djcelery',
     'bootstrap',
     'fotochest.apps.photo_manager',
     'fotochest.apps.administrator',
