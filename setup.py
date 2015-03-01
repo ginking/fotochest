@@ -3,7 +3,7 @@ from setuptools import setup
 version = '3.2.0'
 
 REQUIREMENTS = ['django>=1.7.1,<1.8',
-                'git+http://github.com/dstegelman/django-locations.git@0.2.0#egg=locations',
+                #'git+http://github.com/dstegelman/django-locations.git@0.2.0#egg=locations',
                 'Pillow>=2.5.0,<3.0.0',
                 'sorl-thumbnail==12.2',
                 'django-crispy-forms==1.4.0',
