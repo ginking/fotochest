@@ -1,24 +1,26 @@
+import re
 from setuptools import setup
 
 version = '3.2.0'
 
-REQUIREMENTS = ['django>=1.7.1,<1.8',
-                'django-locations-base==0.2.2',
-                'Pillow>=2.5.0,<3.0.0',
-                'sorl-thumbnail==12.2',
-                'django-crispy-forms==1.4.0',
-                'celery[redis]==3.1.17',
-                'django-bootstrap-static==2.0.2',
-                'django-braces==1.4.0',
-                'django-constance==1.0.1',
-                'django-chosen==0.1',
-                'djangorestframework==3.0.5',
-                'markdown==2.6',
-                'django-picklefield==0.3.1',
-                'gunicorn==19.2.1',
-                'mysqlclient==1.3.5',
-                'django-redis_cache==0.13.0',
-                'hiredis==0.1.6']
+
+def parse_requirements(file_name):
+    requirements = []
+    for line in open(file_name, 'r').read().split('\n'):
+        if re.match(r'(\s*#)|(\s*$)', line):
+            continue
+        if re.match(r'\s*-e\s+', line):
+            # TODO support version numbers
+            requirements.append(re.sub(r'\s*-e\s+.*#egg=(.*)$', r'\1', line))
+        elif re.match(r'\s*-f\s+', line):
+            pass
+        elif re.match(r'\s*-r\s+', line):
+            pass
+        else:
+            requirements.append(line)
+
+    return requirements
+
 
 setup(name='fotochest',
       version=version,
@@ -46,5 +48,5 @@ setup(name='fotochest',
       include_package_data=True,
       zip_safe=False,
       scripts=['manage.py'],
-      install_requires=REQUIREMENTS
+      install_requires=parse_requirements('requirements.txt'),
 )
