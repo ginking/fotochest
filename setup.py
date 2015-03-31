@@ -35,6 +35,7 @@ setup(name='fotochest',
           "Framework :: Django",
           "Programming Language :: Python",
           "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 2,"
           "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: CGI Tools/Libraries",
           "Topic :: Utilities",
           "License :: OSI Approved :: MIT License",
