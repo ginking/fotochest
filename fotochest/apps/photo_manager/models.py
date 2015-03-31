@@ -11,6 +11,7 @@ import os
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
 from locations.models import Location
@@ -25,6 +26,7 @@ from fotochest.apps.photo_manager.managers import PhotoQuerySet, AlbumQuerySet
 from fotochest.apps.photo_manager.tasks import clear_thumbnails, build_thumbnails
 
 
+@python_2_unicode_compatible
 class Album(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(editable=False, blank=True)
@@ -35,21 +37,21 @@ class Album(models.Model):
     user = models.ForeignKey(User)
 
     objects = AlbumQuerySet.as_manager()
-    
+
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
         super(Album, self).save(*args, **kwargs)
-        
+
     def _get_preview_photos(self):
         """ Private method to return the first five photos
         in this album
         """
 
         return Photo.objects.filter(album=self).order_by('?')[:2]
-        
+
     def _get_album_cover(self):
         """ Fetch the photo to be used for the album cover
         for this album.  Attempt to loop through the children
@@ -66,7 +68,7 @@ class Album(models.Model):
                 album = Album.objects.filter(parent_album=self)[:1].get()
                 photos = Photo.objects.filter(album=album)[:1].get()
                 return photos
-                    
+
             except:
                 # one final layer down
                 try:
@@ -114,6 +116,7 @@ class Album(models.Model):
         return ('administrator.views.album_detail', (), {'album_id':self.id})
 
 
+@python_2_unicode_compatible
 class Photo(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(editable=False, blank=True)
@@ -126,12 +129,12 @@ class Photo(models.Model):
     location = models.ForeignKey(Location, blank=True, null=True)
     thumbs_created = models.BooleanField(default=False, editable=False)
     deleted = models.BooleanField(default=False, editable=False)
-    
+
     objects = PhotoQuerySet.as_manager()
-    
+
     def __str__(self):
         return self.title
-    
+
     def save(self, *args, **kwargs):
         unique_slugify(self, self.title)
         super(Photo, self).save()
@@ -145,8 +148,8 @@ class Photo(models.Model):
         if self.user.first_name and self.user.last_name:
             return "%s %s" % (self.user.first_name, self.user.last_name)
         return self.user.username
-    
-    @property    
+
+    @property
     def filename(self):
         """ @todo - Add Comments
         """
@@ -194,7 +197,7 @@ class Photo(models.Model):
         """
         photo = Photo.objects.filter(id__gt=self.id, user=self.user).order_by('id')[:1][0]
         return ('regular_photo_url', (), {'photo_slug': photo.slug, 'album_slug': photo.album.slug})
-        
+
     def image_preview(self):
         """ @todo - Add Comments
         """
@@ -278,7 +281,7 @@ class Photo(models.Model):
         """ @todo - Add Comments
         """
         return ('regular_photo_url', (), {'photo_slug': self.slug, 'album_slug': self.album.slug})
-    
+
     @models.permalink
     def get_fullscreen(self):
         """ @todo - Add Comments
