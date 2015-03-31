@@ -59,3 +59,6 @@ https://github.com/fotochest/fotochest/wiki/Roadmap
 
 * https://github.com/blueimp/Bootstrap-Image-Gallery/
 * https://github.com/blueimp/jQuery-File-Upload/
+
+
+pip install -e git+http://github.com/dstegelman/fotochest.git@feature/setup#egg=fotochest
