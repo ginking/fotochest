@@ -1,97 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
+    <meta charset="UTF-8">
     <title>Fotochest by dstegelman</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Fotochest</h1>
-        <h2>A Django driven Photo Sharing application </h2>
-        <a href="https://github.com/dstegelman/fotochest" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+    <section class="page-header">
+      <h1 class="project-name">Fotochest</h1>
+      <h2 class="project-tagline">A Django driven Photo Sharing application </h2>
+      <a href="https://github.com/dstegelman/fotochest" class="btn">View on GitHub</a>
+      <a href="https://github.com/dstegelman/fotochest/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/dstegelman/fotochest/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>FotoChest</h1>
+    <section class="main-content">
+      <h1>
+<a id="fotochest" class="anchor" href="#fotochest" aria-hidden="true"><span class="octicon octicon-link"></span></a>FotoChest</h1>
 
-<p><a href="http://travis-ci.org/fotochest/fotochest"><img src="https://secure.travis-ci.org/fotochest/fotochest.png?branch=develop" alt="Build Status"></a></p>
+<p><a href="http://travis-ci.org/fotochest/fotochest"><img src="https://secure.travis-ci.org/fotochest/fotochest.png?branch=master" alt="Build Status"></a></p>
+
+<p><img src="http://progressed.io/bar/60" alt="Progress"></p>
+
+<p>FotoChest is a open source photo sharing/gallery solution that you can host yourself.  One of the primary goals
+in developing FotoChest is to always provide easy access to your photos and data through APIs.</p>
+
+<p>FotoChest is a Python application that runs on Python3</p>
+
+<h2>
+<a id="developing" class="anchor" href="#developing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developing</h2>
+
+<p>Development is done using Salt and Vagrant so you'll need vagrant, salty-vagrant, and virtualbox to get started.</p>
+
+<p>To get the development environment up and running simply:</p>
+
+<pre><code>vagrant up
+</code></pre>
+
+<p>This will take a while so go grab some coffee.</p>
+
+<pre><code>vagrant ssh
+workon fotochest
+
+pip install -r requirements.txt
+
+run
+
+</code></pre>
+
+<h3>
+<a id="run-the-test-suite" class="anchor" href="#run-the-test-suite" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run the Test Suite</h3>
+
+<pre><code>vagrant ssh
+workon fotochest
+
+py.test fotochest --flakes
+</code></pre>
+
+<p>For more detailed documentation:</p>
 
 <p><a href="http://readthedocs.org/docs/fotochest/en/latest/">http://readthedocs.org/docs/fotochest/en/latest/</a></p>
 
-<p><img src="http://cl.ly/image/0W1E0l2x0s2z/Screen%20Shot%202012-10-14%20at%2010.34.23%20AM.png" alt="image"></p>
-
-<p><img src="http://cl.ly/image/1l3u2E0N390d/Screen%20Shot%202012-10-14%20at%2010.34.32%20AM.png" alt="image"></p>
-
-<p><img src="http://cl.ly/image/1D2z0M2T2I2d/Screen%20Shot%202012-10-14%20at%2010.34.42%20AM.png" alt="image"></p>
-
-<p><img src="http://cl.ly/image/2d0i3E1R2F0H/Screen%20Shot%202012-10-14%20at%2010.34.51%20AM.png" alt="image"></p>
-
-<h2>In Action</h2>
+<h2>
+<a id="in-action" class="anchor" href="#in-action" aria-hidden="true"><span class="octicon octicon-link"></span></a>In Action</h2>
 
 <p><a href="http://photos.stegelman.com/">http://photos.stegelman.com/</a></p>
 
-<h2>Development Team</h2>
-
-<ul>
-<li>Derek Stegelman - Lead Developer (<a href="http://derek.stegelman.com">http://derek.stegelman.com</a>)</li>
-<li>Lindy Stegelman - QA/Design Critic (<a href="http://blog.stegelman.com">http://blog.stegelman.com</a>)</li>
-</ul><h2>Platform</h2>
-
-<p>Python/Django</p>
-
-<h2>Installation</h2>
-
-<pre><code>pip install -r conf/requirements.txt
-./run_all_tests.sh
-fab run_local_celery
-fab run_local
-</code></pre>
-
-<h2>Road Map</h2>
+<h2>
+<a id="road-map" class="anchor" href="#road-map" aria-hidden="true"><span class="octicon octicon-link"></span></a>Road Map</h2>
 
 <p><a href="https://github.com/fotochest/fotochest/wiki/Roadmap">https://github.com/fotochest/fotochest/wiki/Roadmap</a></p>
 
-<h3>Thanks</h3>
+<h3>
+<a id="thanks" class="anchor" href="#thanks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thanks</h3>
 
 <ul>
 <li><a href="https://github.com/blueimp/Bootstrap-Image-Gallery/">https://github.com/blueimp/Bootstrap-Image-Gallery/</a></li>
 <li><a href="https://github.com/blueimp/jQuery-File-Upload/">https://github.com/blueimp/jQuery-File-Upload/</a></li>
 </ul>
-        </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/dstegelman/fotochest/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/dstegelman/fotochest/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+<p>pip install -e git+<a href="http://github.com/dstegelman/fotochest.git@feature/setup#egg=fotochest">http://github.com/dstegelman/fotochest.git@feature/setup#egg=fotochest</a></p>
 
-          <p class="repo-owner"><a href="https://github.com/dstegelman/fotochest"></a> is maintained by <a href="https://github.com/dstegelman">dstegelman</a>.</p>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/dstegelman/fotochest">Fotochest</a> is maintained by <a href="https://github.com/dstegelman">dstegelman</a>.</span>
 
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
 
   
   </body>
 </html>
+
