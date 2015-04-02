@@ -157,7 +157,7 @@ def rotate(request, photo_id, right=True):
     return redirect('admin_dashboard')
 
 
-class UserList(ListView):
+class UserList(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
     model = User
     context_object_name = 'users'
     template_name = 'administrator/users.html'
