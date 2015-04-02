@@ -5,14 +5,14 @@ fotochest.apps.administrator.urls
 :license: MIT, see LICENSE for more details.
 """
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 
 from fotochest.apps.administrator import views
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Send all remaming URLS to the App.
     url(r'^$', views.Dashboard.as_view(), name="admin_dashboard"),
     url(r'^choose/', views.choose, name="choose"),
@@ -39,8 +39,6 @@ urlpatterns = patterns('',
     url(r'^edit/(?P<photo_id>\d+)/rotate/left/$', views.rotate, {'right': True}, name="admin_rotate_left"),
 
     #ajaxy
-    
     url(r'^ajax/disk/size/$', views.get_disk_size),
     url(r'^ajax/cache/size/$', views.get_cache_size),
-)
-
+]

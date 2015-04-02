@@ -5,7 +5,7 @@ fotochest.apps.api.urls
 :license: MIT, see LICENSE for more details.
 """
 
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
 from fotochest.apps.api import views
 
@@ -44,7 +44,7 @@ def api_root(request, format=None):
     return Response(api_directory)
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', api_root),
 
     url(r'^photo/$', photo_list, name='api-photo-list'),
@@ -52,5 +52,4 @@ urlpatterns = patterns('',
 
     url(r'^album/$', album_list, name='api-album-list'),
     url(r'^album/(?P<pk>[0-9]+)/$', album_detail, name='api-album-detail'),
-
-)
+]
