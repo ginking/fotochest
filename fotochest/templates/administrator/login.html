@@ -1,81 +1,89 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>FotoChest | Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
- 
-    <!-- Le styles -->
-    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      /* Override some defaults */
-      html, body {
-        background-color: #eee;
-      }
-      body {
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>FotoChest | Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+        body {
         padding-top: 40px;
-      }
-      .container {
-        width: 300px;
-      }
- 
-      /* The white background content wrapper */
-      .container > .content {
-        background-color: #fff;
-        padding: 20px;
-        margin: 0 -20px;
-        -webkit-border-radius: 10px 10px 10px 10px;
-           -moz-border-radius: 10px 10px 10px 10px;
-                border-radius: 10px 10px 10px 10px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
- 
-      .login-form {
-        margin-left: 65px;
-      }
- 
-      legend {
-        margin-right: -50px;
-        font-weight: bold;
-        color: #404040;
-      }
- 
+        padding-bottom: 40px;
+        background-color: #eee;
+        }
+        .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+        }
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+        margin-bottom: 10px;
+        }
+        .form-signin .checkbox {
+        font-weight: normal;
+        }
+        .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+        z-index: 2;
+        }
+        .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        }
     </style>
- 
-</head>
-<body>
+
+  </head>
+
+  <body>
+
     <div class="container">
-        <div class="content">
-            <div class="row">
-                <div class="login-form">
-                    <h2>Login to FotoChest</h2>
-                    <form method="POST" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
-                        <fieldset>
-                        {% if form.errors %}
-                        <div class="alert alert-error">
-                        {% for error in form.non_field_errors %}
-                        {{ error }}
-                        {% endfor %}
-                    
-                        </div>
-                        {% endif %}
-                        
-                            <div class="clearfix">
-                                <input type="text" placeholder="Username" name="username">
-                            </div>
-                            <div class="clearfix">
-                                <input type="password" placeholder="Password" name="password">
-                            </div>
-                            <input type="hidden" name="next" value="{% url 'admin_dashboard' %}">
-                            <button class="btn btn-primary" type="submit">Sign in</button>
-                        </fieldset>
-                    </form>
-                </div>
+
+      <form class="form-signin" method="POST" action="{% url 'django.contrib.auth.views.login' %}">
+      {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        {% if form.errors %}
+            <div class="alert alert-error">
+            {% for error in form.non_field_errors %}
+            {{ error }}
+            {% endfor %}
+
             </div>
-        </div>
+        {% endif %}
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username"" name="username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
     </div> <!-- /container -->
-</body>
+
+  </body>
 </html>

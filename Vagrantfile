@@ -5,8 +5,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/home/vagrant/fotochest"
 
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
-  config.vm.network "forwarded_port", guest: 9000, host: 9000
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 9000, host: 9090
   config.vm.network "forwarded_port", guest: 6379, host: 6379
   config.ssh.forward_agent = true
 

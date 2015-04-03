@@ -83,24 +83,28 @@ rules: [
 {% block extra_body %}onLoad="initialize()" style="height:100%"{% endblock %}
 {% block main_class %}map_page{% endblock %}
 {% block main_content %}
-<div class="modal hide fade" id="addLocation">
-    <div class="modal-header">
-      <button type="button" data-dismiss="modal" class="close">×</button>
-      <h3>Add Location</h3>
+<div class="modal fade" id="addLocation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="add_photosLabel">Add Location</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Add New Location</h4>
+                  <form method="POST" action="">{% csrf_token %}
+                  {{ form }}
+            </div>
+            <div class="modal-footer">
+              <a data-dismiss="modal" class="btn" href="#">Close</a>
+              <input type="submit" value="Add Location" class="btn btn-primary">
+
+            </div>
+            </form>
+        </div>
     </div>
-    <div class="modal-body">
-      <h4>Add New Location</h4>
-      <form method="POST" action="">{% csrf_token %}
-      {{ form }}
-      
-    </div>
-    <div class="modal-footer">
-      <a data-dismiss="modal" class="btn" href="#">Close</a>
-      <input type="submit" value="Add Location" class="btn btn-primary">
-      
-    </div>
-    </form>
-  </div>
+</div>
+
 <div class="page-header">
 <h2>Locations</h2>
 </div>

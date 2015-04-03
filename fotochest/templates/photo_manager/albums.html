@@ -4,7 +4,7 @@
 {% endblock nav %}
 {% block main_content %}
 
-<div class="span12">
+<div class="col-md-12">
 <ul class="breadcrumb">
   <li>
     <a href="{% url 'homepage' %}">Home</a> <span class="divider">/</span>
@@ -35,7 +35,7 @@
 {% endfor %}
 
 {% for album in albums %}
-    <li class="span4 album">
+    <li class="col-md-4 album">
         <a href="{{ album.get_absolute_url }}" class="thumbnail polaroid album-main">
             {% if album.album_cover %}
                     {% load thumbnail %}

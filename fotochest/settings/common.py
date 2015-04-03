@@ -156,6 +156,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     'sorl.thumbnail',
     'bootstrap',
+    'fontawesome',
     'fotochest.apps.photo_manager',
     'fotochest.apps.administrator',
     'constance',

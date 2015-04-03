@@ -9,16 +9,19 @@
  *
  * ========================================================== */
 
-a.brand img
+a.navbar-brand img
 {
     margin-right: 6px;
     margin-bottom: 3px;
+    display: inline;
 }
-
+/*
 .navbar .navbar-inner
 {
     border-radius: 0;
 }
+*/
+
 
 .sidebar
 {

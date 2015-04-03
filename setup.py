@@ -1,7 +1,7 @@
 import re
 from setuptools import setup
 
-version = '3.2.0'
+from fotochest import defaults
 
 
 def parse_requirements(file_name):
@@ -23,7 +23,7 @@ def parse_requirements(file_name):
 
 
 setup(name='fotochest',
-      version=version,
+      version=defaults.FOTOCHEST_VERSION,
       description="Photo Sharing with Django",
       long_description=open("README.md", "r").read(),
       classifiers=[

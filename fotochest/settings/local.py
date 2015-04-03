@@ -41,6 +41,10 @@ TEMPLATE_DIRS = (
     os.path.join(SITE_ROOT, 'templates'),
 )
 
+STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, 'static'),
+)
+
 DOMAIN_STATIC = '/static/'
 
 BROKER_URL = 'redis://localhost:6379/0'

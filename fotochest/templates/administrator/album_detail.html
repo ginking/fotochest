@@ -12,7 +12,7 @@
 </div>
   
 <ul class="thumbnails row">
-    <li class="span4">
+    <li class="col-md-4">
 
       {% if album.album_cover.image %}
       <a class="thumbnail" href="#">
@@ -27,7 +27,7 @@
         <h3>Child Albums</h3>
         <ul class="thumbnails row">
             {% for album in album.child_albums %}
-            <li class="span1">
+            <li class="col-md-3">
             <a class="thumbnail" href="{% url 'admin_album_detail' album_id=album.id %}">
           {% load thumbnail %}
           {% thumbnail album.album_cover.image "100x100" crop="center" as im %}
@@ -41,7 +41,7 @@
 
       {% endif %}
     </li>
-    <li class="span4">
+    <li class="col-md4">
         {% load crispy_forms_tags %}
         {% crispy album_form %}
         <a href="#" class="btn">View Photos</a>

@@ -4,7 +4,7 @@
 {% endblock nav %}
 {% block main_content %}
 
-<div class="span8">
+<div class="col-md-8">
 <ul class="thumbnails">
 {% for photo in photos %}
     
@@ -15,7 +15,7 @@
 {% include "photo_manager/snippets/pagination.html" %}
 
 </div>
-<div class="span4">
+<div class="col-md-4">
     <div class="well">
         <h3>{{ location }}</h3>
         <div id="small_map">

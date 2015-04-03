@@ -4,7 +4,7 @@
 {% endblock nav %}
 {% block main_content %}
 
-			<div class="span8" id="photo-detail">
+			<div class="col-md-8" id="photo-detail">
 			    <ul class="breadcrumb pull-right">
 			        <li>
 			            <a href="{% url 'homepage' %}">Home</a> <span class="divider">/</span>
@@ -35,7 +35,7 @@
 				{% endthumbnail %}
 				</div>
 			</div>
-			<div class="span4">
+			<div class="col-md-4">
 				<div class="well">
 					<h3>{{ photo.title }}</h3>
 					<div id="small_map">
@@ -51,7 +51,7 @@
 					{% for photo in photos_from_this_location %}
 					{% load thumbnail %}
 					{% thumbnail photo.image "75x75" crop="center" as im %}
-					<li class="span1">
+					<li class="col-md-3">
 						<a href="{{ photo.get_absolute_url }}" class="thumbnail">
 					<img src="{{ im.url }}" alt="">
 					</a>
@@ -65,7 +65,7 @@
 					<h4>Other photos from the <a href="{{ photo.album.get_absolute_url }}">{{ photo.album }} album</a></h4>
 					<ul class="thumbnails">
 					    {% for photo in other_photos %}
-					        <li class="span1">
+					        <li class="col-md-3">
 					            <a href="{{ photo.get_absolute_url }}" class="thumbnail">
 					                {% load thumbnail %}
 					                {% thumbnail photo.image "75x75" crop="center" quality=75 as im %}

@@ -1,0 +1,15 @@
+/* ===========================================================
+ * FotoChest
+ * http://www.fotochest.com/
+ * http://dstegelman.github.io/fotochest/
+ * ===========================================================
+ *
+ * Author: Derek Stegelman
+ * Description: Global Styles for FotoChest both front and backend
+ *
+ * ========================================================== */
+
+.container.main {
+    margin-top: 70px;
+}
+

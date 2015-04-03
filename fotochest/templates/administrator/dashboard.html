@@ -40,10 +40,10 @@ $(document).ready(function () {
         </div>
         <div class="modal-body">
           <div class="row">
-          <div class="span3">
+          <div class="col-md-3">
           <h4>Are you sure you want to delete this photo?</h4>
           </div>
-          <div class="span2">
+          <div class="col-md-2">
               <div class="thumbnail">
                   {% load thumbnail %}
                   {% thumbnail photo.image "240x161" crop="center" quality=75 as im %}
@@ -73,15 +73,15 @@ $(document).ready(function () {
             <img src="{{ im.url }}">
             {% endthumbnail %}
             <label for="title">Title</label>
-            <input type="text" class='span4' name="title" id="title" value="{{ photo.title }}">
+            <input type="text" class='col-md-4' name="title" id="title" value="{{ photo.title }}">
             <label for="album">Album</label>
-            <select name="album" class="span4" id="album">
+            <select name="album" class="col-md-4" id="album">
                 {% for album in form_albums %}
                 <option {% if photo.album == album %} selected="selected"{% endif %} value="{{ album.id }}">{{ album }}</option>
                 {% endfor %}
             </select>
             <label for="location">Location</label>
-            <select name="location" class="span4" id="location">
+            <select name="location" class="col-md-4" id="location">
                 {% for location in form_locations %}
                 <option {% if photo.location == location %} selected="selected"{% endif %} value="{{ location.id }}">{{ location }}</option>
 
@@ -98,7 +98,7 @@ $(document).ready(function () {
         </form>
     </div>
 
-    <li class="span2 thumb">
+    <li class="col-md-2 thumb">
     <a class="thumbnail" href="#">
 
 

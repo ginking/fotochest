@@ -1,15 +1,21 @@
-<div class="pagination">
-<ul>
-    {% if page_obj.has_previous %}
-    <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
-    {% endif %}
-    {% if page_obj.number %}
-    <li class="active">
-        <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+<nav>
+  <ul class="pagination">
+  {% if page_obj.has_previous %}
+    <li>
+      <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
     </li>
     {% endif %}
-    {% if page_obj.has_next %}
-    <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% if page_obj.number %}
+        <li class="active"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
     {% endif %}
-</ul>
-</div>
+    {% if page_obj.has_next %}
+    <li>
+      <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
