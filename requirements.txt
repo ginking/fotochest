@@ -20,7 +20,7 @@ hiredis==0.1.6
 pip-tools==0.3.5
 Werkzeug==0.10.1
 django-debug-toolbar==0.9.4
-pytest==2.6.4
+pytest==2.7.0
 pytest-django==2.8.0
 pytest-flakes==0.2
 factory_boy==2.4.1

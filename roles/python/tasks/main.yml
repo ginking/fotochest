@@ -13,6 +13,77 @@
     - libpq5
     - python-pip
     - libxslt-dev
+    - acl
+    - debhelper
+    - dh-apparmor
+    - gettext
+    - intltool-debian
+    - libavahi-client-dev
+    - libavahi-client3
+    - libavahi-common-data
+    - libavahi-common-dev
+    - libavahi-common3
+    - libcroco3
+    - libdbus-1-dev
+    - libexif-dev
+    - libexif12
+    - libgd3
+    - libgphoto2-6
+    - libgphoto2-dev
+    - libgphoto2-port10
+    - libice-dev
+    - libieee1284-3
+    - libieee1284-3-dev
+    - libltdl7
+    - libpython-all-dbg
+    - libpython-all-dev
+    - libpython-dbg
+    - libpython-dev
+    - libpython2.7-dbg
+    - libpython2.7-dev
+    - libpython3-all-dbg
+    - libpython3-all-dev
+    - libpython3-dbg
+    - libpython3-dev
+    - libpython3.4-dbg
+    - libsane
+    - libsane-common
+    - libsane-dev
+    - libsm-dev
+    - libunistring0
+    - libusb-1.0-0-dev
+    - libv4l-0
+    - libv4l-dev
+    - libv4l2rds0
+    - libv4lconvert0
+    - libvpx1
+    - libwebp-dev
+    - libwebpdemux1
+    - libxt-dev
+    - po-debconf
+    - python-all
+    - python-all-dbg
+    - python-all-dev
+    - python-dbg
+    - python-dev
+    - python-tk-dbg
+    - python2.7-dbg
+    - python2.7-dev
+    - python3-all
+    - python3-all-dbg
+    - python3-all-dev
+    - python3-dbg
+    - python3-dev
+    - python3-pkg-resources
+    - python3-setuptools
+    - python3-tk
+    - python3-tk-dbg
+    - python3.4-dbg
+    - tcl-dev
+    - tcl8.6-dev
+    - tk-dev
+    - tk8.6-dev
+
 
 - include: images.yml
 
