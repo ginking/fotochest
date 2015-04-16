@@ -1,0 +1,6 @@
+include README.md
+include CHANGELOG.md
+include AUTHORS.txt
+recursive-include docs *
+recursive-include fotochest/templates *
+recursive-include fotochest/static *

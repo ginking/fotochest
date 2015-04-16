@@ -1,5 +1,5 @@
 import re
-from setuptools import setup
+from setuptools import setup, find_packages
 
 version = '3.2.0'
 
@@ -45,7 +45,7 @@ setup(name='fotochest',
       author_email='dstegelman@gmail.com',
       url='http://github.com/dstegelman/fotochest',
       license='MIT',
-      packages=['fotochest'],
+      packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
       scripts=['manage.py'],
