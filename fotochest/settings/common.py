@@ -151,12 +151,9 @@ INSTALLED_APPS = (
 
     # Dependencies
     'locations',
-
-    # Everyone should be using south.  Seriously.
     'crispy_forms',
     'sorl.thumbnail',
     'bootstrap',
-    'fontawesome',
     'fotochest.apps.photo_manager',
     'fotochest.apps.administrator',
     'constance',
