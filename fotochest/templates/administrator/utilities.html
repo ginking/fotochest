@@ -31,38 +31,38 @@
 <div class="well">
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
 <a href="{% url 'build_thumbnails' %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Re-Build Thumbnails</a>
 </div>
-<div class="col-md-5">
+<div class="col-md-8">
 <p class="help-block">Running this will queue up all photos to have their thumbnails rebuilt.  This can be helpful if some thumbnails failed, or if you've upgraded to a newer version and some new thumbnails are required.</p>
 </div>
 </div>
 
 
 <div class="row">
-<div class="col-md-3">
+<div class="col-md-4">
 <a href="{% url 'clear_thumbnails' %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Clear Key Values Cache</a>
 </div>
-<div class="col-md-5">
+<div class="col-md-8">
 <p class="help-block">Removes all key values in the thumbnail cache.  This is a safe command to run, if you have some thumbnails not showing up.  References will be removed, but the files themeselves will not be touched.</p>
 </div>
 </div>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <a href="#deleteThumbnails" class="btn btn-danger btn-small"  data-toggle="modal"><i class="icon-trash icon-white"></i> Clean Out Thumbnails</a>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-8">
         <p class="help-block">This job deletes all thumbnails and resets the flag on all images to be rebuilt.  This can cause the site to become un-responsive to some users.  It is recommended to rebuild thumbs after running this job.</p>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <a href="{% url 'rebuild_search' %}" class="btn btn-info btn-small"><i class="icon-refresh icon-white"></i> Rebuild Search Index</a>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-8">
         <p class="help-block">This reques the search index.  This needs rebuidling before searches can be performed.</p>
     </div>
 </div>
