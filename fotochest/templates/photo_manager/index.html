@@ -58,13 +58,11 @@
 	</ul>
 {% endif %}
 
-
+<ul class="thumbnails row list-unstyled">
 {% for photo in photos %}
-    <ul class="thumbnails row list-unstyled">
     {% include "photo_manager/snippets/item.html" %}
-    </ul>
 {% endfor %}
-
+</ul>
 {% include "photo_manager/snippets/pagination.html" %}
 
 </div>
