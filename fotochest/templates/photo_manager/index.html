@@ -31,7 +31,7 @@
 	{% if album.child_albums %}
 		<h2>Sub Albums of {{ album.title }}</h2>
 	{% endif %}
-	<ul class="thumbnails">
+	<ul class="thumbnails list-unstyled">
 	{% for album in child_albums.object_list %}
 		<li class="col-md-3">
 		    <a href="{{ album.get_absolute_url }}" class="thumbnail">
@@ -60,13 +60,9 @@
 
 
 {% for photo in photos %}
-    {% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 %}
-    <ul class="thumbnails row">
-    {% endif %}
+    <ul class="thumbnails row list-unstyled">
     {% include "photo_manager/snippets/item.html" %}
-    {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 %}
     </ul>
-    {% endif %}
 {% endfor %}
 
 {% include "photo_manager/snippets/pagination.html" %}
