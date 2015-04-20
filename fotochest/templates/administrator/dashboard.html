@@ -31,7 +31,7 @@ $(document).ready(function () {
 
 {% for photo in photos %}
 {% if forloop.counter == 1 or forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}
-<ul class="thumbnails row">
+<ul class="thumbnails row list-unstyled">
 {% endif %}
     <div class="modal hide fade" id="deletePhoto_{{ photo.id }}">
         <div class="modal-header">
