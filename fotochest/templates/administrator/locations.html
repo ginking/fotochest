@@ -91,9 +91,23 @@ rules: [
               <h4 class="modal-title" id="add_photosLabel">Add Location</h4>
             </div>
             <div class="modal-body">
-                <h4>Add New Location</h4>
                   <form method="POST" action="">{% csrf_token %}
-                  {{ form }}
+                      <div class="form-group">
+                          <label for="id_city">City</label>
+                          <input type="text" class="form-control" id="id_city" name="city" maxlength="250">
+                      </div>
+                      <div class="form-group">
+                          <label for="id_state">State</label>
+                          {{ form.state }}
+                      </div>
+                      <div class="form-group">
+                          <label for="id_country">Country</label>
+                          {{ form.country }}
+                      </div>
+                      <div class="form-group">
+                          <label for="id_default_location">Default location</label>
+                          {{ form.default_location }}
+                      </div>
             </div>
             <div class="modal-footer">
               <a data-dismiss="modal" class="btn" href="#">Close</a>
