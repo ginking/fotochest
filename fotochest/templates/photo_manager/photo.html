@@ -17,14 +17,14 @@
 
 			<div class="btn-group photo-nav pull-left">
 			    {% if photo.has_previous %}
-				<a href="{{ photo.get_previous_url }}" class="btn"><i class="icon-arrow-left"></i> Previous</a>
+				<a href="{{ photo.get_previous_url }}" class="btn btn-default"><i class="icon-arrow-left"></i> Previous</a>
 				{% endif %}
-				<a href="{% url 'photo_fullscreen' album_slug=photo.album.slug photo_slug=photo.slug %}" class="btn"><i class="icon-picture"></i> Full Screen</a>
+				<a href="{% url 'photo_fullscreen' album_slug=photo.album.slug photo_slug=photo.slug %}" class="btn btn-default"><i class="icon-picture"></i> Full Screen</a>
 				{% if enable_download %}
-				<a href="{% url 'photo_download' photo_id=photo.id %}" class="btn"><i class="icon-download-alt"></i> Download Full Size</a>
+				<a href="{% url 'photo_download' photo_id=photo.id %}" class="btn btn-default"><i class="icon-download-alt"></i> Download Full Size</a>
 				{% endif %}
 				{% if photo.has_next %}
-				<a href="{{ photo.get_next_url }}" class="btn">Next <i class="icon-arrow-right"></i></a>
+				<a href="{{ photo.get_next_url }}" class="btn btn-default">Next <i class="icon-arrow-right"></i></a>
 			    {% endif %}
 			</div>
 				<div class="thumbnail">
@@ -39,31 +39,29 @@
 				<div class="well">
 					<h3>{{ photo.title }}</h3>
 					<div id="small_map">
-                        <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ photo.location.latitude }},{{ photo.location.longitude }}&zoom=3&markers=color:blue%7C{{ photo.location.latitude }},{{ photo.location.longitude }}&size=300x200&sensor=false"></a>
+                        <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ photo.location.latitude }},{{ photo.location.longitude }}&zoom=3&markers=color:blue%7C{{ photo.location.latitude }},{{ photo.location.longitude }}&size=250x175&sensor=false"></a>
                     </div>
 					<h6>By {{ photo.author }}</h6>
 					<a href="{{ photo.album.get_absolute_url }}">From {{ photo.album }}</a>
 					<p>This photo was uploaded on {{ photo.date_uploaded|date:"F j Y" }}, and taken in <a href="{% url 'photo_location' location_slug=photo.location.slug %}">{{ photo.location.city }}, {{ photo.location.get_country_display }}</a>.</p>
-					<h4>Other photos from <a href="{% url 'photo_location' location_slug=photo.location.slug %}">{{ photo.location }}</a></h4>
-					
-					
-					<ul class="thumbnails">
-					{% for photo in photos_from_this_location %}
-					{% load thumbnail %}
-					{% thumbnail photo.image "75x75" crop="center" as im %}
-					<li class="col-md-3">
-						<a href="{{ photo.get_absolute_url }}" class="thumbnail">
-					<img src="{{ im.url }}" alt="">
-					</a>
-					</li>
-					{% endthumbnail %}
-					{% endfor %}
-					</ul>
-					
-					
-					
-					<h4>Other photos from the <a href="{{ photo.album.get_absolute_url }}">{{ photo.album }} album</a></h4>
-					<ul class="thumbnails">
+					<h5>Other photos from <a href="{% url 'photo_location' location_slug=photo.location.slug %}">{{ photo.location }}</a></h5>
+					<div class="row">
+                        <ul class="thumbnails list-unstyled">
+                        {% for photo in photos_from_this_location %}
+                            {% load thumbnail %}
+                            {% thumbnail photo.image "75x75" crop="center" as im %}
+                            <li class="col-md-3">
+                                <a href="{{ photo.get_absolute_url }}" class="thumbnail">
+                                    <img src="{{ im.url }}" alt="">
+                                </a>
+                            </li>
+                            {% endthumbnail %}
+                        {% endfor %}
+                        </ul>
+                    </div>
+					<h5>Other photos from the <a href="{{ photo.album.get_absolute_url }}">{{ photo.album }} album</a></h5>
+					<div class="row">
+                        <ul class="thumbnails list-unstyled">
 					    {% for photo in other_photos %}
 					        <li class="col-md-3">
 					            <a href="{{ photo.get_absolute_url }}" class="thumbnail">
@@ -74,7 +72,7 @@
 					            </a>
 					        </li>
 					    {% endfor %}
-					</ul>
+					    </ul>
 					</div>
 				</div>
 			

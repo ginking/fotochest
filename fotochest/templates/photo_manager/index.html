@@ -6,17 +6,17 @@
 
 <div class="col-md-12">
 {% if album_view %}
-<ul class="breadcrumb">
+<ol class="breadcrumb">
   <li>
-    <a href="{% url 'homepage' %}">Home</a> <span class="divider">/</span>
+    <a href="{% url 'homepage' %}">Home</a>
   </li>
   {% if album.parent_album %}
   <li>
-    <a href="{{ album.parent_album.get_absolute_url }}">{{ album.parent_album }}</a> <span class="divider">/</span>
+    <a href="{{ album.parent_album.get_absolute_url }}">{{ album.parent_album }}</a>
   </li>
   {% endif %}
   <li class="active">{{ album.title }}</li>
-</ul>
+</ol>
 
 {% else %}
 <ul class="breadcrumb">

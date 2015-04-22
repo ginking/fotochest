@@ -5,9 +5,9 @@
 {% block main_content %}
 
 <div class="col-md-12">
-<ul class="breadcrumb">
+<ol class="breadcrumb">
   <li>
-    <a href="{% url 'homepage' %}">Home</a> <span class="divider">/</span>
+    <a href="{% url 'homepage' %}">Home</a>
   </li>
   {% if albums %}
   <li class="active">
@@ -15,14 +15,14 @@
   </li>
   {% else %}
   <li>
-    <a href="{% url 'albums' %}">Albums</a> <span class="divider">/</span>
+    <a href="{% url 'albums' %}">Albums</a>
   </li>
   
   <li class="active">
       {{ album }}
   </li>
   {% endif %}
-</ul>
+</ol>
 
 <div class="page-header">
     <h2>{{ album.title }}</h2>
