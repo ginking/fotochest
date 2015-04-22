@@ -5,15 +5,15 @@
 {% block main_content %}
 
 			<div class="col-md-8" id="photo-detail">
-			    <ul class="breadcrumb pull-right">
+			    <ol class="breadcrumb pull-right">
 			        <li>
-			            <a href="{% url 'homepage' %}">Home</a> <span class="divider">/</span>
+			            <a href="{% url 'homepage' %}">Home</a>
 			        </li>
 			        <li>
-			            <a href="{{ photo.album.get_absolute_url }}">{{ photo.album }}</a> <span class="divider">/</span>
+			            <a href="{{ photo.album.get_absolute_url }}">{{ photo.album }}</a>
 			        </li>
 			        <li class="active">{{ photo.title }}</li>
-			    </ul>
+			    </ol>
 
 			<div class="btn-group photo-nav pull-left">
 			    {% if photo.has_previous %}
