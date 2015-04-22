@@ -1,6 +1,7 @@
 # Django settings for your project.
 
 import os
+from django.core.urlresolvers import reverse_lazy
 
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))
 
@@ -15,6 +16,8 @@ CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+LOGIN_REDIRECT_URL = reverse_lazy('admin_dashboard')
 
 MANAGERS = ADMINS
 
