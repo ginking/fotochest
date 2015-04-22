@@ -98,8 +98,8 @@ $(document).ready(function () {
         </form>
     </div>
 
-    <li class="col-md-2 thumb">
-    <a class="thumbnail" href="#">
+    <li class="col-md-3 thumb">
+    <a class="thumbnail" href="{% url 'admin_edit_photo' photo_id=photo.pk %}">
 
 
         {% load thumbnail %}
@@ -110,14 +110,8 @@ $(document).ready(function () {
     {% endthumbnail %}
     </a>
     <div class="caption">
-      <h5>{{ photo.title }}</h5>
-      {% if photo.description %}
-      <p>{{ photo.description }}</p>
-      {% endif %}
-      <span class="label {% if photo.thumbs_created %}label-success{% else %}label-important{% endif %}">{% if photo.thumbs_created %}Thumbnails Created{% else %}Thumnails Failed{% endif %}</span>
-      <br/>
-      <a href="#" class="location_link" title="{{ photo.location }}" data-content="<img src='http://maps.googleapis.com/maps/api/staticmap?center={{ photo.location }}&zoom=7&size=300x200&maptype=roadmap&sensor=false'>"><i class="icon-map-marker"></i>  {{ photo.location }}</a>
-      
+      <h5>{{ photo.title|truncatechars:18 }}</h5>
+
     </div>
     </li>
     {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12 or forloop.counter == 16 %}

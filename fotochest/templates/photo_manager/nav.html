@@ -9,9 +9,6 @@
                 <li{% if current == 2 %} class="active"{% endif %}><a href="{% url 'albums' %}">Albums</a></li>
                 <li{% if current == 3 %} class="active"{% endif %}><a href="{% url 'map' %}">Map</a></li>
             </ul>
-            <form action="/search/" method="GET" class="navbar-search pull-right navbar-form" role="search">
-                <input type="text" name="q" placeholder="Search" class="search-query span2">
-            </form>
         </div>
     </div>
 </div>
